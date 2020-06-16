@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="no-js">
+<head>
+</head>
+<!-- 载入文章头部页面，位置在/client文件夹下的header模板页面，模板名称th:fragment为header -->
+<div th:replace="/client/header2::header(null,null)" />
+<body>
+
+
+
+<section class="s-featured">
+    <div class="row">
+        <div class="col-full">
+
+            <div class="featured-slider featured" data-aos="zoom-in">
+
+                <div class="featured__slide">
+                    <div class="entry">
+
+                        <div class="entry__background" style="background-image:url('/user/add_static/images/thumbs/featured/featured-guitarman.jpg');"></div>
+
+                        <div class="entry__content">
+                            <span class="entry__category"><a href="#0">Music</a></span>
+
+                            <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
+
+                            <div class="entry__info">
+                                <a href="#0" class="entry__profile-pic">
+                                    <img class="avatar" src="/user/add_static/images/avatars/user-05.jpg" alt="">
+                                </a>
+                                <ul class="entry__meta">
+                                    <li><a href="#0">Jonathan Smith</a></li>
+                                    <li>June 02, 2018</li>
+                                </ul>
+                            </div>
+                        </div> <!-- end entry__content -->
+
+                    </div> <!-- end entry -->
+                </div> <!-- end featured__slide -->
+
+                <div class="featured__slide">
+
+                    <div class="entry">
+
+                        <div class="entry__background" style="background-image:url('/user/add_static/images/thumbs/featured/featured-watch.jpg');"></div>
+
+                        <div class="entry__content">
+                            <span class="entry__category"><a href="#0">Management</a></span>
+
+                            <h1><a href="#0" title="">Playing games with me.</a></h1>
+
+                            <div class="entry__info">
+                                <a href="#0" class="entry__profile-pic">
+                                    <img class="avatar" src="/user/add_static/images/avatars/user-03.jpg" alt="">
+                                </a>
+
+                                <ul class="entry__meta">
+                                    <li><a href="#0">John Doe</a></li>
+                                    <li>June 13, 2018</li>
+                                </ul>
+                            </div>
+                        </div> <!-- end entry__content -->
+
+                    </div> <!-- end entry -->
+
+                </div> <!-- end featured__slide -->
+
+                <div class="featured__slide">
+
+                    <div class="entry">
+
+                        <div class="entry__background" style="background-image:url('/user/add_static/images/thumbs/featured/featured-beetle.jpg');"></div>
+
+                        <div class="entry__content">
+                            <span class="entry__category"><a href="#0">LifeStyle</a></span>
+
+                            <h1><a href="#0" title="">My life difference .</a></h1>
+
+                            <div class="entry__info">
+                                <a href="#0" class="entry__profile-pic">
+                                    <img class="avatar" src="/user/add_static/images/avatars/user-03.jpg" alt="">
+                                </a>
+
+                                <ul class="entry__meta">
+                                    <li><a href="#0">John Doe</a></li>
+                                    <li>June 12, 2018</li>
+                                </ul>
+                            </div>
+                        </div> <!-- end entry__content -->
+
+                    </div> <!-- end entry -->
+
+                </div> <!-- end featured__slide -->
+
+            </div> <!-- end featured -->
+
+        </div> <!-- end col-full -->
+    </div>
+</section> <!-- end s-featured -->
+
+<section class="s-content">
+<div class="row entries-wrap wide">
+    <div class="entries">
+
+
+            <article class="col-block" th:each="article: ${articles.list}">
+
+                <div class="item-entry" data-aos="zoom-in">
+                    <div class="item-entry__thumb">
+                        <a href="single-standard.html" class="item-entry__thumb-link">
+                            <img th:src="@{${commons.show_thumb(article)}}" alt="">
+                        </a>
+                    </div>
+
+                    <div class="item-entry__text">
+                        <div class="item-entry__cat">
+                            <a href="category.html" th:text="${article.categories}"></a>
+                        </div>
+
+                        <h1 class="item-entry__title"><a style="color: #0f9ae0;font-size: 20px;" th:href="${commons.permalink(article.id)}" th:text="${article.title}" /></h1>
+
+                        <div class="item-entry__date">
+                            <a href="single-standard.html">June 15, 2018</a>
+                        </div>
+                    </div>
+                </div> <!-- item-entry -->
+
+            </article> <!-- end article -->
+
+        </div>
+        <!-- 文章分页信息 -->
+        <div class="am-pagination">
+            <div th:replace="/comm/paging::pageNav_New(${articles},'上一页','下一页','page')" />
+        </div>
+    </div>
+</section>
+<script th:src="@{/user/add_static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/user/add_static/js/plugins.js}"></script>
+<script th:src="@{/user/add_static/js/main.js}"></script>
+</body>
+<!-- 载入文章尾部页面，位置在/client文件夹下的footer模板页面，模板名称th:fragment为footer -->
+<div th:replace="/client/footer::footer" />
+
+</html>

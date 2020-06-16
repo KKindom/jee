@@ -62,6 +62,7 @@ public class ArticleServiceImpl implements IArticleService {
             article.setHits(list.get(i).getHits());
             article.setCommentsNum(list.get(i).getCommentsNum());
             articlelist.add(article);
+
             if(i>=9){
                 break;
             }
