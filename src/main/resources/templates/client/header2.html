@@ -6,7 +6,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>KKindom的博客</title>
+    <title><th:block th:text="${title ?: '首页'}"></th:block></title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -89,10 +89,14 @@
                         <li><a href="single-standard.html">网站</a></li>
                     </ul>
                 </li>
-                <li><a href="style-guide.html" title="">后台管理</a></li>
+                <li><a  class="header-info" href="/admin">后台管理</a></li>
                 <li><a href="page-about.html" title="">关于我的一切</a></li>
-                <li><a href="page-contact.html" title="">登录</a></li>
-
+<li>
+                <form name="logoutform" th:action="@{/logout}" method="post">
+                <a  sec:authorize="isAnonymous()" th:href="@{/login}" >登录</a>
+                <a  sec:authorize="isAuthenticated()" href="javascript:document.logoutform.submit();" >退出</a>
+                </form>
+</li>
             </ul> <!-- end header__nav -->
 
             <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
