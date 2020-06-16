@@ -47,7 +47,7 @@
                         <div class="entry__content">
                             <span class="entry__category"><a href="#0">Management</a></span>
 
-                            <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
+                            <h1><a href="#0" title="">Playing games with me.</a></h1>
 
                             <div class="entry__info">
                                 <a href="#0" class="entry__profile-pic">
@@ -74,7 +74,7 @@
                         <div class="entry__content">
                             <span class="entry__category"><a href="#0">LifeStyle</a></span>
 
-                            <h1><a href="#0" title="">The difference between Classics, Vintage & Antique Cars.</a></h1>
+                            <h1><a href="#0" title="">My life difference .</a></h1>
 
                             <div class="entry__info">
                                 <a href="#0" class="entry__profile-pic">
@@ -100,6 +100,39 @@
 
 
 <div class="am-g am-g-fixed blog-fixed index-page">
+
+    <!-- 博主信息描述 -->
+    <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-text-center blog-title"><span>个人简介</span></h2>
+            <img th:src="@{/assets/img/me.jpg}" alt="about me" class="blog-entry-img"/>
+            <p>
+                快乐的kkindom
+            </p>
+            <p>个人博客，分享生活，分析学习经验</p>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-text-center blog-title"><span>联系我</span></h2>
+            <p>
+                <a href="https://github.com/KKindom"><span class="am-icon-github am-icon-fw blog-icon"></span></a>
+                <a><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+            </p>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-text-center blog-title"><span>阅读排行榜</span></h2>
+            <div style="text-align: left">
+                <th:block th:each="article :${articleList}">
+                    <a  style="font-size: 15px;" th:href="@{'/article/'+${article.id}}"
+                        th:text="${articleStat.index+1}+'、'+${article.title}+'('+${article.hits}+')'">
+                    </a>
+                    <hr style="margin-top: 0.6rem;margin-bottom: 0.4rem" />
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="am-u-md-8 am-u-sm-12">
         <!-- 文章遍历并分页展示 -->
         <div th:each="article: ${articles.list}">
@@ -125,38 +158,6 @@
         <!-- 文章分页信息 -->
         <div class="am-pagination">
             <div th:replace="/comm/paging::pageNav(${articles},'上一页','下一页','page')" />
-        </div>
-    </div>
-    <!-- 博主信息描述 -->
-    <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
-        <div class="blog-sidebar-widget blog-bor">
-            <h2 class="blog-text-center blog-title"><span>CrazyStone</span></h2>
-            <img th:src="@{/assets/img/me.jpg}" alt="about me" class="blog-entry-img"/>
-            <p>
-                Java后台开发
-            </p>
-            <p>个人博客小站，主要发表关于Java、Spring、Docker等相关文章</p>
-        </div>
-        <div class="blog-sidebar-widget blog-bor">
-            <h2 class="blog-text-center blog-title"><span>联系我</span></h2>
-            <p>
-                <a><span class="am-icon-github am-icon-fw blog-icon"></span></a>
-                <a><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
-            </p>
-        </div>
-    </div>
-    <!-- 阅读排行榜 -->
-    <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
-        <div class="blog-sidebar-widget blog-bor">
-            <h2 class="blog-text-center blog-title"><span>阅读排行榜</span></h2>
-            <div style="text-align: left">
-                <th:block th:each="article :${articleList}">
-                    <a  style="font-size: 15px;" th:href="@{'/article/'+${article.id}}"
-                        th:text="${articleStat.index+1}+'、'+${article.title}+'('+${article.hits}+')'">
-                    </a>
-                    <hr style="margin-top: 0.6rem;margin-bottom: 0.4rem" />
-                </th:block>
-            </div>
         </div>
     </div>
 </div>
