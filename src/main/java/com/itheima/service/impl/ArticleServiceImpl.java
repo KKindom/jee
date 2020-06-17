@@ -63,7 +63,7 @@ public class ArticleServiceImpl implements IArticleService {
             article.setCommentsNum(list.get(i).getCommentsNum());
             articlelist.add(article);
 
-            if(i>=9){
+            if(i>=5){
                 break;
             }
         }

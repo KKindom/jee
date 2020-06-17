@@ -32,13 +32,13 @@
 </ol>
 
 
-<div class="row pagination-wrap">
+<div class="row pagination-wrap" >
     <div class="col-full">
         <nav class="pgn" data-aos="fade-up">
 
 <ul class="am-pagination" th:fragment="pageNav_New(pageInfo, prevText, nextText, prefix)">
     <th:block th:if="${pageInfo.hasPreviousPage}">
-        <li class="am-pagination-prev"><a class="pgn__prev" th:href="@{'/'+${prefix}+'/'+${pageInfo.prePage}}" th:text="${prevText}"></a></li>
+        <li ><a class="pgn__prev" th:href="@{'/'+${prefix}+'/'+${pageInfo.prePage}}" th:text="${prevText}"></a></li>
     </th:block>
     <th:block th:each="navIndex :${ pageInfo.navigatepageNums}">
         <th:block th:if="${pageInfo.pages} <= 8">
@@ -62,7 +62,7 @@
 
     </th:block>
     <th:block th:if="${pageInfo.hasNextPage}">
-        <li class="am-pagination-next"><a class="pgn__next" th:href="@{'/'+${prefix}+'/'+${pageInfo.nextPage}}" th:text="${nextText}"></a></li>
+        <li ><a class="pgn__next" th:href="@{'/'+${prefix}+'/'+${pageInfo.nextPage}}" th:text="${nextText}"></a></li>
     </th:block>
 </ul>
 
