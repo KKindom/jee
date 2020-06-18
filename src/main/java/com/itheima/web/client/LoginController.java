@@ -40,5 +40,10 @@ public class LoginController {
     public String AccessExecptionHandler(@PathVariable("page") String page, @PathVariable("code") String code) {
         return page+"/"+code;
     }
+
+    //登录注册功能后台处理
+
+
+
 }
 

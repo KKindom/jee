@@ -84,5 +84,13 @@ public class IndexController {
         }
     }
 
+
+
+
+
+    //主页面例如文章列表页面或者收藏图片页面
+
+//跳转到显示图片页面
+
 }
 

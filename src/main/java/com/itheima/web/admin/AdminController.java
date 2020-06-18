@@ -119,5 +119,12 @@ public class AdminController {
 
 
 
+
+
+
+//关于后台管理功能处理
+//查询分页图片展示
+
+//
 }
 
