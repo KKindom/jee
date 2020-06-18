@@ -11,8 +11,13 @@
                     <div class="col-sm-12">
                         <h4 class="page-title">仪表盘</h4>
                     </div>
-
+                    <div class="col-sm-12">
+                    <div class="col-sm-6 col-lg-3">
+                        <div th:replace="back/pie :: pie-content"></div>
+                    </div>
+                    </div>
                     <div class="row">
+
                         <div class="col-sm-6 col-lg-3">
                             <div class="mini-stat clearfix bx-shadow bg-info">
                                 <span class="mini-stat-icon"><i class="fa fa-quote-right" aria-hidden="true"></i></span>
@@ -32,6 +37,7 @@
                     </div>
 
                     <div class="row">
+
                         <div class="col-md-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -50,6 +56,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">最新留言</h4>
@@ -78,5 +85,6 @@
     </div>
 </div>
 <div th:replace="back/footer :: footer"></div>
+<div th:replace="back/pie :: pie-content"></div>
 </body>
 </html>

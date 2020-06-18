@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/layer.js}"></script>
+</head>
+<div th:replace="client/header2::header(${article.title},null)"></div>
+<body>
+<section class="s-content s-content--top-padding s-content--narrow">
+    <article class="row entry format-standard">
+
+
+    <div class="entry__header col-full">
+        <h1 class="entry__header-title display-1" itemprop="name headline" th:text="${article.title}">
+        </h1>
+        <ul class="entry__header-meta">
+            <li class="date" th:datetime="${commons.dateFormat(article.created)}"></li>
+            <li class="byline">
+                By
+                <a href="#0">kkindom</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="post-content" class="post-content content" th:utext="${commons.article(article.content)}"></div>
+
+
+            <div class="entry__tags">
+                <h5>Tags: </h5>
+                <span class="entry__tax-list entry__tax-list--pill">
+                            <a href="category.html" th:text="${article.categories}"></a>
+                        </span>
+            </div> <!-- end entry__tags -->
+        </div> <!-- end s-content__taxonomies -->
+
+    </article>
+</section>
+<div th:replace="client/comments_1::comments"></div>
+<div th:replace="client/footer::footer"></div>
+<!-- 使用layer.js实现图片缩放功能 -->
+<script type="text/JavaScript">
+    $('.post-content img').on('click', function(){
+        var imgurl=$(this).attr('src');
+        var w=this.width*2;
+        var h=this.height*2+50;
+        layer.open({
+            type: 1,
+            title: false, //不显示标题栏
+            area: [w+"px", h+"px"],
+            shadeClose: true, //点击遮罩关闭
+            content: '\<\div style="padding:20px;">' +
+                '\<\img style="width:'+(w-50)+'px;" src='+imgurl+'\>\<\/div>'
+        });
+    });
+</script>
+</body>
+</html>

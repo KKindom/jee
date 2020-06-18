@@ -40,6 +40,7 @@ public class CommentController {
         // 去除js脚本
         text = MyUtils.cleanXSS(text);
         text = EmojiParser.parseToAliases(text);
+        System.out.println(text);
         // 获取当前登录用户
         User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // 封装评论信息

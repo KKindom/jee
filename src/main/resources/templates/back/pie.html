@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8">
+    <title>第一个 ECharts 实例</title>
+    <!-- 引入 echarts.js -->
+    <script th:src="@{/user/add_static/js/echarts.min.js}"></script>
+</head>
+<body th:fragment="pie-content">
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="twecharts" style="height: 300px;width: 300px;" class="twecharts"></div>
+<script type="text/javascript" script th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('twecharts'));
+    //获得后台穿过来的数据 热度和文章名称
+    var data=[[${articleList}]];
+    var servicedata=[];
+    for(var i=0;i<data.length;i++){
+        var obj=new Object();
+        obj.name=data[i].title;
+        obj.value=data[i].hits;
+        servicedata[i]=obj;
+
+    }
+
+    console.log(servicedata);
+    // 指定图表的配置项和数据
+    var option = {
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                data:servicedata,
+                roseType: 'angle',
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    window.onresize = function () {
+        myChart.resize();
+    }
+</script>
+</body>
+</html>

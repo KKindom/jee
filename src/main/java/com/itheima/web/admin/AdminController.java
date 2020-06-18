@@ -38,10 +38,14 @@ public class AdminController {
         List<Article> articles = siteServiceImpl.recentArticles(5);
         List<Comment> comments = siteServiceImpl.recentComments(5);
         StaticticsBo staticticsBo = siteServiceImpl.getStatistics();
+        //获得热度最高的文章
+        List<Article> articleList = articleServiceImpl.getHeatArticles();
         // 向Request域中存储数据
         request.setAttribute("comments", comments);
         request.setAttribute("articles", articles);
         request.setAttribute("statistics", staticticsBo);
+        //传出文章
+        request.setAttribute("articleList", articleList);
         return "back/index";
     }
 
@@ -51,7 +55,7 @@ public class AdminController {
         return "back/article_edit";
     }
     // 发表文章
-    @PostMapping(value = "/article/publish")
+    @PostMapping(value = "/article/publish" ,produces = {"application/text;charset=UTF-8"})
     @ResponseBody
     public ArticleResponseData publishArticle(Article article) {
         if (StringUtils.isBlank(article.getCategories())) {

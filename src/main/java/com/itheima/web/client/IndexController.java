@@ -63,7 +63,7 @@ public class IndexController {
             // 更新文章点击量
             siteServiceImpl.updateStatistics(article);
             request.setAttribute("article",article);
-            return "client/articleDetails";
+            return "client/articleDetails_1";
         }else {
             logger.warn("查询文章详情结果为空，查询文章id: "+id);
             // 未找到对应文章页面，跳转到提示页
