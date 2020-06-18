@@ -86,7 +86,14 @@
                     <a th:class="${active}=='category'?'waves-effect active':'waves-effect'">
                         <i class="fa fa-tags" aria-hidden="true"></i><span> 收藏管理 </span></a>
                 </li>
-
+                <li th:class="${active}=='category'?'active':''">
+                    <a th:class="${active}=='category'?'waves-effect active':'waves-effect'">
+                        <i class="fa fa-tags" aria-hidden="true"></i><span> 添加收藏文章 </span></a>
+                </li>
+                <li th:class="${active}=='category'?'active':''">
+                    <a th:class="${active}=='category'?'waves-effect active':'waves-effect'">
+                        <i class="fa fa-tags" aria-hidden="true"></i><span> 添加收藏图片 </span></a>
+                </li>
                 <li th:class="${active}=='setting'?'active':''">
                     <a th:class="${active}=='setting'?'waves-effect active':'waves-effect'">
                         <i class="fa fa-gear" aria-hidden="true"></i><span> 系统设置 </span></a>
