@@ -42,11 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 1、自定义用户访问控制
+        /**
         http.authorizeRequests()
-                .antMatchers("/","/page/**","/article/**","/login").permitAll()
+                .antMatchers("/","/page/**","/article/**","/login","/reg/register","/reg/register/add").permitAll()
                 .antMatchers("/back/**","/assets/**","/user/**","/article_img/**").permitAll()
                 .antMatchers("/admin/**").hasRole("admin")
-                .anyRequest().authenticated();
+                .anyRequest().authenticated();*/
         // 2、自定义用户登录控制
         http.formLogin()
                 .loginPage("/login")

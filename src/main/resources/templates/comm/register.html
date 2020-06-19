@@ -314,17 +314,17 @@
             <img src="https://www.b-cube.in/wp-content/uploads/2014/05/aditya-300x177.jpg" id="icon" alt="User Icon" />
             <h1>个人博客</h1>
         </div>
-        <div th:if="${param.error}" style="color: red" th:text="#{login.error}">用户名或密码错误!</div>
         <!-- Login Form -->
-        <form id="loginForm" th:action="@{/login}" method="post">
+        <form id="registerForm" th:action="@{/reg/add}" method="post">
             <input type="text"   class="fadeIn second" name="username" placeholder="用户名">
             <input type="password"   class="fadeIn third" name="password" placeholder="密码">
-            <input type="submit" class="fadeIn fourth" value="登录">
+            <input type="text"   class="fadeIn second" name="email" placeholder="邮箱">
+            <input type="submit" class="fadeIn fourth" value="注册">
         </form>
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-            <a class="underlineHover" th:href="@{/reg/register}">没有账号？点击这里注册</a>
+            <a class="underlineHover" th:href="@{/login}">已经有帐号了？点击这里登录</a>
         </div>
 
     </div>

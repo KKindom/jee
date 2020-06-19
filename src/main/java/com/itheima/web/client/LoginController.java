@@ -32,7 +32,7 @@ public class LoginController {
             // 否则的话，就记住请求头中的原始访问路径
             map.put("url", referer);
         }
-        return "comm/login";
+        return "comm/login_1";
     }
 
     // 对Security拦截的无权限访问异常处理路径映射
