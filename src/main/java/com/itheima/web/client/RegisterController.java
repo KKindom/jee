@@ -12,7 +12,6 @@ import javax.swing.*;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/reg")
 public class RegisterController {
     @Autowired
     private UserMapper userMapper;
