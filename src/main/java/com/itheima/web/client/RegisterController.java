@@ -47,7 +47,7 @@ public class RegisterController {
                 System.out.println("注册成功");
                 return "comm/login_1";
             }
-
+//text
         }
 
 
