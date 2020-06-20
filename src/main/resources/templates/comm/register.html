@@ -314,6 +314,7 @@
             <img src="https://www.b-cube.in/wp-content/uploads/2014/05/aditya-300x177.jpg" id="icon" alt="User Icon" />
             <h1>个人博客</h1>
         </div>
+        <div  style="color: red" th:text="${error}"></div>
         <!-- Login Form -->
         <form id="registerForm" th:action="@{/add}" method="post">
             <input type="text"   class="fadeIn second" name="username" placeholder="用户名">

@@ -26,29 +26,29 @@ public class RegisterController {
 
     //注册用户
     @PostMapping(value = "/add")
-    @ResponseBody
     public String add(HttpServletRequest request, @RequestParam String username,@RequestParam String password,@RequestParam String email) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
         user.setDate(new Date());
-        try{
-            User existUser = userMapper.findUserByName(user.getUsername());
-            if(existUser != null){
+        User existUser = userMapper.findUserByName(user.getUsername());
+            if(existUser != null)
+            {
                 //提示用户名已存在
-                JOptionPane.showMessageDialog(null, "用户已存在");
+                System.out.println("用户已存在，注册失败！");
+                request.setAttribute("error","用户名重复！！");
                 return "comm/register";
-            }else {
+            }else
+                {
                 userService.addUser(user);
                 //提示注册成功
-                JOptionPane.showMessageDialog(null, "注册成功");
+
+                System.out.println("注册成功");
                 return "comm/login";
             }
-        }catch (Exception e){
-            //提示注册失败
-            JOptionPane.showMessageDialog(null, "注册失败");
-            return "comm/register";
+
         }
-    }
+
+
 }

@@ -35,5 +35,6 @@ public class ScheduleTask {
         content.append("博客系统总评论量为："+totalComment+"人次").append("\n");
         mailUtils.sendSimpleEmail(mailto,"个人博客系统流量统计情况",content.toString());
     }
+    //测试
 }
 

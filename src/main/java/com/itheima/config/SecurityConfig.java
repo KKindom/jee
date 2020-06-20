@@ -78,6 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         }
                     }
                 })
+
                 // 用户登录失败处理
                 .failureHandler(new AuthenticationFailureHandler() {
                     @Override
