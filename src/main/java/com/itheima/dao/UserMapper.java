@@ -14,7 +14,7 @@ import java.util.Date;
 public interface UserMapper {
     // 注册用户
     @Insert("INSERT INTO t_user (username,password,email,created)" +
-            " VALUES (#{username}, #{password},#{email},#{date}")
+            " VALUES (#{username},#{password},#{email},#{date})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     public Integer register(User user);
 

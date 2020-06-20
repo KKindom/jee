@@ -45,7 +45,7 @@ public class RegisterController {
                 //提示注册成功
 
                 System.out.println("注册成功");
-                return "comm/login";
+                return "comm/login_1";
             }
 
         }
