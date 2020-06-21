@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Readit - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+      <link th:href="@{/user/add_static/css/ent_css/open-iconic-bootstrap.min.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/animate.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/owl.carousel.min.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/owl.theme.default.min.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/magnific-popup.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/aos.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/ionicons.min.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/flaticon.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/icomoon.css}" rel="stylesheet"/>
+      <link th:href="@{/user/add_static/css/ent_css/style.css}" rel="stylesheet"/>
+
+<!--    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="css/animate.css">-->
+<!--    -->
+<!--    <link rel="stylesheet" href="css/owl.carousel.min.css">-->
+<!--    <link rel="stylesheet" href="css/owl.theme.default.min.css">-->
+<!--    <link rel="stylesheet" href="css/magnific-popup.css">-->
+
+<!--    <link rel="stylesheet" href="css/aos.css">-->
+
+<!--    <link rel="stylesheet" href="css/ionicons.min.css">-->
+<!--    -->
+<!--    <link rel="stylesheet" href="css/flaticon.css">-->
+<!--    <link rel="stylesheet" href="css/icomoon.css">-->
+<!--    <link rel="stylesheet" href="css/style.css">-->
+
+
+
+
+
+  </head>
+  <div th:replace="/client/header2::header(null,null)" />
+  <body>
+
+   	<section class="ftco-section" style="background: white">
+        <button id="btn" onclick="threeFn()">点我</button>
+   		<div class="container">
+   			<div class="row">
+<div class="col-xl-12">
+                    <div class="section_title mb-33">
+                        <h3>Most Recent</h3>
+
+                    </div>
+                </div>
+   				<div class="col-md-12">
+   					<div class="case">
+
+   						<div class="row">
+                            <div class="col-md-6 col-lg-6 col-xl-12 d-flex" style="margin-bottom: 2%">
+                                <img src="/user/add_static/images/thumbs/featured/featured-guitarman.jpg">
+                            </div>
+   							<div class="col-md-6 col-lg-6 col-xl-8 d-flex" id="123">
+                                <div style="position: relative; padding: 10% 50%;">
+                                <iframe  style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="//player.bilibili.com/player.html?aid=63392312&bvid=BV184411Q7KA&cid=110070033&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+                                </div>
+                                </div>
+   							<div class="col-md-6 col-lg-6 col-xl-4 d-flex">
+   								<div class="text w-100 pl-md-3">
+   									<span class="subheading">Illustration</span>
+   									<h2><a href="blog-single.html">Build a website in minutes with Adobe Templates</a></h2>
+   									<ul class="media-social list-unstyled">
+			                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+			                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+			                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+			              </ul>
+   									<div class="meta">
+   										<p class="mb-0"><a href="#">11/13/2019</a> | <a href="#">12 min read</a></p>
+   									</div>
+   								</div>
+   							</div>
+   						</div>
+   					</div>
+                </div>
+            </div>
+        </div>
+   	
+   	</section>
+    <div th:replace="/client/footer_1::footer" />
+
+
+
+  <script type="text/javascript">
+      var btn = document.getElementById("btn");
+
+      // 第一种 通过点击事件
+      btn.onclick = function(){
+          alert("这是第一种点击方式");
+          var testdiv = document.getElementById("123");
+          var ina="   \t\t\t\t\t\t\t\t<div style=\"position: relative; padding: 10% 50%;\">\n" +
+              "<iframe style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\" src=\"https://player.bilibili.com/player.html?cid=145147963&aid=84267566&page=1&as_wide=1&high_quality=1&danmaku=0\" frameborder=\"no\" scrolling=\"no\"></iframe>\n" +
+              "</div>"+"   \t\t\t\t\t\t\t\t<div style=\"position: relative; padding: 10% 50%;\">\n" +
+              "<iframe style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\" src=\"https://player.bilibili.com/player.html?cid=145147963&aid=84267566&page=1&as_wide=1&high_quality=1&danmaku=0\" frameborder=\"no\" scrolling=\"no\"></iframe>\n" +
+              "</div>";
+          // testdiv.innerHTML="   \t\t\t\t\t\t\t\t<div style=\"position: relative; padding: 10% 50%;\">\n" +
+          //     "<iframe style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\" src=\"https://player.bilibili.com/player.html?cid=145147963&aid=84267566&page=1&as_wide=1&high_quality=1&danmaku=0\" frameborder=\"no\" scrolling=\"no\"></iframe>\n" +
+          //     "</div>";
+          testdiv.innerHTML=ina;
+      }
+
+      // 第二种 监听点击事件
+      btn.addEventListener('click', function(){
+          alert("这是第二中点击方式");
+      })
+
+      // 第三种 通过方法响应点击事件
+      function threeFn(){
+          alert("这是第三种点击方式");
+      }
+  </script>
+
+  </body>
+  
+
+    <script th:src="@{/user/add_static/js/ent_js/jquery.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/jquery-migrate-3.0.1.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/popper.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/bootstrap.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/jquery.easing.1.3.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/jquery.stellar.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/jquery.magnific-popup.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/aos.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/jquery.animateNumber.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/scrollax.min.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/google-map.js}"></script>
+    <script th:src="@{/user/add_static/js/ent_js/main.js}"></script>
+<!--  <script src="js/jquery.min.js"></script>-->
+<!--  <script src="js/jquery-migrate-3.0.1.min.js"></script>-->
+<!--  <script src="js/popper.min.js"></script>-->
+<!--  <script src="js/bootstrap.min.js"></script>-->
+<!--  <script src="js/jquery.easing.1.3.js"></script>-->
+<!--  <script src="js/jquery.waypoints.min.js"></script>-->
+<!--  <script src="js/jquery.stellar.min.js"></script>-->
+<!--  <script src="js/owl.carousel.min.js"></script>-->
+<!--  <script src="js/jquery.magnific-popup.min.js"></script>-->
+<!--  <script src="js/aos.js"></script>-->
+<!--  <script src="js/jquery.animateNumber.min.js"></script>-->
+<!--  <script src="js/scrollax.min.js"></script>-->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<!--  <script src="js/google-map.js"></script>-->
+<!--  <script src="js/main.js"></script>-->
+
+
+
+
+</html>
