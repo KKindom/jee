@@ -20,7 +20,7 @@ public interface UserMapper {
     public Integer register(User user);
 
     // 查询用户是否存在
-    @Select("SELECT username and password FROM t_user where username=#{username}")
-    public User findUserByName(String username);
+    @Select("SELECT * FROM t_user where username=#{user_name}")
+    public User findUserByName(String user_name);
 
 }

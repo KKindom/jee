@@ -1,5 +1,6 @@
 package com.itheima.web.client;
 
+import com.itheima.dao.AuthorityMapper;
 import com.itheima.dao.UserMapper;
 import com.itheima.model.domain.Authority;
 import com.itheima.model.domain.User;
@@ -22,7 +23,8 @@ public class RegisterController {
     private UserServiceImpl userService;
     @Autowired
     private BCryptPasswordEncoder encoder;
-
+    @Autowired
+    private AuthorityMapper authorityMapper;
     //跳转到注册界面
     @GetMapping(value = "/register")
     public String register(){
@@ -54,6 +56,8 @@ public class RegisterController {
                 System.out.println(user1.toString());
                 Authority authority = new Authority();
                 authority.setUser_id(user1.getId());
+                authority.setAuthority_id(2);
+                    authorityMapper.authority(authority);
                 System.out.println("注册成功");
                 return "comm/login_1";
             }

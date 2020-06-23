@@ -79,7 +79,7 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
     @Override
     public void updateEntertainmentWithId(Entertainment entertainment) {
         entertainmentMapper.updateEntertainmentWithId(entertainment);
-        redisTemplate.delete("entertainment_" + entertainment.getEid());
+        //redisTemplate.delete("entertainment_" + entertainment.getEid());
     }
     // 根据主键删除娱乐
     @Override

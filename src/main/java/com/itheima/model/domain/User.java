@@ -8,6 +8,8 @@ public class User {
     private String password;
     private String email;
     private Date date;
+    private String p_url;
+
 
     public Integer getId() {
         return id;
@@ -51,6 +53,7 @@ public class User {
 
 
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -60,5 +63,13 @@ public class User {
                 ", email='" + email + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+    public String getP_url() {
+        return p_url;
+    }
+
+    public void setP_url(String p_url) {
+        this.p_url = p_url;
     }
 }
