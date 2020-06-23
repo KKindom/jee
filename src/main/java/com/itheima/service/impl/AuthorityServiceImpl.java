@@ -1,25 +1,23 @@
 package com.itheima.service.impl;
 
+import com.itheima.dao.AuthorityMapper;
 import com.itheima.dao.UserMapper;
 import com.itheima.model.domain.Authority;
-import com.itheima.model.domain.User;
-import com.itheima.service.IUserService;
+import com.itheima.service.IAuthority;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 @Service
 @Transactional
-public class UserServiceImpl implements IUserService {
+public class AuthorityServiceImpl implements IAuthority {
     @Autowired
-    UserMapper userMapper;
-
+    AuthorityMapper authorityMapper;
 
     @Override
-    public void addUser(User user){
-        user.setDate(new Date());
-        userMapper.register(user);
+    public void addAuthroity(Authority authority){
+
+        authorityMapper.authority(authority);
     }
 }

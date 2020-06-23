@@ -2,6 +2,8 @@ package com.itheima.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,13 +13,13 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 
+@Configuration
 @EnableWebSecurity  // 开启MVC security安全支持
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -42,12 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 1、自定义用户访问控制
-        /**
         http.authorizeRequests()
-                .antMatchers("/","/page/**","/article/**","/login","/reg/register","/reg/register/add").permitAll()
+                .antMatchers("/","/page/**","/article/**","/login","/register","/add").permitAll()
                 .antMatchers("/back/**","/assets/**","/user/**","/article_img/**").permitAll()
                 .antMatchers("/admin/**").hasRole("admin")
-                .anyRequest().authenticated();*/
+                .anyRequest().authenticated();
         // 2、自定义用户登录控制
         http.formLogin()
                 .loginPage("/login")
@@ -109,18 +111,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @throws Exception
      */
     @Override
+    @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //  密码需要设置编码器
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         //  使用JDBC进行身份认证
         String userSQL ="select username,password,valid from t_user where username = ?";
         String authoritySQL ="select u.username,a.authority from t_user u,t_authority a," +
                              "t_user_authority ua where ua.user_id=u.id " +
                              "and ua.authority_id=a.id and u.username =?";
-        auth.jdbcAuthentication().passwordEncoder(encoder)
+        auth.jdbcAuthentication().passwordEncoder(passwordEncoder())
                 .dataSource(dataSource)
                 .usersByUsernameQuery(userSQL)
                 .authoritiesByUsernameQuery(authoritySQL);
+
+    }
+
+    //加载登录时的编码器
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder;
     }
 }
 

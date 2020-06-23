@@ -1,9 +1,12 @@
 package com.itheima.web.client;
 
 import com.itheima.dao.UserMapper;
+import com.itheima.model.domain.Authority;
 import com.itheima.model.domain.User;
 import com.itheima.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,8 @@ public class RegisterController {
     private UserMapper userMapper;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     //跳转到注册界面
     @GetMapping(value = "/register")
@@ -27,9 +32,10 @@ public class RegisterController {
     //注册用户
     @PostMapping(value = "/add")
     public String add(HttpServletRequest request, @RequestParam String username,@RequestParam String password,@RequestParam String email) {
+        String hashpassword = encoder.encode(password);
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(hashpassword);
         user.setEmail(email);
         user.setDate(new Date());
         User existUser = userMapper.findUserByName(user.getUsername());
@@ -42,8 +48,12 @@ public class RegisterController {
             }else
                 {
                 userService.addUser(user);
+                System.out.println("密码："+ password + " 加密后的密码:"+ hashpassword);
                 //提示注册成功
-
+                User user1 = userMapper.findUserByName(username);
+                System.out.println(user1.toString());
+                Authority authority = new Authority();
+                authority.setUser_id(user1.getId());
                 System.out.println("注册成功");
                 return "comm/login_1";
             }

@@ -1,5 +1,6 @@
 package com.itheima.dao;
 
+import com.itheima.model.domain.Authority;
 import com.itheima.model.domain.Comment;
 import com.itheima.model.domain.User;
 import org.apache.ibatis.annotations.Insert;
@@ -14,11 +15,12 @@ import java.util.Date;
 public interface UserMapper {
     // 注册用户
     @Insert("INSERT INTO t_user (username,password,email,created)" +
-            " VALUES (#{username},#{password},#{email},#{date})")
+            " VALUES (#{username}, #{password},#{email},#{date})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     public Integer register(User user);
 
     // 查询用户是否存在
-    @Select("SELECT username FROM t_user where username=#{username}")
+    @Select("SELECT username and password FROM t_user where username=#{username}")
     public User findUserByName(String username);
+
 }

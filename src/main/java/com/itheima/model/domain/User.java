@@ -8,7 +8,6 @@ public class User {
     private String password;
     private String email;
     private Date date;
-    private Integer authority_id;
 
     public Integer getId() {
         return id;
@@ -50,13 +49,7 @@ public class User {
         this.date = date;
     }
 
-    public Integer getAuthority_id() {
-        return authority_id;
-    }
 
-    public void setAuthority_id(Integer authority_id) {
-        this.authority_id = authority_id;
-    }
 
     @Override
     public String toString() {
@@ -66,7 +59,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", date=" + date +
-                ", authority_id=" + authority_id +
                 '}';
     }
 }
