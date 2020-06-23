@@ -13,6 +13,8 @@
     var myChart = echarts.init(document.getElementById('twecharts'));
     //获得后台穿过来的数据 热度和文章名称
     var data=[[${articleList}]];
+    var data2=[[${articles}]];
+    console.log(data2)
     var servicedata=[];
     for(var i=0;i<data.length;i++){
         var obj=new Object();
@@ -22,7 +24,7 @@
 
     }
 
-    console.log(servicedata);
+    //console.log(servicedata);
     // 指定图表的配置项和数据
     var option = {
         series : [

@@ -1,0 +1,14 @@
+package com.itheima.model.domain;
+
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+public class E_Video
+{
+    private Integer id;
+    private String code;
+    private Date created;
+    private String title;
+}

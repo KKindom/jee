@@ -41,79 +41,83 @@
   <body>
 
    	<section class="ftco-section" style="background: white">
-        <button id="btn" onclick="threeFn()">点我</button>
-   		<div class="container">
-   			<div class="row">
-<div class="col-xl-12">
+<!--        <button id="btn" onclick="threeFn()">点我</button>-->
+   		<div class="container-fluid">
+   			<div class="row-fluid row">
+<div class="col-md-12">
                     <div class="section_title mb-33">
-                        <h3>Most Recent</h3>
-
+                        <h3>我的娱乐</h3>
                     </div>
                 </div>
    				<div class="col-md-12">
-   					<div class="case">
+                    <th:block th:each="entertainer :${entertainers.list}">
 
+
+   					<div class="case">
+                        <h3> <a th:href="${entertainer.address}" th:text="${entertainer.name}"></a></h3>
    						<div class="row">
                             <div class="col-md-6 col-lg-6 col-xl-12 d-flex" style="margin-bottom: 2%">
-                                <img src="/user/add_static/images/thumbs/featured/featured-guitarman.jpg">
+                                <img th:src="${entertainer.picture} " >
                             </div>
-   							<div class="col-md-6 col-lg-6 col-xl-8 d-flex" id="123">
-                                <div style="position: relative; padding: 10% 50%;">
-                                <iframe  style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="//player.bilibili.com/player.html?aid=63392312&bvid=BV184411Q7KA&cid=110070033&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-                                </div>
-                                </div>
-   							<div class="col-md-6 col-lg-6 col-xl-4 d-flex">
-   								<div class="text w-100 pl-md-3">
-   									<span class="subheading">Illustration</span>
-   									<h2><a href="blog-single.html">Build a website in minutes with Adobe Templates</a></h2>
-   									<ul class="media-social list-unstyled">
-			                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-			                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-			                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-			              </ul>
-   									<div class="meta">
-   										<p class="mb-0"><a href="#">11/13/2019</a> | <a href="#">12 min read</a></p>
-   									</div>
-   								</div>
-   							</div>
+<!--                            <div class="col-md-6 col-lg-6 col-xl-8 d-flex" id="123">-->
+<!--                                <div style="position: relative; padding: 30% 45%;">-->
+<!--                                    <iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="https://player.bilibili.com/player.html?cid=145147963&aid=84267566&page=1&as_wide=1&high_quality=1&danmaku=0" frameborder="no" scrolling="no"></iframe>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div th:replace="/comm/show_video_1::show_video_byid(${entertainer.vid})" />
+
    						</div>
    					</div>
+                    </th:block>
                 </div>
+
             </div>
         </div>
-   	
+        <div class="am-pagination">
+            <div th:replace="/comm/paging::pageNav_New2(${entertainers},'上一页','下一页','page')" />
+        </div>
    	</section>
     <div th:replace="/client/footer_1::footer" />
+    <a class="btn btn-default" href="#" role="button" style="position:fixed;right:0;bottom:0">
+        回到顶部
+    </a>
 
 
-
-  <script type="text/javascript">
+  <script type="text/javascript" script th:inline="javascript">
       var btn = document.getElementById("btn");
-
+      var data=[[${e_videoList}]];
+      var data2=[[${entertainers}]].list;
+      var a=data2[0].title;
+      console.log(a);
+      console.log(data2);
+      console.log(data);
       // 第一种 通过点击事件
       btn.onclick = function(){
           alert("这是第一种点击方式");
           var testdiv = document.getElementById("123");
-          var ina="   \t\t\t\t\t\t\t\t<div style=\"position: relative; padding: 10% 50%;\">\n" +
+          var ina="   \t\t\t\t\t\t\t\t<div style=\"position: relative; padding: 30% 50%;\">\n" +
               "<iframe style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\" src=\"https://player.bilibili.com/player.html?cid=145147963&aid=84267566&page=1&as_wide=1&high_quality=1&danmaku=0\" frameborder=\"no\" scrolling=\"no\"></iframe>\n" +
-              "</div>"+"   \t\t\t\t\t\t\t\t<div style=\"position: relative; padding: 10% 50%;\">\n" +
+              "</div>"+"   \t\t\t\t\t\t\t\t<div style=\"position: relative; padding: 30% 50%;\">\n" +
               "<iframe style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\" src=\"https://player.bilibili.com/player.html?cid=145147963&aid=84267566&page=1&as_wide=1&high_quality=1&danmaku=0\" frameborder=\"no\" scrolling=\"no\"></iframe>\n" +
               "</div>";
-          // testdiv.innerHTML="   \t\t\t\t\t\t\t\t<div style=\"position: relative; padding: 10% 50%;\">\n" +
-          //     "<iframe style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\" src=\"https://player.bilibili.com/player.html?cid=145147963&aid=84267566&page=1&as_wide=1&high_quality=1&danmaku=0\" frameborder=\"no\" scrolling=\"no\"></iframe>\n" +
-          //     "</div>";
-          testdiv.innerHTML=ina;
-      }
+          var inaa="<div style=\"position: relative; padding: 10% 50%;\">\n";
+          inaa=inaa+data[0].code;
+          // for(var i=0;i<data.length;i++){
+          //
+          //     inaa=inaa+data[i].code;
+          //
+          //
+          //     console.log(inaa)
+          // }
+          inaa=inaa+"</div>"
+          testdiv.innerHTML=inaa;
+         // console.log(inaa)
 
-      // 第二种 监听点击事件
-      btn.addEventListener('click', function(){
-          alert("这是第二中点击方式");
-      })
+      };
 
-      // 第三种 通过方法响应点击事件
-      function threeFn(){
-          alert("这是第三种点击方式");
-      }
+
+
+
   </script>
 
   </body>
@@ -144,7 +148,6 @@
 <!--  <script src="js/aos.js"></script>-->
 <!--  <script src="js/jquery.animateNumber.min.js"></script>-->
 <!--  <script src="js/scrollax.min.js"></script>-->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <!--  <script src="js/google-map.js"></script>-->
 <!--  <script src="js/main.js"></script>-->
 

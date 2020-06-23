@@ -41,6 +41,7 @@ public class ArticleServiceImpl implements IArticleService {
     public PageInfo<Article> selectArticleWithPage(Integer page, Integer count) {
         PageHelper.startPage(page, count);
         List<Article> articleList = articleMapper.selectArticleWithPage();
+        //System.out.println(articleList);
         // 封装文章统计数据
         for (int i = 0; i < articleList.size(); i++) {
             Article article = articleList.get(i);
@@ -52,7 +53,7 @@ public class ArticleServiceImpl implements IArticleService {
         return pageInfo;
     }
 
-    // 统计前10的热度文章信息
+    // 统计前6的热度文章信息
     @Override
     public List<Article> getHeatArticles( ) {
         List<Statistic> list = statisticMapper.getStatistic();
@@ -67,6 +68,7 @@ public class ArticleServiceImpl implements IArticleService {
                 break;
             }
         }
+
         return articlelist;
     }
 

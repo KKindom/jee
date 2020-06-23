@@ -34,6 +34,8 @@
 </ol>
 
 
+<!--主页面分页下一页-->
+
 <div class="row pagination-wrap" >
     <div class="col-full">
         <nav class="pgn" data-aos="fade-up">
@@ -72,6 +74,44 @@
     </div>
 </div>
 
+<!--我的娱乐分页-->
+<div class="row pagination-wrap" >
+    <div class="col-full">
+        <nav class="pgn" data-aos="fade-up">
+            <!--这里是我最新的主页面下一页页面-->
+            <ul class="am-pagination" th:fragment="pageNav_New2(pageInfo, prevText, nextText, prefix)">
+                <th:block th:if="${pageInfo.hasPreviousPage}">
+                    <li ><a class="pgn__prev" th:href="@{'/'+${prefix}+'/'+${pageInfo.prePage}}" th:text="${prevText}"></a></li>
+                </th:block>
+                <th:block th:each="navIndex :${ pageInfo.navigatepageNums}">
+                    <th:block th:if="${pageInfo.pages} <= 8">
+                        <li th:class="${pageInfo.pageNum}==${navIndex}?'current':''">
+                            <a class="pgn__num" th:href="@{'/e_page/'+${navIndex}}" th:text="${navIndex}"></a>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${pageInfo.pages} > 8">
+                        <li th:if="${pageInfo.pageNum <=3 &&  navIndex <= 5}" th:class="${pageInfo.pageNum}==${navIndex}?'current':''">
+                            <a class="pgn__num" th:href="@{'/e_page/'+${navIndex}}" th:text="${navIndex}"></a>
+                        </li>
+                        <li th:if="${pageInfo.pageNum >= pageInfo.pages-2 &&  navIndex > pageInfo.pages-5}" th:class="${pageInfo.pageNum}==${navIndex}?'current':''">
+                            <a class="pgn__num" th:href="@{'/e_page/'+${navIndex}}" th:text="${navIndex}"></a>
+                        </li>
+                        <li th:if="${pageInfo.pageNum >=4 && pageInfo.pageNum <= pageInfo.pages-3 &&  navIndex >= pageInfo.pageNum-2 && navIndex <= pageInfo.pageNum+2}"  th:class="${pageInfo.pageNum}==${navIndex}?'current':''">
+                            <a class="pgn__num" th:href="@{'/e_page/'+${navIndex}}" th:text="${navIndex}"></a>
+                        </li>
+                    </th:block>
+
+
+
+                </th:block>
+                <th:block th:if="${pageInfo.hasNextPage}">
+                    <li ><a class="pgn__next" th:href="@{'/'+${prefix}+'/'+${pageInfo.nextPage}}" th:text="${nextText}"></a></li>
+                </th:block>
+            </ul>
+
+        </nav>
+    </div>
+</div>
 <!--管理员查看文章列表页数-->
 <div th:fragment="pageAdminNav(pageInfo)">
     <div class="clearfix">

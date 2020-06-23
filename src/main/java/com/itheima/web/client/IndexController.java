@@ -84,12 +84,7 @@ public class IndexController {
         }
     }
 
-//我的娱乐中的游戏按钮 调转到游戏部分
-    @GetMapping(value = "ent")
-    private String back_ent(HttpServletRequest request)
-    {
-        return "client/ENT_Details";
-    }
+
 
 
 
