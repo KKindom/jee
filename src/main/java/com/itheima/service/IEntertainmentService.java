@@ -8,11 +8,13 @@ import com.itheima.model.domain.Entertainment;
 import java.util.List;
 
 public interface IEntertainmentService {
-    // 分页查询我的娱乐列表
+    // 分页查询我的娱乐基本信息列表
     public PageInfo<Entertainment> selectEntertainmentWithPage(Integer page, Integer count);
 
+    //分页查询我的娱乐视频信息列表
+    public PageInfo<E_Video> selectE_vdieoWithPage(Integer page, Integer count);
 
-//获取所有的视频信息
+    //获取所有的视频信息
     public List<E_Video> getAll_Video();
 
     // 根据文章id查询单个娱乐详情

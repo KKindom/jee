@@ -33,9 +33,12 @@ public interface EntertainmentMapper
     public Integer publishE_Video(E_Video e_video);
 
 
-    // 我的娱乐分页查询
+    // 我的娱乐基本信息分页查询
     @Select("SELECT * FROM t_ent ORDER BY e_id DESC")
         public List<Entertainment> selectEntertainmentWithPage();
+    // 我的娱乐视频信息分页查询
+    @Select("SELECT * FROM t_video ORDER BY id DESC")
+    public List<E_Video> selectE_videoWithPage();
 
     // 通过id删除我的娱乐基本信息
     @Delete("DELETE FROM t_ent WHERE e_id=#{id}")

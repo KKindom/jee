@@ -30,8 +30,19 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
         System.out.println(e_videoList);
         return  e_videoList;
     }
+    //分页查询我的娱乐视频信息列表
+    @Override
+    public PageInfo<E_Video> selectE_vdieoWithPage(Integer page, Integer count) {
+        PageHelper.startPage(page, count);
 
-    // 分页查询我的娱乐列表
+        List<E_Video> e_videoList=entertainmentMapper.selectE_videoWithPage();
+        // System.out.println(entertainmentList);
+        PageInfo<E_Video> pageInfo=new PageInfo<>(e_videoList);
+        System.out.println(pageInfo);
+        return pageInfo;
+    }
+
+    // 分页查询我的娱乐基本信息列表
     @Override
     public PageInfo<Entertainment> selectEntertainmentWithPage(Integer page, Integer count) {
         PageHelper.startPage(page, count);

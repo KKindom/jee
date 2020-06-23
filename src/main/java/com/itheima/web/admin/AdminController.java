@@ -5,7 +5,10 @@ import com.itheima.model.ResponseData.ArticleResponseData;
 import com.itheima.model.ResponseData.StaticticsBo;
 import com.itheima.model.domain.Article;
 import com.itheima.model.domain.Comment;
+import com.itheima.model.domain.E_Video;
+import com.itheima.model.domain.Entertainment;
 import com.itheima.service.IArticleService;
+import com.itheima.service.IEntertainmentService;
 import com.itheima.service.ISiteService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -30,7 +33,8 @@ public class AdminController {
     private ISiteService siteServiceImpl;
     @Autowired
     private IArticleService articleServiceImpl;
-
+@Autowired
+private IEntertainmentService entertainmentServiceImpl;
     // 管理中心起始页
     @GetMapping(value = {"", "/index"})
     public String index(HttpServletRequest request) {
@@ -119,7 +123,20 @@ public class AdminController {
 
 
 
+//以下是后台 关于我的娱乐 我的收藏 后台管理
 
+    //我的娱乐后台管理
+    // 跳转到后台文章列表页面
+    @GetMapping(value = "/entertainment")
+    public String index_e(@RequestParam(value = "page", defaultValue = "1") int page,
+                        @RequestParam(value = "count", defaultValue = "6") int count,
+                        HttpServletRequest request) {
+        PageInfo<Entertainment> pageInfo = entertainmentServiceImpl.selectEntertainmentWithPage(page, count);
+        PageInfo<E_Video> pageInfo2 = entertainmentServiceImpl.selectE_vdieoWithPage(page, count);
+        request.setAttribute("entertainments", pageInfo);
+        request.setAttribute("e_videos", pageInfo2);
+        return "back/entertainment_list";
+    }
 
 
 //关于后台管理功能处理
