@@ -4,7 +4,7 @@ import com.itheima.model.domain.Picture;
 
 import java.util.List;
 
-/**public interface IPictureService {
+public interface IPictureService {
     //查询照片
     List<Picture> listPicture();
 
@@ -20,4 +20,4 @@ import java.util.List;
     //删除照片
     void deletePicture(Long id);
 
-}*/
+}

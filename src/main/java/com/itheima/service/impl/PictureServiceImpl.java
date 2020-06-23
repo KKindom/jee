@@ -3,11 +3,12 @@ package com.itheima.service.impl;
 import com.itheima.dao.PictureMapper;
 import com.itheima.model.domain.Picture;
 //import com.itheima.service.IPictureService;
+import com.itheima.service.IPictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-/**public class PictureServiceImpl implements IPictureService {
+public class PictureServiceImpl implements IPictureService {
     @Autowired
     private PictureMapper pictureMapper;
 
@@ -36,4 +37,4 @@ import java.util.List;
         pictureMapper.deletePicture(id);
     }
 
-}*/
+}
