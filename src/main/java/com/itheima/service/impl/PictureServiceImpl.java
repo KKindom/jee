@@ -1,40 +1,76 @@
 package com.itheima.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.itheima.dao.EntertainmentMapper;
 import com.itheima.dao.PictureMapper;
-import com.itheima.model.domain.Picture;
+import com.itheima.model.domain.*;
 //import com.itheima.service.IPictureService;
 import com.itheima.service.IPictureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PictureServiceImpl implements IPictureService {
     @Autowired
     private PictureMapper pictureMapper;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
+    //分页查询图片
     @Override
-    public List<Picture> listPicture() {
-        return pictureMapper.listPicture();
+    public PageInfo<Picture> selectPictureWithPage(Integer page, Integer count) {
+        PageHelper.startPage(page, count);
+
+        List<Picture> pictureList=pictureMapper.listPicture();
+        // System.out.println(entertainmentList);
+        PageInfo<Picture> pageInfo=new PageInfo<>(pictureList);
+        System.out.println(pageInfo);
+        return pageInfo;
     }
 
+    //根据图片id查询单个图片详情
     @Override
-    public int savePicture(Picture picture) {
-        return pictureMapper.savePicture(picture);
+    public Picture selectPictureWithId(Integer id) {
+        Picture picture=null;
+        Object o=redisTemplate.opsForValue().get("picture_"+id);
+        if(o!=null){
+            picture=(Picture) o;
+        }else{
+            picture = pictureMapper.getPicture(id);
+            if(picture!=null){
+                redisTemplate.opsForValue().set("picture_" + id,picture);
+            }
+        }
+        return picture;
     }
 
+    //获取所有图片信息
     @Override
-    public Picture getPicture(Long id) {
-        return pictureMapper.getPicture(id);
+    public List<Picture> getAll_Picture() {
+        List<Picture> pictureList=pictureMapper.listPicture();
+        System.out.println(pictureList);
+        return  pictureList;
     }
 
+    //上传图片
     @Override
-    public int updatePicture(Picture picture) {
-        return pictureMapper.updatePicture(picture);
+    public void uploadpicture(Picture picture) {
+
     }
 
+    //编辑图片信息
     @Override
-    public void deletePicture(Long id) {
-        pictureMapper.deletePicture(id);
+    public void updatePictureWithId(Picture picture) {
+
     }
 
+    //根据图片id删除图片
+    @Override
+    public void deletePictureWithId(int id) {
+
+    }
 }

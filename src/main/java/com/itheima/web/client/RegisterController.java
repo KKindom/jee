@@ -57,7 +57,7 @@ public class RegisterController {
                 Authority authority = new Authority();
                 authority.setUser_id(user1.getId());
                 authority.setAuthority_id(2);
-                    authorityMapper.authority(authority);
+                authorityMapper.authority(authority);
                 System.out.println("注册成功");
                 return "comm/login_1";
             }
