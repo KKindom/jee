@@ -3,21 +3,34 @@ package com.itheima.web.admin;
 import com.github.pagehelper.PageInfo;
 import com.itheima.model.ResponseData.ArticleResponseData;
 import com.itheima.model.ResponseData.StaticticsBo;
-import com.itheima.model.domain.Article;
-import com.itheima.model.domain.Comment;
-import com.itheima.model.domain.E_Video;
-import com.itheima.model.domain.Entertainment;
+import com.itheima.model.domain.*;
 import com.itheima.service.IArticleService;
 import com.itheima.service.IEntertainmentService;
 import com.itheima.service.ISiteService;
+import com.itheima.utils.FileUploadUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.coyote.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * @Classname AdminController
  * @Description 后台管理模块
@@ -28,7 +41,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-
+    AttachFile attachFile;
     @Autowired
     private ISiteService siteServiceImpl;
     @Autowired
@@ -133,12 +146,91 @@ private IEntertainmentService entertainmentServiceImpl;
                         HttpServletRequest request) {
         PageInfo<Entertainment> pageInfo = entertainmentServiceImpl.selectEntertainmentWithPage(page, count);
         PageInfo<E_Video> pageInfo2 = entertainmentServiceImpl.selectE_vdieoWithPage(page, count);
+
         request.setAttribute("entertainments", pageInfo);
         request.setAttribute("e_videos", pageInfo2);
         return "back/entertainment_list";
     }
 
+    // 向娱乐基本信息修改页面跳转
+    @GetMapping(value = "/entertainment/{id}")
+    public String editEntertainment(@PathVariable("id") String id, HttpServletRequest request) {
+        Entertainment entertainment=entertainmentServiceImpl.selectEntertainmentWithId(Integer.parseInt(id));
+        request.setAttribute("contents", entertainment);
+        request.setAttribute("flag",1);
+        return "back/entertainment_edit";
+    }
+    // 向娱乐视频信息修改页面跳转
+    @GetMapping(value = "/e_video/{id}")
+    public String editE_video(@PathVariable("id") String id, HttpServletRequest request) {
+        List<E_type> e_typeList=entertainmentServiceImpl.findtype();
+        request.setAttribute("e_type",e_typeList);
+        System.out.println(e_typeList);
+       E_Video e_video=entertainmentServiceImpl.selecte_videowithId(Integer.parseInt(id));
+        request.setAttribute("contents_v", e_video);
+        request.setAttribute("flag",2);
+        return "back/entertainment_edit";
+    }
 
+    // 娱乐删除
+    @PostMapping(value = "/entertainment/delete")
+    @ResponseBody
+    public ArticleResponseData delete_entertainment(@RequestParam int id,@RequestParam int flag)
+    {
+        if(flag==2)
+        {
+            try {
+                entertainmentServiceImpl.deleteEntertainmentWithId(id);
+                logger.info("娱乐删除成功");
+                return ArticleResponseData.ok();
+            } catch (Exception e) {
+                logger.error("娱乐删除失败，错误信息: "+e.getMessage());
+                return ArticleResponseData.fail();
+            }
+        }
+        else
+        {
+            try {
+                entertainmentServiceImpl.deleteE_videoWithId(id);
+                logger.info("视频删除成功");
+                return ArticleResponseData.ok();
+            } catch (Exception e) {
+                logger.error("视频删除失败，错误信息: "+e.getMessage());
+                return ArticleResponseData.fail();
+            }
+        }
+
+    }
+    // 向文章发表页面跳转
+    @GetMapping(value = "/entertainment/toEditPage")
+    public String new_entertainment( HttpServletRequest request) {
+        List<E_type> e_typeList=entertainmentServiceImpl.findtype();
+        request.setAttribute("e_type",e_typeList);
+        return "back/entertainment_edit";
+    }
+
+
+    @PostMapping(value = "/entertainment_v/publish" ,produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public ArticleResponseData publishE_V(E_Video e_video) {
+
+        System.out.println(e_video);
+        try {
+         entertainmentServiceImpl.publish_v(e_video);
+            logger.info("文章发布成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("文章发布失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
+    }
+    // 文章修改处理
+    @PostMapping(value = "/entertainment_v/modify")
+    @ResponseBody
+    public ArticleResponseData modifyE_V(E_Video e_video) {
+        System.out.println(e_video);
+ return ArticleResponseData.fail();
+    }
 //关于后台管理功能处理
 //查询分页图片展示
 

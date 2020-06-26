@@ -11,4 +11,5 @@ public class E_Video
     private String code;
     private Date created;
     private String title;
+    private Integer eid;
 }

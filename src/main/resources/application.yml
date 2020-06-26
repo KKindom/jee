@@ -1,6 +1,6 @@
 server:
-  port: 8080
-  #port: 80
+  #port: 8080
+  port: 80
 
 spring:
   profiles:
@@ -12,6 +12,12 @@ spring:
   # 配置国际化资源文件
   messages:
     basename: i18n.logo
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 500MB
+
 
 # MyBatis配置
 mybatis:
@@ -34,3 +40,7 @@ pagehelper:
 COOKIE:
   # 设置cookie默认时长为30分钟
   VALIDITY: 1800
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true

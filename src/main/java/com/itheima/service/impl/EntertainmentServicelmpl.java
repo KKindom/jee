@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.itheima.dao.EntertainmentMapper;
 import com.itheima.dao.StatisticMapper;
 import com.itheima.model.domain.E_Video;
+import com.itheima.model.domain.E_type;
 import com.itheima.model.domain.Entertainment;
 import com.itheima.service.IEntertainmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 @Service
 @Transactional
@@ -70,7 +72,7 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
     }
     // 发布娱乐信息
     @Override
-    public void publish(Entertainment entertainment) {
+    public void publish_e(Entertainment entertainment) {
 
         // 插入我的娱乐，
         entertainmentMapper.publishEntertainment(entertainment);
@@ -86,8 +88,55 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
     public void deleteEntertainmentWithId(int id) {
         // 删除文章的同时，删除对应的缓存
         entertainmentMapper.deleteEntertainmentWithId(id);
-        entertainmentMapper.deleteE_VideoWithId(id);
+        entertainmentMapper.deleteE_VideolistWithe_Id(id);
         redisTemplate.delete("entertainment_" + id);
 
     }
+    //根据id删除我的娱乐视频
+    @Override
+    public void deleteE_videoWithId(int id) {
+        entertainmentMapper.deleteE_VideoWithId(id);
+        redisTemplate.delete("e_video_" + id);
+
+    }
+
+    //根据id查询我的娱乐视频
+    @Override
+    public E_Video selecte_videowithId(Integer id) {
+        E_Video e_video=null;
+        Object o=redisTemplate.opsForValue().get("e_video_"+id);
+        if(o!=null){
+            e_video=(E_Video) o;
+        }else{
+            e_video = entertainmentMapper.selectE_videotWithId(id);
+            if(e_video!=null){
+                redisTemplate.opsForValue().set("e_video" + id,e_video);
+            }
+        }
+        return e_video;
+    }
+    //根据e_id删除我的娱乐视频多个
+    @Override
+    public void deleteE_videolistWithe_Id(int id) {
+        entertainmentMapper.deleteE_VideolistWithe_Id(id);
+        redisTemplate.delete("e_video_" + id);
+    }
+    // 发布娱乐视频信息
+    @Override
+    public void publish_v(E_Video e_video) {
+        //拼接bilibili视频代码
+        String code=e_video.getCode();
+        code=code.replace("<iframe","<iframe  style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\"");
+        e_video.setCode(code);
+        e_video.setCreated(new Date());
+        //e_video.setEid(3);
+        System.out.println(e_video);
+        entertainmentMapper.publishE_Video(e_video);
+    }
+    //查找娱乐类型
+    @Override
+    public List<E_type> findtype() {
+        return entertainmentMapper.findE_Type();
+    }
+
 }
