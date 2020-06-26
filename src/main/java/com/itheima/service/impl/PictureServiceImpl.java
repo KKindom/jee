@@ -24,9 +24,7 @@ public class PictureServiceImpl implements IPictureService {
     @Override
     public PageInfo<Picture> selectPictureWithPage(Integer page, Integer count) {
         PageHelper.startPage(page, count);
-
-        List<Picture> pictureList=pictureMapper.listPicture();
-        // System.out.println(entertainmentList);
+        List<Picture> pictureList=pictureMapper.ALLlistPicture();
         PageInfo<Picture> pageInfo=new PageInfo<>(pictureList);
         System.out.println(pageInfo);
         return pageInfo;
@@ -48,7 +46,7 @@ public class PictureServiceImpl implements IPictureService {
         return picture;
     }
 
-    //获取所有图片信息
+    //获取登录用户所有图片信息
     @Override
     public List<Picture> getAll_Picture() {
         List<Picture> pictureList=pictureMapper.listPicture();
@@ -71,6 +69,8 @@ public class PictureServiceImpl implements IPictureService {
     //根据图片id删除图片
     @Override
     public void deletePictureWithId(int id) {
-
+        // 删除文章的同时，删除对应的缓存
+        pictureMapper.deletePicture(id);
+        redisTemplate.delete("picture_" + id);
     }
 }

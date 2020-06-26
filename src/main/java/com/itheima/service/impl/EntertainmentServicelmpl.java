@@ -90,7 +90,6 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
         entertainmentMapper.deleteEntertainmentWithId(id);
         entertainmentMapper.deleteE_VideolistWithe_Id(id);
         redisTemplate.delete("entertainment_" + id);
-
     }
     //根据id删除我的娱乐视频
     @Override

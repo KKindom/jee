@@ -6,30 +6,17 @@ import com.itheima.model.ResponseData.StaticticsBo;
 import com.itheima.model.domain.*;
 import com.itheima.service.IArticleService;
 import com.itheima.service.IEntertainmentService;
+import com.itheima.service.IPictureService;
 import com.itheima.service.ISiteService;
-import com.itheima.utils.FileUploadUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.coyote.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Classname AdminController
@@ -46,8 +33,10 @@ public class AdminController {
     private ISiteService siteServiceImpl;
     @Autowired
     private IArticleService articleServiceImpl;
-@Autowired
-private IEntertainmentService entertainmentServiceImpl;
+    @Autowired
+    private IEntertainmentService entertainmentServiceImpl;
+    @Autowired
+    private IPictureService pictureServiceImpl;
     // 管理中心起始页
     @GetMapping(value = {"", "/index"})
     public String index(HttpServletRequest request) {
@@ -229,11 +218,43 @@ private IEntertainmentService entertainmentServiceImpl;
     @ResponseBody
     public ArticleResponseData modifyE_V(E_Video e_video) {
         System.out.println(e_video);
- return ArticleResponseData.fail();
+        return ArticleResponseData.fail();
     }
-//关于后台管理功能处理
-//查询分页图片展示
 
-//
+    //收藏图片后台管理
+    // 跳转到后台收藏图片列表页面
+    @GetMapping(value = "/collect")
+    public String index_p(@RequestParam(value = "page", defaultValue = "1") int page,
+                          @RequestParam(value = "count", defaultValue = "6") int count,
+                          HttpServletRequest request) {
+        PageInfo<Picture> pageInfo = pictureServiceImpl.selectPictureWithPage(page,count);
+        request.setAttribute("pictures", pageInfo);
+        return "/back/collect_list";
+    }
+
+    // 向收藏基本信息修改页面跳转
+    @GetMapping(value = "/collect/{id}")
+    public String editCollect(@PathVariable("id") String id, HttpServletRequest request) {
+        Picture picture=pictureServiceImpl.selectPictureWithId(Integer.parseInt(id));
+        request.setAttribute("contents", picture);
+        request.setAttribute("flag",1);
+        return "back/collect_edit";
+    }
+
+    // 娱乐删除
+    @PostMapping(value = "/collect/delete")
+    @ResponseBody
+    public ArticleResponseData delete_collect(@RequestParam int id,@RequestParam int flag)
+    {
+            try {
+                pictureServiceImpl.deletePictureWithId(id);
+                logger.info("娱乐删除成功");
+                return ArticleResponseData.ok();
+            } catch (Exception e) {
+                logger.error("娱乐删除失败，错误信息: "+e.getMessage());
+                return ArticleResponseData.fail();
+            }
+
+    }
 }
 

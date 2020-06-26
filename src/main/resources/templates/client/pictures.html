@@ -10,26 +10,26 @@
     <link rel="stylesheet" href="/user/css/slicknav.min.css"/>
     <link rel="stylesheet" href="/user/css/magnific-popup.css"/>
     <link rel="stylesheet" href="/user/css/owl.carousel.min.css"/>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="/user/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="/user/css/jquery-ui.css">
+    <link rel="stylesheet" href="/user/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/user/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/user/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/user/css/aos.css">
+    <link rel="stylesheet" href="/user/css/fancybox.min.css">
+    <link rel="stylesheet" href="/user/css/style.css">
     <!-- Main Stylesheets -->
-    <link rel="stylesheet" href="/user/css/style.css"/>
 
 </head>
 <div th:replace="/client/header2::header(null,null)" />
+<br/>
+<br/>
+<br/>
+<br/>
 <body>
-<!-- Hero Section -->
-<section class="hero" style="background-color: whitesmoke">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 m-auto">
-                <h2>Hello！！</h2>
-                <h2>打造一个属于自己的相片空间吧！</h2>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Hero Section end -->
-
+<a  th:href="@{/collect_p/input}"><button type="button" class="btn  btn-primary waves-effect waves-light">上传图片</button></a>
 <!--文章分页显示-->
 <section class="s-content">
     <div class="row entries-wrap wide">
@@ -48,8 +48,8 @@
                             <a href="single-standard.html" th:text="${picture.picturetime}"></a>
                         </div>
                     </div>
-                </div> <!-- item-entry -->
-            </picture> <!-- end article -->
+                </div>
+            </picture>
 
         </div>
         <!-- 文章分页信息 -->
@@ -63,13 +63,6 @@
 </a>
 </body>
 <div th:replace="/client/footer_1::footer" />
-<!--====== Javascripts & Jquery ======-->
-<script src="/user/js/vendor/jquery-3.2.1.min.js"></script>
-<script src="/user/js/jquery.slicknav.min.js"></script>
-<script src="/user/js/jquery.magnific-popup.min.js"></script>
-<script src="/user/js/owl.carousel.min.js"></script>
-<script src="/user/js/mixitup.min.js"></script>
-<script src="/user/js/masonry.pkgd.min.js"></script>
-<script src="/user/js/main.js"></script>
+
 
 </html>

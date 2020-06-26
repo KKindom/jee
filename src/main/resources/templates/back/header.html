@@ -88,8 +88,9 @@
                        th:class="${active}=='publish_e'?'waves-effect active':'waves-effect'">
                         <i class="fa fa-comments" aria-hidden="true"></i><span> 创建娱乐 </span></a>
                 </li>
-                <li th:class="${active}=='category'?'active':''">
-                    <a th:class="${active}=='category'?'waves-effect active':'waves-effect'">
+                <li th:class="${active}=='collect'?'active':''">
+                    <a th:href="@{/admin/collect}"
+                       th:class="${active}=='collect'?'waves-effect active':'waves-effect'">
                         <i class="fa fa-tags" aria-hidden="true"></i><span> 收藏管理 </span></a>
                 </li>
                 <li th:class="${active}=='category'?'active':''">

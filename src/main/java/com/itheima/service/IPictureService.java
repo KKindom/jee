@@ -14,7 +14,7 @@ public interface IPictureService {
     // 根据图片id查询单个图片详情
     public Picture selectPictureWithId(Integer id);
 
-    //获取所有的视频信息
+    //获取所有的图片信息
     public List<Picture> getAll_Picture();
 
     // 上传图片

@@ -9,10 +9,13 @@ import java.util.List;
 @Mapper
 @Repository
 public interface PictureMapper {
-    //查询照片
+    //查询用户id照片
     @Select("select * from t_collect_picture where u_id = 1")
     public List<Picture> listPicture();
 
+    //查询所有用户照片
+    @Select("select * from t_collect_picture")
+    public List<Picture> ALLlistPicture();
     //添加图片
     @Insert("insert into t_collect_picture (u_id,pictureaddress,picturedescription,picturetime) values (#{u_id},#{pictureaddress},#{picturedescription},#{picturetime})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")

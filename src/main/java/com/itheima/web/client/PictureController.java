@@ -43,7 +43,7 @@ public class PictureController {
     }
 
     //    跳转新增页面
-    @GetMapping("/pictures/input")
+    @GetMapping("/collect_p/input")
     public String input(Model model) {
         model.addAttribute("picture", new Picture());
         return "client/pictures-input";
