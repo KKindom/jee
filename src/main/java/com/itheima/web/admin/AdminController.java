@@ -4,10 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.itheima.model.ResponseData.ArticleResponseData;
 import com.itheima.model.ResponseData.StaticticsBo;
 import com.itheima.model.domain.*;
-import com.itheima.service.IArticleService;
-import com.itheima.service.IEntertainmentService;
-import com.itheima.service.IPictureService;
-import com.itheima.service.ISiteService;
+import com.itheima.service.*;
 import com.itheima.utils.FileUploadUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -39,6 +36,8 @@ public class AdminController {
     private IArticleService articleServiceImpl;
     @Autowired
     private IPictureService pictureServiceImpl;
+    @Autowired
+    private IWebsiteService websiteService;
     @Autowired
     private IEntertainmentService entertainmentServiceImpl;
     int eid;
@@ -281,23 +280,39 @@ public class AdminController {
                           @RequestParam(value = "count", defaultValue = "6") int count,
                           HttpServletRequest request) {
         PageInfo<Picture> pageInfo = pictureServiceImpl.selectPictureWithPage(page,count);
+        PageInfo<Website> pageInfo1 = websiteService.selectWebsiteWithPage(page,count);
         request.setAttribute("pictures", pageInfo);
+        request.setAttribute("websites", pageInfo1);
         return "/back/collect_list";
     }
 
-    // 收藏删除
-    @PostMapping(value = "/collect/delete")
+    // 图片收藏删除
+    @PostMapping(value = "/collect/delete_p")
     @ResponseBody
-    public ArticleResponseData delete_collect(@RequestParam int id,@RequestParam int flag)
+    public ArticleResponseData delete_collect_p(@RequestParam int id,@RequestParam int flag)
     {
             try {
                 pictureServiceImpl.deletePictureWithId(id);
-                logger.info("娱乐删除成功");
+                logger.info("图片删除成功");
                 return ArticleResponseData.ok();
             } catch (Exception e) {
-                logger.error("娱乐删除失败，错误信息: "+e.getMessage());
+                logger.error("图片删除失败，错误信息: "+e.getMessage());
                 return ArticleResponseData.fail();
             }
+    }
+    // 网站收藏删除
+    @PostMapping(value = "/collect/delete_w")
+    @ResponseBody
+    public ArticleResponseData delete_collect_w(@RequestParam int id,@RequestParam int flag)
+    {
+        try {
+            websiteService.deleteWebsiteWithId(id);
+            logger.info("网站删除成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("网站删除失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
 
     }
     // 上传图片处理
@@ -340,14 +355,14 @@ public class AdminController {
         return "back/collect_p_edit";
     }
 
-    // 向文章发表页面跳转
+    // 向添加收藏图片页面跳转
     @GetMapping(value = "/collect/toEditPicture")
     public String new_collect_picture( HttpServletRequest request) {
         return "back/collect_p_edit";
     }
 
-    // 向文章发表页面跳转
-    @GetMapping(value = "/collect/toEditArticle")
+    // 向添加收藏网址页面跳转
+    @GetMapping(value = "/collect/toEditWeb")
     public String new_collect_article( HttpServletRequest request) {
         return "back/collect_a_edit";
     }

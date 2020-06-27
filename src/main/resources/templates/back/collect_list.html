@@ -12,10 +12,10 @@
     <div class="content-page">
         <div class="content">
             <div class="container">
-                <!--                我的收藏基本信息表-->
+                <!--                我的收藏图片基本信息表-->
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="page-title">我的收藏基本信息管理</h4>
+                        <h4 class="page-title">收藏图片基本信息管理</h4>
                     </div>
                     <div class="col-md-12">
                         <table class="table table-striped table-bordered">
@@ -53,7 +53,7 @@
                                         <a th:href="@{'/admin/collect/pid='+${picture.id}}"
                                            class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
                                             <i class="fa fa-edit"></i> <span>编辑</span></a>
-                                        <a href="javascript:void(0)" th:onclick="deleteE([[${picture.id}]],2);"
+                                        <a href="javascript:void(0)" th:onclick="deleteP([[${picture.id}]],2);"
                                            class="btn btn-danger btn-sm waves-effect waves-light m-b-5">
                                             <i class="fa fa-trash-o"></i> <span>删除</span></a>
                                         <a class="btn btn-warning btn-sm waves-effect waves-light m-b-5" href="javascript:void(0)">
@@ -67,6 +67,58 @@
                         <div th:replace="comm/paging :: pageAdminNav(${pictures})"></div>
                     </div>
                 </div>
+                <!--                我的收藏基本信息表-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="page-title">收藏网站基本信息管理</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户id</th>
+                                <th >网址</th>
+                                <th width="35%">网址描述</th>
+                                <th>收藏时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="website : ${websites.list}">
+                                <tr th:id="${website.id}">
+                                    <td>
+                                        <span th:text="${website.id}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${website.uid}"></span>
+                                    </td>
+                                    <td>
+                                        <a th:href="${website.address}" th:text="${website.address}"></a>
+                                        <!--                                    <a th:href="${picture.pictureaddress}" th:text="${picture.pictureaddress}" target="_blank"></a>-->
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${website.description}"/>
+                                    </td>
+                                    <td><th:block th:text="${website.date}"/></td>
+                                    <td>
+                                        <a th:href="@{'/admin/collect/wid='+${website.id}}"
+                                           class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
+                                            <i class="fa fa-edit"></i> <span>编辑</span></a>
+                                        <a href="javascript:void(0)" th:onclick="deleteW([[${website.id}]],2);"
+                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5">
+                                            <i class="fa fa-trash-o"></i> <span>删除</span></a>
+                                        <a class="btn btn-warning btn-sm waves-effect waves-light m-b-5" href="javascript:void(0)">
+                                            <i class="fa fa-rocket"></i> <span>预览</span></a>
+                                    </td>
+                                </tr>
+                            </th:block>
+
+                            </tbody>
+                        </table>
+                        <div th:replace="comm/paging :: pageAdminNav(${websites})"></div>
+                    </div>
+                </div>
                 <div th:replace="back/footer :: footer-content"></div>
             </div>
         </div>
@@ -74,14 +126,41 @@
 </div>
 <div th:replace="back/footer :: footer"></div>
 <script type="text/javascript">
-    function deleteE(id,flag) {
+    function deleteP(id,flag) {
         // 获取<meta>标签中封装的_csrf信息
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         if(confirm('确定删除这个图片吗?')){
             $.ajax({
                 type:'post',
-                url : '/admin/collect/delete',
+                url : '/admin/collect/delete_p',
+                data: {id:id,flag:flag},
+                dataType: 'json',
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (result) {
+                    if (result && result.success) {
+                        window.alert("图片删除成功");
+                        window.location.reload();
+                    } else {
+                        window.alert(result.msg || '图片删除失败')
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    function deleteW(id,flag) {
+        // 获取<meta>标签中封装的_csrf信息
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        if(confirm('确定删除这个网站吗?')){
+            $.ajax({
+                type:'post',
+                url : '/admin/collect/delete_w',
                 data: {id:id,flag:flag},
                 dataType: 'json',
                 beforeSend : function(xhr) {

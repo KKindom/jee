@@ -27,42 +27,28 @@
 <br/>
 <br/>
 <br/>
-<br/>
 <body>
-<a  th:href="@{/collect_p/input}"><button type="button" class="btn  btn-primary waves-effect waves-light">上传图片</button></a>
-<!--文章分页显示-->
 <section class="s-content">
     <div class="row entries-wrap wide">
         <div class="entries">
-            <picture class="col-block" th:each="picture: ${pictures.list}">
-                <div class="item-entry" data-aos="zoom-in">
-                    <div class="item-entry__thumb">
-                        <a  class="item-entry__thumb-link">
-                            <img th:src="${picture.pictureaddress}" style="height: 183px;width: 330px">
-                        </a>
-                    </div>
-                    <div class="item-entry__text">
-                        <h1 class="item-entry__title"><a style="color: #0f9ae0;font-size: 20px;" th:text="${picture.picturedescription}" /></h1>
-                        <p class="item-entry__date">收藏时间：</p>
-                        <div class="item-entry__date">
-                            <a href="single-standard.html" th:text="${picture.picturetime}"></a>
-                        </div>
-                    </div>
-                </div>
-            </picture>
-
-        </div>
-        <!-- 文章分页信息 -->
-        <div class="am-pagination">
-            <div th:replace="/comm/paging::pageNav_New3(${pictures},'上一页','下一页','p_page')" />
+        <website class="am-g blog-entry-article" th:each="website: ${websites.list}" style="display: flex; align-items: center;justify-content: center;">
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+                网址：<a style="color: #0f9ae0;font-size: 20px;" th:href="${website.address}" th:text="${website.address}" />
+                <div style="font-size: 16px;" th:text="${website.description}" />
+                <span style="font-size: 15px;" th:text="'收藏于： '+ ${website.date}" />
+            </div>
+        </website>
         </div>
     </div>
+    <!-- 文章分页信息 -->
+    <div class="am-pagination">
+        <div th:replace="/comm/paging::pageNav_New4(${websites},'上一页','下一页','page')" />
+    </div>
+</div>
 </section>
 <a class="btn btn-default" href="#" role="button" style="position:fixed;right:0;bottom:0">
     回到顶部
 </a>
 </body>
 <div th:replace="/client/footer_1::footer" />
-
-
 </html>
