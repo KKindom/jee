@@ -232,16 +232,7 @@ public class AdminController {
         return "/back/collect_list";
     }
 
-    // 向收藏基本信息修改页面跳转
-    @GetMapping(value = "/collect/{id}")
-    public String editCollect(@PathVariable("id") String id, HttpServletRequest request) {
-        Picture picture=pictureServiceImpl.selectPictureWithId(Integer.parseInt(id));
-        request.setAttribute("contents", picture);
-        request.setAttribute("flag",1);
-        return "back/collect_edit";
-    }
-
-    // 娱乐删除
+    // 收藏删除
     @PostMapping(value = "/collect/delete")
     @ResponseBody
     public ArticleResponseData delete_collect(@RequestParam int id,@RequestParam int flag)
@@ -255,6 +246,26 @@ public class AdminController {
                 return ArticleResponseData.fail();
             }
 
+    }
+
+    // 向收藏图片基本信息修改页面跳转
+    @GetMapping(value = "/collect/pid={id}")
+    public String editCollectPicture(@PathVariable("id") String id, HttpServletRequest request) {
+        Picture picture=pictureServiceImpl.selectPictureWithId(Integer.parseInt(id));
+        request.setAttribute("contents", picture);
+        return "back/collect_p_edit";
+    }
+
+    // 向文章发表页面跳转
+    @GetMapping(value = "/collect/toEditPicture")
+    public String new_collect_picture( HttpServletRequest request) {
+        return "back/collect_p_edit";
+    }
+
+    // 向文章发表页面跳转
+    @GetMapping(value = "/collect/toEditArticle")
+    public String new_collect_article( HttpServletRequest request) {
+        return "back/collect_a_edit";
     }
 }
 

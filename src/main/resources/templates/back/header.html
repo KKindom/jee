@@ -93,12 +93,14 @@
                        th:class="${active}=='collect'?'waves-effect active':'waves-effect'">
                         <i class="fa fa-tags" aria-hidden="true"></i><span> 收藏管理 </span></a>
                 </li>
-                <li th:class="${active}=='category'?'active':''">
-                    <a th:class="${active}=='category'?'waves-effect active':'waves-effect'">
-                        <i class="fa fa-tags" aria-hidden="true"></i><span> 添加收藏文章 </span></a>
+                <li th:class="${active}=='collect_a'?'active':''">
+                    <a th:href="@{/admin/collect/toEditArticle}"
+                       th:class="${active}=='collect_a'?'waves-effect active':'waves-effect'">
+                        <i class="fa fa-tags" aria-hidden="true"></i><span> 添加收藏网站 </span></a>
                 </li>
-                <li th:class="${active}=='category'?'active':''">
-                    <a th:class="${active}=='category'?'waves-effect active':'waves-effect'">
+                <li th:class="${active}=='collect_p'?'active':''">
+                    <a th:href="@{/admin/collect/toEditPicture}"
+                       th:class="${active}=='collect_p'?'waves-effect active':'waves-effect'">
                         <i class="fa fa-tags" aria-hidden="true"></i><span> 添加收藏图片 </span></a>
                 </li>
                 <li th:class="${active}=='setting'?'active':''">

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='上传新的图片',active='collect_a'">
+<header th:replace="back/header::headerFragment(${title},${active})"></header>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body class="fixed-left" >
+<div id="wrapper">
+    <div th:replace="back/header::header-body"></div>
+    文章收藏
+    <div th:replace="back/footer :: footer-content"></div>
+</div>
+<div th:replace="back/footer :: footer"></div>
+</body>
+</html>

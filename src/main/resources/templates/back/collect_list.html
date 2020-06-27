@@ -36,7 +36,7 @@
                                         <span th:text="${picture.id}"></span>
                                     </td>
                                     <td>
-                                        <span th:text="${picture.u_id}"></span>
+                                        <span th:text="${picture.uid}"></span>
                                     </td>
                                     <td>
                                         <img th:src="${picture.pictureaddress}" style="width: 200px;height: 100px">
@@ -50,7 +50,7 @@
                                     </td>
                                     <td><th:block th:text="${picture.picturetime}"/></td>
                                     <td>
-                                        <a th:href="@{'/admin/collect/'+${picture.id}}"
+                                        <a th:href="@{'/admin/collect/pid='+${picture.id}}"
                                            class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
                                             <i class="fa fa-edit"></i> <span>编辑</span></a>
                                         <a href="javascript:void(0)" th:onclick="deleteE([[${picture.id}]],2);"
@@ -67,8 +67,9 @@
                         <div th:replace="comm/paging :: pageAdminNav(${pictures})"></div>
                     </div>
                 </div>
-
-    <div th:replace="back/footer :: footer-content"></div>
+                <div th:replace="back/footer :: footer-content"></div>
+            </div>
+        </div>
     </div>
 </div>
 <div th:replace="back/footer :: footer"></div>

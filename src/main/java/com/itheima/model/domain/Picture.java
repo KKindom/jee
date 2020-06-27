@@ -2,7 +2,7 @@ package com.itheima.model.domain;
 
 public class Picture {
     Integer id;
-    Integer u_id;
+    Integer uid;
     String pictureaddress;
     String picturedescription;
     String picturetime;
@@ -15,12 +15,12 @@ public class Picture {
         this.id = id;
     }
 
-    public Integer getU_id() {
-        return u_id;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setU_id(Integer u_id) {
-        this.u_id = u_id;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public String getPictureaddress() {
@@ -51,7 +51,7 @@ public class Picture {
     public String toString() {
         return "Picture{" +
                 "id=" + id +
-                ", u_id=" + u_id +
+                ", uid=" + uid +
                 ", pictureaddress='" + pictureaddress + '\'' +
                 ", picturedescription='" + picturedescription + '\'' +
                 ", picturetime='" + picturetime + '\'' +

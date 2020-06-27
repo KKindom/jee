@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='上传新的图片',active='collect_p'">
+<header th:replace="back/header::headerFragment(${title},${active})"></header>
+<link th:href="@{/back/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/toggles/toggles.css}" rel="stylesheet"/>
+
+<link th:href="@{/back/plugins/mditor/css/mditor.min.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.css}" rel="stylesheet">
+<style>
+    #tags_tagsinput {
+        background-color: #fafafa;
+        border: 1px solid #eeeeee;
+    }
+
+    #tags_addTag input {
+        width: 100%;
+    }
+
+    #tags_addTag {
+        margin-top: -5px;
+    }
+
+    .mditor .editor{
+        font-size: 14px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    .mditor .backdrop, .mditor .textarea, .mditor .viewer{
+        font-size: 14px;
+    }
+    .markdown-body{
+        font-size: 14px;
+    }
+    .note-toolbar {
+        text-align: center;
+    }
+
+    .note-editor.note-frame {
+        border: none;
+    }
+
+    .note-editor .note-toolbar {
+        background-color: #f5f5f5;
+        padding-bottom: 10px;
+    }
+
+    .note-toolbar .note-btn-group {
+        margin: 0;
+    }
+
+    .note-toolbar .note-btn {
+        border: none;
+    }
+
+    #articleForm #dropzone {
+        min-height: 200px;
+        background-color: #dbdde0;
+        line-height:200px;
+        margin-bottom: 10px;
+    }
+    #articleForm .dropzone {
+        border: 1px dashed #8662c6;
+        border-radius: 5px;
+        background: white;
+    }
+    #articleForm .dropzone .dz-message {
+        font-weight: 400;
+    }
+    #articleForm .dropzone .dz-message .note {
+        font-size: 0.8em;
+        font-weight: 200;
+        display: block;
+        margin-top: 1.4rem;
+    }
+</style>
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body class="fixed-left" >
+<div id="wrapper">
+    <div th:replace="back/header::header-body"></div>
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div id="picture">
+                        <div class="col-sm-12">
+                            <h4 class="page-title">
+                                <th:block th:if="${null != contents}">
+                                    编辑收藏图片信息
+                                </th:block>
+                                <th:block th:unless="${null != contents}">
+                                    新建收藏图片
+                                </th:block>
+                            </h4>
+                        </div>
+                        <div class="col-md-12" id="PictureForm">
+                            <form class="form-horizontal">
+                                <input type="hidden" name="id"
+                                       th:value="${contents!=null and contents.uid!=null}?${contents.uid}: ''" id="id"/>
+                                <fieldset class="col-md-12">
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="textinput">官网</label>
+                                        <div class="col-md-4">
+                                            <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.pictureaddress !=null}?${contents.address}: ''">
+                                            <span class="help-block">输入娱乐或运动有兴趣的网址</span>
+                                        </div>
+                                    </div>
+                                    <!-- Textarea -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="textarea">简介</label>
+                                        <div class="col-md-4">
+                                            <textarea class="form-control" id="textarea" name="textarea" th:text="${contents!=null and contents.picturedescription !=null}?${contents.picturedescription}: ''"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- File Button -->
+                                    <form id="tf">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="filebutton">图片</label>
+                                            <div class="col-md-4">
+                                                <img id="headPic" th:src="${contents!=null and contents.pictureaddress !=null}?${contents.pictureaddress}: ''"  width="150px" height="150px" style="padding: 5px">
+                                                <input id="upload" name="file" accept="image/*" type="file" style="display: none"/>
+                                                <button id="submit_btn" type="button" >上传图片测试</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </fieldset>
+                                <div class="text-right">
+                                    <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/collect}">返回列表</a>
+                                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subArticle('publish');">
+                                        提交娱乐基本信息
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div th:replace="back/footer :: footer-content"></div>
+            </div>
+        </div>
+    </div></div>
+</div>
+<div th:replace="back/footer :: footer"></div>
+
+<script th:src="@{/back/plugins/tagsinput/jquery.tagsinput.min.js}"></script>
+<script th:src="@{/back/plugins/jquery-multi-select/jquery.quicksearch.js}"></script>
+<script th:src="@{/back/plugins/multi-select/0.9.12/js/jquery.multi-select.min.js}"></script>
+<script th:src="@{/back/plugins/select2/3.4.8/select2.min.js}"></script>
+<script th:src="@{//cdn.bootcss.com/jquery-toggles/2.0.4/toggles.min.js}"></script>
+<script th:src="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.js}"></script>
+<script th:src="@{/user/add_static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/user/add_static/js/ent_js/ajaxfileupload.js}"></script>
+<script th:src="@{/back/js/base.js}"></script>
+<script th:src="@{/back/js/entertainment.js}"></script>
+<script type="text/javascript" script th:inline="javascript">
+    var flag=[[${flag}]];
+    if(flag!=1&&flag!=2)
+    {
+        flag=3;
+    }
+    console.log(flag);
+    var testdiv ;
+    window.onload =function() {
+        testdiv = document.getElementById("video");
+    };
+
+    //查看类型是否传过来了
+    var type_e=[[${e_type}]];
+    console.log(type_e);
+
+    //根据是修改还是新建显示不同模块
+    $(function(){
+        if(flag==2)
+        {
+            $("#ent").css("display","none");
+        }
+        if(flag==1)
+        {
+            $("#ent_v").css("display","none");
+        }
+        if(flag==3)
+        {
+
+        }
+        console.log(flag);
+    });
+
+    //建立一個可存取到該file的url
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+
+    //预览图片
+    $(function() {
+        //头像预览
+        $("#headPic").click(function () {
+            $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+            $("#upload").on("change", function () {
+                var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+                if (objUrl) {
+                    $("#headPic").attr("src", objUrl); //将图片路径存入src中，显示出图片
+                }
+            });
+        });
+    });
+    $("#selectmultiple").click(function () {
+        var count = $("#selectmultiple option").length;
+        for ( var i = 0; i < count; i++) {
+            if ($("#selectmultiple ").get(0).options[i].selected == true) {
+                var value=$("#selectmultiple").val();
+
+                var add="<input type=\"hidden\" name=\"eid\"  value='"+value+"' />";
+                $('#se').append(add);
+                console.log($("#selectmultiple").val())
+                break;
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
