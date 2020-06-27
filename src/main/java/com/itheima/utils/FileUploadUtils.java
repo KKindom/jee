@@ -20,7 +20,7 @@ public class FileUploadUtils {
      * @return AttachFile文件对象
      * @throws Exception
      */
-    public static AttachFile upload(String uploadDir, MultipartFile file) throws IOException {
+    public static AttachFile upload(String uploadDir, MultipartFile file,int id) throws IOException {
         //获取文件保存路径
     File dir=new File(uploadDir);
     if(!dir.exists())
@@ -28,7 +28,7 @@ public class FileUploadUtils {
         dir.mkdirs();
     }
     AttachFile attachFile=null;
-    String filename=System.nanoTime()+"_"+UUID.randomUUID().toString()+"_"+file.getOriginalFilename();
+    String filename=""+id+".jpg";
     if(!file.isEmpty())
     {
         attachFile =new AttachFile();

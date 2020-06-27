@@ -25,6 +25,7 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
     private RedisTemplate redisTemplate;
     @Autowired
     private EntertainmentMapper entertainmentMapper;
+    int e_id;
 //获得数据库所有视频
     @Override
     public List<E_Video> getAll_Video() {
@@ -72,10 +73,15 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
     }
     // 发布娱乐信息
     @Override
-    public void publish_e(Entertainment entertainment) {
+    public int publish_e(Entertainment entertainment) {
 
         // 插入我的娱乐，
-        entertainmentMapper.publishEntertainment(entertainment);
+      entertainmentMapper.publishEntertainment(entertainment);
+        String picture="/entertainment_img/game/"+entertainment.getEid()+".jpg";
+        int id=entertainment.getEid();
+        entertainmentMapper.updataE_pic(picture,id);
+                System.out.println(entertainment);
+                return id;
     }
     // 根据主键更新娱乐
     @Override
@@ -138,5 +144,10 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
     public List<E_type> findtype() {
         return entertainmentMapper.findE_Type();
     }
-
+    //根据主键更新视频信息
+    @Override
+    public void updateE_vWithId(E_Video e_video) {
+        entertainmentMapper.updataE_vWithId(e_video);
+        redisTemplate.delete("E_video" + e_video.getId());
+    }
 }

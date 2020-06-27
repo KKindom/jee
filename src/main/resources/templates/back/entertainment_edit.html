@@ -97,7 +97,7 @@
                         </h4>
                     </div>
                     <div class="col-md-12" id="EntertainmentForm">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" id="E_form">
                         <input type="hidden" name="id"
                                th:value="${contents!=null and contents.eid!=null}?${contents.eid}: ''" id="id"/>
                         <fieldset class="col-md-12">
@@ -105,7 +105,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">娱乐名称</label>
                                 <div class="col-md-4">
-                                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.name !=null}?${contents.name}: ''">
+                                    <input id="name" name="name" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.name !=null}?${contents.name}: ''">
                                     <span class="help-block">输入你想要的游戏或者运动名称</span>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">官网</label>
                                 <div class="col-md-4">
-                                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
+                                    <input id="address" name="address" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
                                     <span class="help-block">输入娱乐或运动有兴趣的网址</span>
                                 </div>
                             </div>
@@ -123,12 +123,14 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textarea">简介</label>
                                 <div class="col-md-4">
-                                    <textarea class="form-control" id="textarea" name="textarea" th:text="${contents!=null and contents.title !=null}?${contents.title}: ''"></textarea>
+                                    <textarea class="form-control" id="title" name="title" th:text="${contents!=null and contents.title !=null}?${contents.title}: ''"></textarea>
                                 </div>
                             </div>
-
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             <!-- File Button -->
-                            <form id="tf">
+                            <input type="hidden" name="picture" th:value="${contents!=null and contents.picture !=null}?${contents.picture}: ''"/>
+                            <input type="hidden" name="eid" th:value="${contents!=null and contents.eid !=null}?${contents.eid}: ''"/>
+                            <input type="hidden" name="uid" th:value="${contents!=null and contents.uid !=null}?${contents.uid}: ''"/>
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="filebutton">封面图</label>
                                 <div class="col-md-4">
@@ -137,11 +139,11 @@
                                     <button id="submit_btn" type="button" >上传图片测试</button>
                                 </div>
                             </div>
-                            </form>
+
                         </fieldset>
                         <div class="text-right">
                             <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/article}">返回列表</a>
-                            <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subArticle('publish');">
+                            <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subEntertainment('publish');">
                                 提交娱乐基本信息
                             </button>
                         </div>
@@ -217,7 +219,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="textarea">输入视频代码</label>
                                     <div class="col-md-4">
-                                        <textarea class="form-control" id="textarea_v" name="code" th:text="${contents_v!=null and contents_v.code !=null}?${contents_v.code}: ''">default text</textarea>
+                                        <textarea class="form-control" id="textarea_v" name="code" th:text="${contents_v!=null and contents_v.code !=null}?${contents_v.code}: ''"></textarea>
                                     </div>
                                     <input type="button" id="btn1" value="预览视频">
                                     <br>
@@ -270,6 +272,8 @@
 <script th:src="@{/back/js/entertainment.js}"></script>
 <script type="text/javascript" script th:inline="javascript">
     var flag=[[${flag}]];
+    var flag2  = [[${contents.picture}]];
+    console.log(flag2);
     if(flag!=1&&flag!=2)
     {
         flag=3;
@@ -358,6 +362,8 @@
             }
         }
     });
+
+
 
 </script>
 </body>

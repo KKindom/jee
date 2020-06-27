@@ -22,7 +22,7 @@ public interface IEntertainmentService {
     public Entertainment selectEntertainmentWithId(Integer id);
 
     // 发布娱乐信息
-    public void publish_e(Entertainment entertainment);
+    public int publish_e(Entertainment entertainment);
 
     // 发布娱乐视频信息
     public void publish_v(E_Video e_video);
@@ -31,7 +31,8 @@ public interface IEntertainmentService {
 
     // 根据主键更新娱乐
     public void updateEntertainmentWithId(Entertainment entertainment);
-
+//根据主键更新视频信息
+    public void updateE_vWithId(E_Video e_video);
     // 根据主键删除娱乐
     public void deleteEntertainmentWithId(int id);
 //根据id查询我的娱乐视频
