@@ -26,9 +26,9 @@ public interface EntertainmentMapper
     public List<E_Video> selectAll_E_video();
 
     // 发表我的娱乐基本信息，同时使用@Options注解获取自动生成的主键id
-    @Insert("INSERT INTO t_ent (u_id,e_title,picture,address,name)" +
-            " VALUES (#{id}, #{title}, #{picture}, #{address},#{name})")
-    @Options(useGeneratedKeys=true, keyProperty="e_id", keyColumn="e_id")
+    @Insert("INSERT INTO t_ent (u_id,title,picture,address,name)" +
+            " VALUES (#{uid}, #{title}, #{picture}, #{address},#{name})")
+    @Options(useGeneratedKeys=true, keyProperty="eid", keyColumn="e_id")
     public Integer publishEntertainment(Entertainment entertainment);
 
     //发表我的娱乐视频
@@ -61,6 +61,16 @@ public interface EntertainmentMapper
 
     // 通过id更新娱乐信息
     public Integer updateEntertainmentWithId(Entertainment entertainment);
+
+    //根据id更新视频信息
+    public Integer updataE_vWithId(E_Video e_video);
+
+
+    //根据自增字段添加相应图片
+    @Update("update t_ent set picture=#{picture} where e_id=#{id} ")
+    public  Integer updataE_pic(String picture,Integer id);
+
+
 
     //查询娱乐表中所有类别
     @Select("SELECT e_id,name FROM t_ent")

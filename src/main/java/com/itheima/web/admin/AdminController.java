@@ -34,9 +34,10 @@ public class AdminController {
     @Autowired
     private IArticleService articleServiceImpl;
     @Autowired
-    private IEntertainmentService entertainmentServiceImpl;
-    @Autowired
     private IPictureService pictureServiceImpl;
+    @Autowired
+    private IEntertainmentService entertainmentServiceImpl;
+    int eid;
     // 管理中心起始页
     @GetMapping(value = {"", "/index"})
     public String index(HttpServletRequest request) {
@@ -157,6 +158,9 @@ public class AdminController {
         System.out.println(e_typeList);
        E_Video e_video=entertainmentServiceImpl.selecte_videowithId(Integer.parseInt(id));
         request.setAttribute("contents_v", e_video);
+        Entertainment entertainment=new Entertainment();
+        System.out.println(entertainment);
+        request.setAttribute("contents", entertainment);
         request.setAttribute("flag",2);
         return "back/entertainment_edit";
     }
@@ -190,15 +194,17 @@ public class AdminController {
         }
 
     }
-    // 向文章发表页面跳转
+    // 向视频发表页面跳转
     @GetMapping(value = "/entertainment/toEditPage")
     public String new_entertainment( HttpServletRequest request) {
         List<E_type> e_typeList=entertainmentServiceImpl.findtype();
+        Entertainment entertainment=new Entertainment();
+        request.setAttribute("contents", entertainment);
         request.setAttribute("e_type",e_typeList);
         return "back/entertainment_edit";
     }
 
-
+//视频新发布
     @PostMapping(value = "/entertainment_v/publish" ,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public ArticleResponseData publishE_V(E_Video e_video) {
@@ -213,11 +219,55 @@ public class AdminController {
             return ArticleResponseData.fail();
         }
     }
-    // 文章修改处理
+    // 视频修改处理
     @PostMapping(value = "/entertainment_v/modify")
     @ResponseBody
-    public ArticleResponseData modifyE_V(E_Video e_video) {
+    public ArticleResponseData modifyE_V(E_Video e_video)
+    {
+
         System.out.println(e_video);
+        try {
+            entertainmentServiceImpl.updateE_vWithId(e_video);
+            logger.info("视频修改成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("文章修改失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
+    }
+    //发布新的娱乐类型
+    @PostMapping(value = "/entertainment/publish" ,produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public ArticleResponseData publishentertainment(Entertainment entertainment) {
+        entertainment.setUid(1);
+        System.out.println(entertainment);
+        try {
+          eid= entertainmentServiceImpl.publish_e(entertainment);
+            logger.info("娱乐发布成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("娱乐发布失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
+    }
+    // 修改娱乐类型
+    @PostMapping(value = "/entertainment/modify")
+    @ResponseBody
+    public ArticleResponseData modifyentertainment(Entertainment entertainment)
+    {
+        //entertainment.setUid(1);
+        eid=entertainment.getEid();
+        entertainment.setPicture("/entertainment_img/game/"+eid+".jpg");
+        System.out.println(entertainment);
+        System.out.println("拿到的数据");
+        try {
+            entertainmentServiceImpl.updateEntertainmentWithId(entertainment);
+            logger.info("视频修改成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("文章修改失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
         return ArticleResponseData.fail();
     }
 
@@ -247,6 +297,37 @@ public class AdminController {
             }
 
     }
+    // 上传图片处理
+    @PostMapping(value = "/upload")
+    @ResponseBody
+    public ArticleResponseData ajaxUploadFile(HttpServletRequest request,
+                                              @RequestParam MultipartFile file)
+    {
+        Map<String,Object> map=new HashMap<>();
+//修改这里字段 改成到你的绝对路径 到 blog_system/src/main/resources/static/entertainment_img/game/
+        String uploadDir="E:/新建文件夹/Spring Boot配套源代码 (1)/Spring Boot配套源代码/blog_system/src/main/resources/static/entertainment_img/game/";
+        System.out.println("得到的id"+eid);
+        try{
+            attachFile=FileUploadUtils.upload(uploadDir,file,eid);
+            return ArticleResponseData.ok();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            map.put("msg","fail");
+            return ArticleResponseData.fail();
+        }
+
+    }
+    //测试请求
+    @GetMapping(value = "/upload")
+    @ResponseBody
+    public  String ajaxget()
+    {
+        return "fuckyou!";
+    }
+//关于后台管理功能处理
+//查询分页图片展示
 
     // 向收藏图片基本信息修改页面跳转
     @GetMapping(value = "/collect/pid={id}")

@@ -3,8 +3,10 @@ package com.itheima.web.client;
 import com.github.pagehelper.PageInfo;
 import com.itheima.model.domain.Article;
 import com.itheima.model.domain.Comment;
+import com.itheima.model.domain.E_type;
 import com.itheima.service.IArticleService;
 import com.itheima.service.ICommentService;
+import com.itheima.service.IEntertainmentService;
 import com.itheima.service.ISiteService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -39,6 +41,9 @@ public class IndexController {
     @Autowired
     private ISiteService siteServiceImpl;
 
+
+    @Autowired
+    IEntertainmentService entertainmentServiceImpl;
     // 博客首页，会自动跳转到文章页
     @GetMapping(value = "/")
     private String index(HttpServletRequest request) {
@@ -53,6 +58,11 @@ public class IndexController {
         List<Article> articleList = articleServiceImpl.getHeatArticles();
         request.setAttribute("articles", articles);
         request.setAttribute("articleList", articleList);
+
+
+
+        List<E_type> e_typeList=entertainmentServiceImpl.findtype();
+        System.out.println(e_typeList);
         logger.info("分页获取文章信息: 页码 "+page+",条数 "+count);
         return "client/index_1";
     }

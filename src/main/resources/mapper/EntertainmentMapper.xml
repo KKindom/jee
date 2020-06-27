@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.EntertainmentMapper">
+    <update id="updataE_vWithId" parameterType="E_Video">
+update t_video
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="created != null">
+                created = #{created},
+            </if>
+            <if test="eid != null">
+                e_id = #{eid},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+<update id="updateEntertainmentWithId" parameterType="Entertainment">
+    update t_ent
+    <set>
+        <if test="uid != null">
+            u_id = #{uid},
+        </if>
+        <if test="title != null">
+            title = #{title},
+        </if>
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="picture != null">
+            picture = #{picture},
+        </if>
+        <if test="address != null">
+            address = #{address},
+        </if>
+    </set>
+    where e_id = #{eid}
+</update>
+</mapper>
