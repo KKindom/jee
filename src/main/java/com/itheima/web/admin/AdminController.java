@@ -8,15 +8,19 @@ import com.itheima.service.IArticleService;
 import com.itheima.service.IEntertainmentService;
 import com.itheima.service.IPictureService;
 import com.itheima.service.ISiteService;
+import com.itheima.utils.FileUploadUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname AdminController
@@ -268,7 +272,6 @@ public class AdminController {
             logger.error("文章修改失败，错误信息: "+e.getMessage());
             return ArticleResponseData.fail();
         }
-        return ArticleResponseData.fail();
     }
 
     //收藏图片后台管理
@@ -308,7 +311,7 @@ public class AdminController {
         String uploadDir="E:/新建文件夹/Spring Boot配套源代码 (1)/Spring Boot配套源代码/blog_system/src/main/resources/static/entertainment_img/game/";
         System.out.println("得到的id"+eid);
         try{
-            attachFile=FileUploadUtils.upload(uploadDir,file,eid);
+            attachFile= FileUploadUtils.upload(uploadDir,file,eid);
             return ArticleResponseData.ok();
         }
         catch (Exception e)
