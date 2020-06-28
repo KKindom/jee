@@ -40,6 +40,6 @@ public interface ArticleMapper {
     public Integer updateArticleWithId(Article article);
 
     //模糊查询文章
-    @Select("SELECT * FROM t_article WHERE title LIKE'% ${con}%' OR content LIKE '% ${con}%'")
+    @Select("SELECT * FROM t_article WHERE title LIKE'%${con}%' OR content LIKE '%${con}%'")
     public List<Article> select_content_withAll(@Param("con") String con);
 }

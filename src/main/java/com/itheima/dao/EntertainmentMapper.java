@@ -76,4 +76,9 @@ public interface EntertainmentMapper
     @Select("SELECT e_id,name FROM t_ent")
     public List<E_type> findE_Type();
 
+
+    //模糊查询娱乐
+    @Select("SELECT * FROM t_ent WHERE title LIKE '%${con}%' OR name LIKE '%${con}%'")
+    public List<Entertainment> select_content_withAll(@Param("con") String con);
+
 }

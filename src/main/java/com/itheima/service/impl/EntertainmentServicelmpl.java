@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -148,5 +149,25 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
     public void updateE_vWithId(E_Video e_video) {
         entertainmentMapper.updataE_vWithId(e_video);
         redisTemplate.delete("E_video" + e_video.getId());
+    }
+
+    //根据内容模糊查询娱乐并返回列表
+    @Override
+    public PageInfo<Entertainment> select_content_withAll_e(String con) {
+        PageHelper.startPage(1, 8);
+        List<Entertainment> entertainmentList=entertainmentMapper.select_content_withAll(con);
+        // System.out.println(entertainmentList);
+        PageInfo<Entertainment> pageInfo=new PageInfo<>(entertainmentList);
+        System.out.println(pageInfo);
+        return pageInfo;
+    }
+//根据模糊查询的娱乐项查找拼接相关娱乐视频
+    @Override
+    public List<E_Video> select_e_v(List<Entertainment> entertainments)
+    {List<E_Video> e_videoList=new ArrayList<>() ;
+        for (Entertainment entertainment : entertainments) {
+            e_videoList.addAll(entertainmentMapper.selectEnt_VideoWithId(entertainment.getEid()));
+        }
+        return e_videoList;
     }
 }

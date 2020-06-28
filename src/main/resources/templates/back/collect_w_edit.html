@@ -79,7 +79,9 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script th:src="@{/user/add_static/js/jquery-3.2.1.min.js}"></script>
     <script th:src="@{/back/js/base.js}"></script>
+    <script th:src="@{/back/js/entertainment.js}"></script>
 </head>
 <body class="fixed-left" >
 <div id="wrapper">
@@ -102,20 +104,20 @@
                         <div class="col-md-12" id="WebsiteForm">
                             <form class="form-horizontal" id="W_from">
                                 <input type="hidden" name="id"
-                                       th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="id"/>
+                                       th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="w_id"/>
                                 <fieldset class="col-md-12">
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="address">网址</label>
                                         <div class="col-md-4">
-                                            <input id="address" name="address" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
+                                            <input id="address_w" name="address" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
                                         </div>
                                     </div>
                                     <!-- Textarea -->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="description">简介</label>
                                         <div class="col-md-4">
-                                            <textarea  style="margin: 0px -2.0125px 0px 0px; height: 247px;" class="form-control" id="description" name="description" th:text="${contents!=null and contents.description !=null}?${contents.description}: ''"></textarea>
+                                            <textarea  style="margin: 0px -2.0125px 0px 0px; height: 247px;" class="form-control" id="description_w" name="description" th:text="${contents!=null and contents.description !=null}?${contents.description}: ''"></textarea>
                                         </div>
                                     </div>
                                     <!-- File Button -->
@@ -149,10 +151,12 @@
         });
 
     });
-    var tale = new $.tale();
+
     function subWebsite(status) {
-        var params = $("#W_form").serialize();
+        var tale = new $.tale();
+        var params = $("#W_from").serialize();
         console.log(params);
+        console.log($("#id").val());
         var url = $('#W_form #id').val() != '' ? '/admin/collect/modify_w' : '/admin/collect/publish_w';
         console.log(url)
         tale.post({
@@ -164,7 +168,7 @@
                         text:'网站信息保存成功',
                         then: function () {
                             setTimeout(function () {
-                                window.location.href = '/admin/collect_w';
+                                window.location.href = '/admin/collect';
                             }, 500);
                         }
                     });

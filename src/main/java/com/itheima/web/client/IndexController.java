@@ -1,6 +1,7 @@
 package com.itheima.web.client;
 
 import com.github.pagehelper.PageInfo;
+import com.itheima.dao.EntertainmentMapper;
 import com.itheima.model.domain.*;
 import com.itheima.service.IArticleService;
 import com.itheima.service.ICommentService;
@@ -39,9 +40,11 @@ public class IndexController {
     @Autowired
     private ISiteService siteServiceImpl;
 
+    @Autowired
+   private IEntertainmentService entertainmentServiceImpl;
 
     @Autowired
-    IEntertainmentService entertainmentServiceImpl;
+    private EntertainmentMapper entertainmentMapper;
     // 博客首页，会自动跳转到文章页
     @GetMapping(value = "/")
     private String index(HttpServletRequest request) {
@@ -115,20 +118,29 @@ public class IndexController {
                     // 获取文章热度统计信息
                     List<Article> articleList = articleServiceImpl.getHeatArticles();
                     request.setAttribute("articleList", articleList);
-                    List<E_type> e_typeList=entertainmentServiceImpl.findtype();
-                    System.out.println(e_typeList);
+                   // List<E_type> e_typeList=entertainmentServiceImpl.findtype();
+                    //System.out.println(e_typeList);
                     return "client/index_1";
                 }
-                //type=3为娱乐基本信息
+                //type=3为前台查询娱乐基本信息
                 else if(type==3)
-        {
+        {//获取分页
+            PageInfo<Entertainment> entertainmentList = entertainmentServiceImpl.select_content_withAll_e(con);
+            List<Entertainment> entertainmentList1= entertainmentMapper.select_content_withAll(con);
+            // 获取所以视频信息
+            List<E_Video> e_videoList = entertainmentServiceImpl.select_e_v(entertainmentList1);
+            System.out.println(entertainmentList1);
+            request.setAttribute("entertainers", entertainmentList);
+            request.setAttribute("e_videoList", e_videoList);
+            return "client/ENT_Details";
 
         }
-                //type=4为视频信息
+                //type=4为后台查询娱乐信息
                 else if(type==4)
         {
 
         }
+        //type=5为后台查询娱乐视频信息
                 else if(type==5)
         {
 

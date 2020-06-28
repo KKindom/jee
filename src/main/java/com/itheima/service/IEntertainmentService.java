@@ -45,4 +45,11 @@ public interface IEntertainmentService {
 
     //查找娱乐类型
     public List<E_type> findtype();
+
+
+    //根据内容模糊查询娱乐并返回列表
+    public PageInfo<Entertainment> select_content_withAll_e(String con);
+
+    //根据娱乐内容查找相关视频并返回列表或单个值
+    public List<E_Video> select_e_v(List<Entertainment> entertainments);
 }

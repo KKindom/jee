@@ -84,6 +84,11 @@
 
 
   <script type="text/javascript" script th:inline="javascript">
+
+      $("input[name='type']").attr("value","3");
+
+      console.log($("input[name='type']").val());
+
       var btn = document.getElementById("btn");
       var data=[[${e_videoList}]];
       var data2=[[${entertainers}]].list;
