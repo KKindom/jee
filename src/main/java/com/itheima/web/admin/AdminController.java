@@ -273,6 +273,35 @@ public class AdminController {
         }
     }
 
+    // 上传图片处理
+    @PostMapping(value = "/upload")
+    @ResponseBody
+    public ArticleResponseData ajaxUploadFile(HttpServletRequest request,
+                                              @RequestParam MultipartFile file)
+    {
+        Map<String,Object> map=new HashMap<>();
+//修改这里字段 改成到你的绝对路径 到 blog_system/src/main/resources/static/entertainment_img/game/
+        String uploadDir="E:/新建文件夹/Spring Boot配套源代码 (1)/Spring Boot配套源代码/blog_system/src/main/resources/static/entertainment_img/game/";
+        System.out.println("得到的id"+eid);
+        try{
+            attachFile= FileUploadUtils.upload(uploadDir,file,eid);
+            return ArticleResponseData.ok();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            map.put("msg","fail");
+            return ArticleResponseData.fail();
+        }
+
+    }
+    //测试请求
+    @GetMapping(value = "/upload")
+    @ResponseBody
+    public  String ajaxget()
+    {
+        return "fuckyou!";
+    }
     //收藏图片后台管理
     // 跳转到后台收藏图片列表页面
     @GetMapping(value = "/collect")
@@ -315,35 +344,7 @@ public class AdminController {
         }
 
     }
-    // 上传图片处理
-    @PostMapping(value = "/upload")
-    @ResponseBody
-    public ArticleResponseData ajaxUploadFile(HttpServletRequest request,
-                                              @RequestParam MultipartFile file)
-    {
-        Map<String,Object> map=new HashMap<>();
-//修改这里字段 改成到你的绝对路径 到 blog_system/src/main/resources/static/entertainment_img/game/
-        String uploadDir="E:/新建文件夹/Spring Boot配套源代码 (1)/Spring Boot配套源代码/blog_system/src/main/resources/static/entertainment_img/game/";
-        System.out.println("得到的id"+eid);
-        try{
-            attachFile= FileUploadUtils.upload(uploadDir,file,eid);
-            return ArticleResponseData.ok();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            map.put("msg","fail");
-            return ArticleResponseData.fail();
-        }
 
-    }
-    //测试请求
-    @GetMapping(value = "/upload")
-    @ResponseBody
-    public  String ajaxget()
-    {
-        return "fuckyou!";
-    }
 //关于后台管理功能处理
 //查询分页图片展示
 
@@ -355,6 +356,13 @@ public class AdminController {
         return "back/collect_p_edit";
     }
 
+    // 向收藏网址基本信息修改页面跳转
+    @GetMapping(value = "/collect/wid={id}")
+    public String editCollectWebsite(@PathVariable("id") String id, HttpServletRequest request) {
+        Website website=websiteService.selectWebsiteWithId(Integer.parseInt(id));
+        request.setAttribute("contents", website);
+        return "back/collect_w_edit";
+    }
     // 向添加收藏图片页面跳转
     @GetMapping(value = "/collect/toEditPicture")
     public String new_collect_picture( HttpServletRequest request) {
@@ -362,9 +370,24 @@ public class AdminController {
     }
 
     // 向添加收藏网址页面跳转
-    @GetMapping(value = "/collect/toEditWeb")
+    @GetMapping(value = "/collect/toEditWebsite")
     public String new_collect_article( HttpServletRequest request) {
-        return "back/collect_a_edit";
+        return "back/collect_w_edit";
+    }
+
+    // 网站信息修改处理
+    @PostMapping(value = "/collect/modify_w",produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public ArticleResponseData modifyWebsite(Website website) {
+        try {
+            System.out.println(website);
+            websiteService.updateWebsiteWithId(website);
+            logger.info("网站信息更新成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("网站更新失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
     }
 }
 

@@ -147,7 +147,7 @@
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                 <!-- Text input-->
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="textinput">输入视频标题</label>
+                                    <label class="col-md-4 control-label" for="textinput_V">输入视频标题</label>
                                     <div class="col-md-4">
                                         <input id="textinput_V" name="title" type="text" placeholder="placeholder" class="form-control input-md" th:value="${contents_v!=null and contents_v.title !=null}?${contents_v.title}: ''">
                                         <span class="help-block">help</span>
@@ -156,7 +156,7 @@
 
                                 <!-- Textarea -->
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="textarea">输入视频代码</label>
+                                    <label class="col-md-4 control-label" for="textarea_v">输入视频代码</label>
                                     <div class="col-md-4">
                                         <textarea class="form-control" id="textarea_v" name="code" th:text="${contents_v!=null and contents_v.code !=null}?${contents_v.code}: ''"></textarea>
                                     </div>

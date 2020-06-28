@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='上传新的图片',active='collect_w'">
+<header th:replace="back/header::headerFragment(${title},${active})"></header>
+<link th:href="@{/back/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/toggles/toggles.css}" rel="stylesheet"/>
+
+<link th:href="@{/back/plugins/mditor/css/mditor.min.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.css}" rel="stylesheet">
+<style>
+    #tags_tagsinput {
+        background-color: #fafafa;
+        border: 1px solid #eeeeee;
+    }
+
+    #tags_addTag input {
+        width: 100%;
+    }
+
+    #tags_addTag {
+        margin-top: -5px;
+    }
+
+    .mditor .editor{
+        font-size: 14px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    .mditor .backdrop, .mditor .textarea, .mditor .viewer{
+        font-size: 14px;
+    }
+    .markdown-body{
+        font-size: 14px;
+    }
+    .note-toolbar {
+        text-align: center;
+    }
+
+    .note-editor.note-frame {
+        border: none;
+    }
+
+    .note-editor .note-toolbar {
+        background-color: #f5f5f5;
+        padding-bottom: 10px;
+    }
+
+    .note-toolbar .note-btn-group {
+        margin: 0;
+    }
+
+    .note-toolbar .note-btn {
+        border: none;
+    }
+
+    #articleForm #dropzone {
+        min-height: 200px;
+        background-color: #dbdde0;
+        line-height:200px;
+        margin-bottom: 10px;
+    }
+    #articleForm .dropzone {
+        border: 1px dashed #8662c6;
+        border-radius: 5px;
+        background: white;
+    }
+    #articleForm .dropzone .dz-message {
+        font-weight: 400;
+    }
+    #articleForm .dropzone .dz-message .note {
+        font-size: 0.8em;
+        font-weight: 200;
+        display: block;
+        margin-top: 1.4rem;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script th:src="@{/back/js/base.js}"></script>
+</head>
+<body class="fixed-left" >
+<div id="wrapper">
+    <div th:replace="back/header::header-body"></div>
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div id="picture">
+                        <div class="col-sm-12">
+                            <h4 class="page-title">
+                                <th:block th:if="${null != contents}">
+                                    编辑收藏网站信息
+                                </th:block>
+                                <th:block th:unless="${null != contents}">
+                                    新建收藏网站
+                                </th:block>
+                            </h4>
+                        </div>
+                        <div class="col-md-12" id="WebsiteForm">
+                            <form class="form-horizontal" id="W_from">
+                                <input type="hidden" name="id"
+                                       th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="id"/>
+                                <fieldset class="col-md-12">
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="address">网址</label>
+                                        <div class="col-md-4">
+                                            <input id="address" name="address" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
+                                        </div>
+                                    </div>
+                                    <!-- Textarea -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="description">简介</label>
+                                        <div class="col-md-4">
+                                            <textarea  style="margin: 0px -2.0125px 0px 0px; height: 247px;" class="form-control" id="description" name="description" th:text="${contents!=null and contents.description !=null}?${contents.description}: ''"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- File Button -->
+                                </fieldset>
+                                <div class="text-right">
+                                    <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/collect}">返回列表</a>
+                                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subWebsite('publish');">
+                                        提交网站基本信息
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div th:replace="back/footer :: footer-content"></div>
+            </div>
+        </div>
+    </div></div>
+    <div th:replace="back/footer :: footer-content"></div>
+</div>
+<div th:replace="back/footer :: footer"></div>
+</body>
+<script>
+    //在ajax请求中加入请求头部即可跳过拦截
+    $(function () {
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+
+    });
+    var tale = new $.tale();
+    function subWebsite(status) {
+        var params = $("#W_form").serialize();
+        console.log(params);
+        var url = $('#W_form #id').val() != '' ? '/admin/collect/modify_w' : '/admin/collect/publish_w';
+        console.log(url)
+        tale.post({
+            url:url,
+            data:params,
+            success: function (result) {
+                if (result && result.success) {
+                    tale.alertOk({
+                        text:'网站信息保存成功',
+                        then: function () {
+                            setTimeout(function () {
+                                window.location.href = '/admin/collect_w';
+                            }, 500);
+                        }
+                    });
+                } else {
+                    tale.alertError(result.msg || '网站信息保存失败！');
+                }
+            }
+        });
+    }
+</script>
+</html>

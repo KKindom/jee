@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,7 +33,7 @@ public class WebsiteServiceImpl implements IWebsiteService {
     @Override
     public Website selectWebsiteWithId(Integer id) {
         Website website=null;
-        Object o=redisTemplate.opsForValue().get("picture_"+id);
+        Object o=redisTemplate.opsForValue().get("website_"+id);
         if(o!=null){
             website=(Website) o;
         }else{
@@ -60,8 +61,9 @@ public class WebsiteServiceImpl implements IWebsiteService {
 
     //编辑图片信息
     @Override
-    public void updateWebsiteWithId(Website Website) {
-
+    public void updateWebsiteWithId(Website website) {
+        websiteMapper.updateWebsite(website);
+        redisTemplate.delete("website_" + website.getId());
     }
 
     //根据图片id删除图片
