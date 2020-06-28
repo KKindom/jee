@@ -7,7 +7,7 @@
 </head>
 <body th:fragment="pie-content">
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="twecharts" style="height: 300px;width: 300px;" class="twecharts"></div>
+<div id="twecharts" style="height: 600px;width: 600px;" class="twecharts"></div>
 <script type="text/javascript" script th:inline="javascript">
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('twecharts'));

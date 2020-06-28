@@ -1,9 +1,7 @@
 package com.itheima.web.client;
 
 import com.github.pagehelper.PageInfo;
-import com.itheima.model.domain.Article;
-import com.itheima.model.domain.Comment;
-import com.itheima.model.domain.E_type;
+import com.itheima.model.domain.*;
 import com.itheima.service.IArticleService;
 import com.itheima.service.ICommentService;
 import com.itheima.service.IEntertainmentService;
@@ -97,9 +95,46 @@ public class IndexController {
             request.setAttribute("comments", comments);
         }
     }
+    //搜索内容并返回查询结果
+//con是搜索内容
+    //type是指所在的页面，根据type类型不同返回不同数据与跳转不同的页面
+    @PostMapping(value = "/Search_All")
+    public String add(HttpServletRequest request, @RequestParam String con,@RequestParam int type)
+    {
+        System.out.println(con);
+        PageInfo<Article> articles = articleServiceImpl.select_content_withAll(con,1,8);
+        request.setAttribute("articles", articles);
+        //type=1 为在后台文章管理搜索并返回 文章后台管理页面
+        if(type==1)
+                {
+                    return "back/article_list";
+                }
+        //type=2 为在首页文章显示页面搜索并返回文章首页界面
+                else if(type==2)
+                {
+                    // 获取文章热度统计信息
+                    List<Article> articleList = articleServiceImpl.getHeatArticles();
+                    request.setAttribute("articleList", articleList);
+                    List<E_type> e_typeList=entertainmentServiceImpl.findtype();
+                    System.out.println(e_typeList);
+                    return "client/index_1";
+                }
+                //type=3为娱乐基本信息
+                else if(type==3)
+        {
 
+        }
+                //type=4为视频信息
+                else if(type==4)
+        {
 
+        }
+                else if(type==5)
+        {
 
+        }
+        return "back/article_list";
+    }
 
 
 

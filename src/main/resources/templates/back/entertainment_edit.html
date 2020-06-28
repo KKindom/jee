@@ -64,6 +64,7 @@
                                     <textarea class="form-control" id="title" name="title" th:text="${contents!=null and contents.title !=null}?${contents.title}: ''"></textarea>
                                 </div>
                             </div>
+
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             <!-- File Button -->
                             <input type="hidden" name="picture" th:value="${contents!=null and contents.picture !=null}?${contents.picture}: ''"/>

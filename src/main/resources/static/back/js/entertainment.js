@@ -4,6 +4,7 @@ var tale_v=new $.tale();
 function subE_v(status) {
 
     console.log($("#E_v_from #status").val(status));
+    //保存的数据
     var params = $("#E_v_from").serialize();
     console.log(params);
     var url = $('#E_v_from #id').val() != '' ? '/admin/entertainment_v/modify' : '/admin/entertainment_v/publish';
@@ -111,7 +112,7 @@ $(function () {
 //提交娱乐基本信息函数
 function subEntertainment(status)
 {
-
+//拿到form的值
     var params = $("#E_form").serialize();
     console.log(params);
     var url = $('#E_form #id').val() != '' ? '/admin/entertainment/modify' : '/admin/entertainment/publish';

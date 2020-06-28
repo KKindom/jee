@@ -119,6 +119,13 @@ public class ArticleServiceImpl implements IArticleService {
         // 同时删除对应文章的评论数据
         commentMapper.deleteCommentWithId(id);
     }
-
+    //根据内容模糊查询文章并返回列表
+    @Override
+    public PageInfo<Article> select_content_withAll(String con,Integer page, Integer count) {
+        PageHelper.startPage(page, count);
+        List<Article> articleList=articleMapper.select_content_withAll(con);
+        PageInfo<Article> pageInfo=new PageInfo<>(articleList);
+        return pageInfo;
+    }
 }
 

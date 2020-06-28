@@ -28,5 +28,7 @@ public interface IArticleService {
 
     // 根据主键删除文章
     public void deleteArticleWithId(int id);
+    //根据内容模糊查询文章并返回列表
+    public  PageInfo<Article> select_content_withAll(String con,Integer page, Integer count);
 }
 
