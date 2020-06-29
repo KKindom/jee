@@ -173,15 +173,19 @@ public class IndexController {
                 //type=8为后台查询图片收藏信息
                 else if(type==8)
         {
-            PageInfo<Picture> pageInfo = pictureService.select_content_withAll_p(con,1,8);
+            PageInfo<Website> pageInfo1 = websiteService.selectWebsiteWithPage(1,6);
+            request.setAttribute("websites", pageInfo1);
+            PageInfo<Picture> pageInfo = pictureService.select_content_withAll_p(con,1,6);
             request.setAttribute("pictures", pageInfo);
             return  "/back/collect_list";
         }
               //type=9为后台查询网站收藏信息
               else if(type==9)
         {
-            PageInfo<Website> pageInfo = websiteService.select_content_withAll_w(con,1,5);
-            request.setAttribute("websites", pageInfo);
+            PageInfo<Picture> pageInfo = pictureService.selectPictureWithPage(1,6);
+            request.setAttribute("pictures", pageInfo);
+            PageInfo<Website> pageInfo1 = websiteService.select_content_withAll_w(con,1,6);
+            request.setAttribute("websites", pageInfo1);
             return  "/back/collect_list";
         }
         return "back/article_list";
