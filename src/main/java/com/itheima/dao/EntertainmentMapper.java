@@ -81,4 +81,8 @@ public interface EntertainmentMapper
     @Select("SELECT * FROM t_ent WHERE title LIKE '%${con}%' OR name LIKE '%${con}%'")
     public List<Entertainment> select_content_withAll(@Param("con") String con);
 
+    //模糊查询娱乐视频
+    @Select("SELECT * FROM t_video WHERE title LIKE '%${con}%'")
+    public List<E_Video> select_content_withall_v(@Param("con") String con);
+
 }

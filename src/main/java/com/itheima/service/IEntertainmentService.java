@@ -52,4 +52,7 @@ public interface IEntertainmentService {
 
     //根据娱乐内容查找相关视频并返回列表或单个值
     public List<E_Video> select_e_v(List<Entertainment> entertainments);
+
+    //根据内容模糊查询娱乐视频并返回列表
+    public PageInfo<E_Video> select_content_withAll_v(String con);
 }

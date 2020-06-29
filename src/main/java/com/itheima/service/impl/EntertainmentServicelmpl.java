@@ -170,4 +170,13 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
         }
         return e_videoList;
     }
+    //根据内容模糊查询娱乐视频并返回列表
+    @Override
+    public PageInfo<E_Video> select_content_withAll_v(String con) {
+        PageHelper.startPage(1, 8);
+        List<E_Video> entertainmentList=entertainmentMapper.select_content_withall_v(con);
+        // System.out.println(entertainmentList);
+        PageInfo<E_Video> pageInfo=new PageInfo<>(entertainmentList);
+        return pageInfo;
+    }
 }

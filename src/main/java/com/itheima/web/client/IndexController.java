@@ -138,12 +138,22 @@ public class IndexController {
                 //type=4为后台查询娱乐信息
                 else if(type==4)
         {
+            PageInfo<Entertainment> pageInfo = entertainmentServiceImpl.select_content_withAll_e(con);
+            PageInfo<E_Video> pageInfo2 = entertainmentServiceImpl.selectE_vdieoWithPage(1, 8);
 
+            request.setAttribute("entertainments", pageInfo);
+            request.setAttribute("e_videos", pageInfo2);
+            return "back/entertainment_list";
         }
         //type=5为后台查询娱乐视频信息
                 else if(type==5)
         {
+            PageInfo<Entertainment> pageInfo = entertainmentServiceImpl.selectEntertainmentWithPage(1, 8);
+            PageInfo<E_Video> pageInfo2 = entertainmentServiceImpl.select_content_withAll_v(con);
 
+            request.setAttribute("entertainments", pageInfo);
+            request.setAttribute("e_videos", pageInfo2);
+            return "back/entertainment_list";
         }
         return "back/article_list";
     }

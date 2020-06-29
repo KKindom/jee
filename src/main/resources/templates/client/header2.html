@@ -61,7 +61,7 @@
 
     <!-- header
     ================================================== -->
-    <header class="s-header header .center-block" >
+    <header class="s-header header .center-block" style="text-align: center">
 
         <div class="header__logo">
             <a class="logo" href="index.html">
@@ -105,12 +105,14 @@
                 </li>
                 <li><a  class="header-info" href="/admin">后台管理</a></li>
                 <li><a href="page-about.html" title="">关于我的一切</a></li>
+
 <li>
                 <form name="logoutform" th:action="@{/logout}" method="post">
                 <a  sec:authorize="isAnonymous()" th:href="@{/login}" >登录</a>
                 <a  sec:authorize="isAuthenticated()" href="javascript:document.logoutform.submit();" >退出</a>
                 </form>
 </li>
+
             </ul> <!-- end header__nav -->
 
             <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>

@@ -300,7 +300,7 @@ public class AdminController {
     @ResponseBody
     public  String ajaxget()
     {
-        return "fuckyou!";
+        return "test!";
     }
     //收藏图片后台管理
     // 跳转到后台收藏图片列表页面
