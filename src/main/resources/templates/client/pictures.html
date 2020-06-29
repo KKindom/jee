@@ -53,6 +53,23 @@
             </picture>
         </div>
     </div>
+    <!--<main class="main-content">
+        <div class="container-fluid photos">
+            <div class="row align-items-stretch" th:each="picture: ${pictures.list}">
+                <div class="col-6 col-md-6 col-lg-8" data-aos="fade-up">
+                    <a href="single.html" class="d-block photo-item">
+                        <img th:src="${picture.pictureaddress}" alt="Image" class="img-fluid">
+                            <div class="photo-text-more">
+                                <div class="photo-text-more">
+                                    <h3 class="heading" th:text="${picture.picturedescription}"></h3>
+                                    <span class="meta"  th:text="${picture.picturetime}"></span>
+                                </div>
+                            </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>-->
     <!-- 文章分页信息 -->
     <div class="am-pagination">
         <div th:replace="/comm/paging::pageNav_New3(${pictures},'上一页','下一页','p_page')" />

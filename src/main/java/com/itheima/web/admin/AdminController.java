@@ -354,7 +354,7 @@ public class AdminController {
     public String editCollectPicture(@PathVariable("id") String id, HttpServletRequest request) {
         Picture picture=pictureServiceImpl.selectPictureWithId(Integer.parseInt(id));
         request.setAttribute("contents", picture);
-        return "back/collect_p_edit";
+        return "/back/collect_p_edit";
     }
 
     // 向收藏网址基本信息修改页面跳转
@@ -362,18 +362,18 @@ public class AdminController {
     public String editCollectWebsite(@PathVariable("id") String id, HttpServletRequest request) {
         Website website=websiteService.selectWebsiteWithId(Integer.parseInt(id));
         request.setAttribute("contents", website);
-        return "back/collect_w_edit";
+        return "/back/collect_w_edit";
     }
     // 向添加收藏图片页面跳转
     @GetMapping(value = "/collect/toEditPicture")
     public String new_collect_picture( HttpServletRequest request) {
-        return "back/collect_p_edit";
+        return "/back/collect_p_edit";
     }
 
     // 向添加收藏网址页面跳转
     @GetMapping(value = "/collect/toEditWebsite")
     public String new_collect_article( HttpServletRequest request) {
-        return "back/collect_w_edit";
+        return "/back/collect_w_edit";
     }
 
     // 网站信息修改处理
@@ -395,16 +395,50 @@ public class AdminController {
     @PostMapping(value = "/collect/publish_w",produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public ArticleResponseData publishWebsite(Website website) {
-        Date date = new Date();
-        website.setDate(date.toString());
-        website.setUid(1);
         try {
+            Date date = new Date();
+            website.setDate(date.toString());
+            System.out.println(website.getDate());
+            website.setUid(1);
             System.out.println(website);
             websiteService.uploadWebsite(website);
             logger.info("网站信息更新成功");
             return ArticleResponseData.ok();
         } catch (Exception e) {
             logger.error("网站更新失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
+    }
+
+    // 图片信息修改处理
+    @PostMapping(value = "/collect/modify_p",produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public ArticleResponseData modifypPicture(Picture picture) {
+        try {
+            System.out.println(picture);
+            pictureServiceImpl.updatePictureWithId(picture);
+            logger.info("图片信息更新成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("图片信息更新失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
+    }
+
+    // 图片信息提交处理
+    @PostMapping(value = "/collect/publish_p",produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public ArticleResponseData publishpPicture(Picture picture) {
+        Date date = new Date();
+        picture.setPicturetime(date.toString());
+        picture.setUid(1);
+        try {
+            System.out.println(picture);
+            pictureServiceImpl.uploadpicture(picture);
+            logger.info("图片信息提交成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("图片信息提交失败，错误信息: "+e.getMessage());
             return ArticleResponseData.fail();
         }
     }
