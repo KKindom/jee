@@ -26,4 +26,6 @@ public interface IPictureService {
     // 根据主键删除图片
     public void deletePictureWithId(int id);
 
+    //模糊查询图片
+    public PageInfo<Picture> select_content_withAll_p(String con,Integer page, Integer count);
 }

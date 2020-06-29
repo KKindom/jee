@@ -18,7 +18,7 @@ public interface WebsiteMapper {
     @Select("select * from t_collect_website")
     public List<Website> ALLlistWebsite();
     //添加图片
-    @Insert("insert into t_collect_picture (u_id,address,description,date) values (#{uid},#{address},#{description},#{date})")
+    @Insert("insert into t_collect_website (u_id,address,description,date) values (#{uid},#{address},#{description},#{date})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     public int saveWebsite(Website website);
 
@@ -33,4 +33,8 @@ public interface WebsiteMapper {
     //删除照片
     @Delete("delete from t_collect_website where id = #{id}")
     public void deleteWebsite(Integer id);
+
+    //模糊查询网站
+    @Select("SELECT * FROM t_collect_website WHERE description LIKE '%${con}%' or address LIKE '%${con}%'")
+    public List<Website> select_content_withAll_W(@Param("con") String con);
 }

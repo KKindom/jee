@@ -1,5 +1,6 @@
 package com.itheima.dao;
 
+import com.itheima.model.domain.Entertainment;
 import com.itheima.model.domain.Picture;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -33,4 +34,7 @@ public interface PictureMapper {
     @Delete("delete from t_collect_picture where id = #{id}")
     public void deletePicture(Integer id);
 
+    //模糊查询图片
+    @Select("SELECT * FROM t_collect_picture WHERE picturedescription LIKE '%${con}%' ")
+    public List<Picture> select_content_withAll_P(@Param("con") String con);
 }

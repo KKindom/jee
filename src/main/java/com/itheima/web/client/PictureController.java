@@ -34,19 +34,10 @@ public class PictureController {
     public String index(HttpServletRequest request, @PathVariable("p") int page, @RequestParam(value = "count", defaultValue = "8") int count) {
         //获取分页
         PageInfo<Picture> picture = pictureService.selectPictureWithPage(page,count);
-        // 获取所以视频信息
-        List<Picture> pictureList = pictureService.getAll_Picture();
         request.setAttribute("pictures", picture);
-        request.setAttribute("pictureList", pictureList);
         logger.info("分页获取文章信息: 页码 "+page+",条数 "+count);
         return "client/pictures";
     }
 
-    //    跳转新增页面
-    @GetMapping("/collect_p/input")
-    public String input(Model model) {
-        model.addAttribute("picture", new Picture());
-        return "client/pictures-input";
-    }
 
 }

@@ -73,4 +73,15 @@ public class PictureServiceImpl implements IPictureService {
         pictureMapper.deletePicture(id);
         redisTemplate.delete("picture_" + id);
     }
+
+    //根据内容模糊查询图片并返回列表
+    @Override
+    public PageInfo<Picture> select_content_withAll_p(String con,Integer page, Integer count) {
+        PageHelper.startPage(page, count);
+        List<Picture> PictureList=pictureMapper.select_content_withAll_P(con);
+        System.out.println(PictureList);
+        PageInfo<Picture> pageInfo=new PageInfo<>(PictureList);
+        System.out.println(pageInfo);
+        return pageInfo;
+    }
 }

@@ -1,7 +1,6 @@
 package com.itheima.service;
 
 import com.github.pagehelper.PageInfo;
-import com.itheima.model.domain.Picture;
 import com.itheima.model.domain.Website;
 
 import java.util.List;
@@ -24,4 +23,7 @@ public interface IWebsiteService {
 
         // 根据主键删除图片
         public void deleteWebsiteWithId(int id);
+
+        //模糊查询网站
+        public PageInfo<Website> select_content_withAll_w(String con, Integer page, Integer count);
 }

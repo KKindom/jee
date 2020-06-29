@@ -31,12 +31,8 @@
 <br/>
 <br/>
 <br/>
-<br/>
 <body>
-<div class="site-wrap">
-<a  th:href="@{/collect_p/input}"><button type="button" class="btn  btn-primary waves-effect waves-light">上传图片</button></a>
-文章分页显示
-<section class="s-content">
+<section class="s-content site-wrap">
     <div class="row entries-wrap wide">
         <div class="entries">
             <picture class="col-block" th:each="picture: ${pictures.list}">
@@ -55,22 +51,13 @@
                     </div>
                 </div>
             </picture>
-
-        </div>
-        <!-- 文章分页信息 -->
-        <div class="am-pagination">
-            <div th:replace="/comm/paging::pageNav_New3(${pictures},'上一页','下一页','p_page')" />
         </div>
     </div>
+    <!-- 文章分页信息 -->
+    <div class="am-pagination">
+        <div th:replace="/comm/paging::pageNav_New3(${pictures},'上一页','下一页','p_page')" />
+    </div>
 </section>
-
-
-
-
-
-
-
-
 <!--&lt;!&ndash;测试样式&ndash;&gt;-->
 <!--    <main class="main-content">-->
 <!--        <div class="container-fluid photos">-->
@@ -196,23 +183,14 @@
 <!--    </div>-->
 <!--</main>-->
 
-<!--</div>-->
-
-
-
 <a class="btn btn-default" href="#" role="button" style="position:fixed;right:0;bottom:0">
     回到顶部
 </a>
-
 </body>
 <div th:replace="/client/footer_1::footer" />
-
-
-
-
-
-
 <!--测试js-->
-
+<script type="text/javascript" script th:inline="javascript">
+    $("input[name='type']").attr("value","6");
+</script >
 
 </html>

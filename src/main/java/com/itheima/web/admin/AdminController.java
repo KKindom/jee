@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -382,6 +383,24 @@ public class AdminController {
         try {
             System.out.println(website);
             websiteService.updateWebsiteWithId(website);
+            logger.info("网站信息更新成功");
+            return ArticleResponseData.ok();
+        } catch (Exception e) {
+            logger.error("网站更新失败，错误信息: "+e.getMessage());
+            return ArticleResponseData.fail();
+        }
+    }
+
+    // 网站信息提交处理
+    @PostMapping(value = "/collect/publish_w",produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public ArticleResponseData publishWebsite(Website website) {
+        Date date = new Date();
+        website.setDate(date.toString());
+        website.setUid(1);
+        try {
+            System.out.println(website);
+            websiteService.uploadWebsite(website);
             logger.info("网站信息更新成功");
             return ArticleResponseData.ok();
         } catch (Exception e) {

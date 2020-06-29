@@ -3,6 +3,7 @@ package com.itheima.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.itheima.dao.WebsiteMapper;
+import com.itheima.model.domain.Picture;
 import com.itheima.model.domain.Website;
 import com.itheima.service.IWebsiteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class WebsiteServiceImpl implements IWebsiteService {
     //上传图片
     @Override
     public void uploadWebsite(Website website) {
-
+        websiteMapper.saveWebsite(website);
     }
 
     //编辑图片信息
@@ -72,5 +73,16 @@ public class WebsiteServiceImpl implements IWebsiteService {
         // 删除文章的同时，删除对应的缓存
         websiteMapper.deleteWebsite(id);
         redisTemplate.delete("Website_" + id);
+    }
+
+    //根据内容模糊查询图片并返回列表
+    @Override
+    public PageInfo<Website> select_content_withAll_w(String con, Integer page, Integer count) {
+        PageHelper.startPage(page, count);
+        List<Website> WebsiteList=websiteMapper.select_content_withAll_W(con);
+        System.out.println(WebsiteList);
+        PageInfo<Website> pageInfo=new PageInfo<>(WebsiteList);
+        System.out.println(pageInfo);
+        return pageInfo;
     }
 }

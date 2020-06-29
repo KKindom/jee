@@ -3,10 +3,7 @@ package com.itheima.web.client;
 import com.github.pagehelper.PageInfo;
 import com.itheima.dao.EntertainmentMapper;
 import com.itheima.model.domain.*;
-import com.itheima.service.IArticleService;
-import com.itheima.service.ICommentService;
-import com.itheima.service.IEntertainmentService;
-import com.itheima.service.ISiteService;
+import com.itheima.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,10 +38,14 @@ public class IndexController {
     private ISiteService siteServiceImpl;
 
     @Autowired
-   private IEntertainmentService entertainmentServiceImpl;
+    private IEntertainmentService entertainmentServiceImpl;
 
     @Autowired
     private EntertainmentMapper entertainmentMapper;
+    @Autowired
+    private IPictureService pictureService;
+    @Autowired
+    private IWebsiteService websiteService;
     // 博客首页，会自动跳转到文章页
     @GetMapping(value = "/")
     private String index(HttpServletRequest request) {
@@ -154,6 +155,34 @@ public class IndexController {
             request.setAttribute("entertainments", pageInfo);
             request.setAttribute("e_videos", pageInfo2);
             return "back/entertainment_list";
+        }
+                //type=6为前台查询图片收藏信息
+                else if(type==6)
+        {
+            PageInfo<Picture> pageInfo = pictureService.select_content_withAll_p(con,1,8);
+            request.setAttribute("pictures", pageInfo);
+            return  "client/pictures";
+        }
+                //type=7为前台查询网站收藏信息
+                else if(type==7)
+        {
+            PageInfo<Website> pageInfo = websiteService.select_content_withAll_w(con,1,5);
+            request.setAttribute("websites", pageInfo);
+            return  "client/websites";
+        }
+                //type=8为后台查询图片收藏信息
+                else if(type==8)
+        {
+            PageInfo<Picture> pageInfo = pictureService.select_content_withAll_p(con,1,8);
+            request.setAttribute("pictures", pageInfo);
+            return  "/back/collect_list";
+        }
+              //type=9为后台查询网站收藏信息
+              else if(type==9)
+        {
+            PageInfo<Website> pageInfo = websiteService.select_content_withAll_w(con,1,5);
+            request.setAttribute("websites", pageInfo);
+            return  "/back/collect_list";
         }
         return "back/article_list";
     }
