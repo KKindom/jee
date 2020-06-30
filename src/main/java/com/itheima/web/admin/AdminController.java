@@ -424,6 +424,7 @@ public class AdminController {
 
         String str = sdf.format(date);
         System.out.println(str);
+        System.out.println(time);
         if(timeMapper.selectTimeWithId(str)==null)
 {Time time1=new Time();
 time1.setData(str);

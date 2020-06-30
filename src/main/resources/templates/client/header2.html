@@ -94,8 +94,8 @@
             <h2 class="header__nav-heading h6">Navigate to</h2>
 
             <ul class="header__nav" style="font-size: 15px">
-                <li class="current" id="study"><a th:href="@{/page/1}" >我的首页</a></li>
-                <li  id="ent">
+                <li class="current" id="study" th:href="@{/page/1}"><a th:href="@{/page/1}" >我的首页</a></li>
+                <li  id="ent" th:href="@{/ent}">
                     <a href="#0"  th:href="@{/ent}" title="">我的娱乐</a>
                 </li>
                 <li class="has-children" id="life">
@@ -179,7 +179,7 @@ var t_t;
                     success: function (result) {
                         if (result && result.success) {
                             console.log(result);
-                            window.location.reload();
+                            // window.location.reload();
                         }
                     }
                 });
