@@ -5,6 +5,19 @@
 <link th:href="@{/back/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
 <link th:href="@{/back/plugins/toggles/toggles.css}" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+<script>
+    $.validator.setDefaults({
+        submitHandler: function() {
+            alert("提交事件!");
+        }
+    });
+    $().ready(function() {
+        $("#W_form").validate();
+    });
+</script>
 <link th:href="@{/back/plugins/mditor/css/mditor.min.css}" rel="stylesheet"/>
 <link th:href="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.css}" rel="stylesheet">
 <style>
@@ -137,12 +150,12 @@
                                    th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="w_id"/>
                             <div class=" field">
                                 <div class="ui left labeled input m-margin-top">
-                                    <label class="ui teal basic label" for="address_w">网址</label>
-                                    <input  id="address_w" name="address" type="text" placeholder=""th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
+                                    <label class="ui teal basic label" for="address_w" onfocusout="true">网址</label>
+                                    <input  id="address_w" name="address" type="url" placeholder=""th:value="${contents!=null and contents.address !=null}?${contents.address}: ''" required>
                                 </div>
                                 <div class="ui left labeled input m-margin-top">
                                     <label class="ui teal basic label" for="description_w">简介</label>
-                                    <textarea  style="margin: 0px -2.0125px 0px 0px; height: 247px;" id="description_w" name="description" th:text="${contents!=null and contents.description !=null}?${contents.description}: ''"></textarea>
+                                    <textarea  style="margin: 0px -2.0125px 0px 0px; height: 247px;" id="description_w" name="description" th:text="${contents!=null and contents.description !=null}?${contents.description}: ''" required></textarea>
                                 </div>
                             </div>
                             <div class="ui error message"></div>
@@ -151,7 +164,7 @@
                             <br/>
                             <div class="ui right aligned container">
                                 <button class="ui button" th:href="@{/admin/collect}" type="button">返回</button>
-                                <button class="ui teal submit button" onclick="subWebsite('publish');" type="button">提交</button>
+                                <input class="ui teal submit button" onclick="subWebsite('publish');" type="submit" value="提交">
                             </div>
                         </form>
                     </div>

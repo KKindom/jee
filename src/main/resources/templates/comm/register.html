@@ -6,6 +6,9 @@
     <title>登录博客后台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
     <style type="text/css">
 
         /* BASIC */
@@ -317,9 +320,9 @@
         <div  style="color: red" th:text="${error}"></div>
         <!-- Login Form -->
         <form id="registerForm" th:action="@{/add}" method="post">
-            <input type="text"   class="fadeIn second" name="username" placeholder="用户名">
-            <input type="password"   class="fadeIn third" name="password" placeholder="密码">
-            <input type="text"   class="fadeIn second" name="email" placeholder="邮箱">
+            <input type="text"   class="fadeIn second" name="username" placeholder="用户名" required>
+            <input type="password"   class="fadeIn third" name="password" placeholder="密码" required>
+            <input type="email"   class="fadeIn second" name="email" placeholder="邮箱" required>
             <input type="submit" class="fadeIn fourth" value="注册">
         </form>
 

@@ -194,10 +194,11 @@
                 },
                 success: function (result) {
                     if (result && result.success) {
-                        window.alert("图片删除成功");
+                        window.alert("网站删除成功");
                         window.location.reload();
                     } else {
-                        window.alert(result.msg || '图片删除失败')
+                        window.alert(result.msg || '网站删除成功')
+                        window.location.reload();
                     }
                 }
             });
