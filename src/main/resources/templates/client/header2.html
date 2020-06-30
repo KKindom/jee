@@ -167,7 +167,7 @@ var t_t;
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
             var id=3;
-            if(confirm('确定删除该文章吗?')){
+
                 $.ajax({
                     type:'post',
                     url : '/admin/all/updata',
@@ -178,14 +178,12 @@ var t_t;
                     },
                     success: function (result) {
                         if (result && result.success) {
-                            window.alert("文章删除成功");
+                            console.log(result);
                             window.location.reload();
-                        } else {
-                            window.alert(result.msg || '文章删除失败')
                         }
                     }
                 });
-            }
+
         }
     </script>
 
