@@ -661,7 +661,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .main-content {
-    max-width: 940px;
+    max-width: 100%;
     margin: 0 auto;
     -webkit-animation: fade-in .5s;
     animation: fade-in;

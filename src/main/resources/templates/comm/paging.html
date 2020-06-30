@@ -75,11 +75,11 @@
 </div>
 
 <!--我的娱乐分页-->
-<div class="row pagination-wrap" >
+<div class="row pagination-wrap" th:fragment="pageNav_New2(pageInfo, prevText, nextText, prefix)">
     <div class="col-full">
         <nav class="pgn" data-aos="fade-up">
             <!--这里是我最新的主页面下一页页面-->
-            <ul class="am-pagination" th:fragment="pageNav_New2(pageInfo, prevText, nextText, prefix)">
+            <ul class="am-pagination" >
                 <th:block th:if="${pageInfo.hasPreviousPage}">
                     <li ><a class="pgn__prev" th:href="@{'/'+${prefix}+'/'+${pageInfo.prePage}}" th:text="${prevText}"></a></li>
                 </th:block>
@@ -139,11 +139,11 @@
     </div>
 </div>
 <!--图片收藏分页-->
-<div class="row pagination-wrap" >
+<div class="row pagination-wrap" th:fragment="pageNav_New3(pageInfo, prevText, nextText, prefix)">
     <div class="col-full">
         <nav class="pgn" data-aos="fade-up">
             <!--这里是我最新的主页面下一页页面-->
-            <ul class="am-pagination" th:fragment="pageNav_New3(pageInfo, prevText, nextText, prefix)">
+            <ul class="am-pagination" >
                 <th:block th:if="${pageInfo.hasPreviousPage}">
                     <li ><a class="pgn__prev" th:href="@{'/'+${prefix}+'/'+${pageInfo.prePage}}" th:text="${prevText}"></a></li>
                 </th:block>

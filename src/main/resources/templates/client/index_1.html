@@ -169,12 +169,13 @@
                     <h3>我的娱乐</h3>
 
                     <ul class="linklist">
-                        <li><a href="#0">Lifestyle</a></li>
-                        <li><a href="#0">Travel</a></li>
-                        <li><a href="#0">Recipes</a></li>
-                        <li><a href="#0">Management</a></li>
-                        <li><a href="#0">Health</a></li>
-                        <li><a href="#0">Creativity</a></li>
+
+                        <li  id="ent" th:href="@{/ent}">
+                            <a href="#0"  th:href="@{/ent}" title="">游戏</a>
+                        </li>
+                        <li   th:href="@{/ent}">
+                            <a href="#0"  th:href="@{/ent}" title="">运动</a>
+                        </li>
                     </ul>
                 </div> <!-- end categories -->
 
@@ -182,13 +183,9 @@
                     <h3>我的收藏</h3>
 
                     <ul class="linklist">
-                        <li><a href="#0">Home</a></li>
-                        <li><a href="#0">Blog</a></li>
-                        <li><a href="#0">Styles</a></li>
-                        <li><a href="#0">About</a></li>
-                        <li><a href="#0">Contact</a></li>
-                        <li><a href="#0">Privacy Policy</a></li>
-                    </ul>
+                        <li><a th:href="@{/collect_p}">图片</a></li>
+                        <li><a th:href="@{/collect_w}">网站</a></li>
+
                 </div> <!-- end sitelinks -->
             </div>
         </div>

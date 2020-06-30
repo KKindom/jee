@@ -7,7 +7,7 @@
 <body>
 <div th:fragment="show_video_byid(video_id)">
 <th:block  th:each="video:${e_videoList}">
-    <th:block th:if="${video.id}==${video_id}">
+    <th:block th:if="${video.eid}==${video_id}">
 <div class="col-md-6 col-lg-6 col-xl-8 d-flex" id="123">
 
     <div style="position: relative; padding: 30% 50%;">

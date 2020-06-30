@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="textinput">娱乐名称</label>
                                 <div class="col-md-8">
-                                    <input id="name" name="name" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.name !=null}?${contents.name}: ''" >
+                                    <input id="name" name="name" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.name !=null}?${contents.name}: ''" required>
                                     <span class="help-block">输入你想要的游戏或者运动名称</span>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="textinput">官网</label>
                                 <div class="col-md-8">
-                                    <input id="address" name="address" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
+                                    <input id="address" name="address" type="url" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.address !=null}?${contents.address}: ''" required>
                                     <span class="help-block">输入娱乐或运动有兴趣的网址</span>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="textarea">简介</label>
                                 <div class="col-md-8">
-                                    <textarea class="form-control" id="title" name="title" th:text="${contents!=null and contents.title !=null}?${contents.title}: ''"></textarea>
+                                    <textarea class="form-control" id="title" name="title" th:text="${contents!=null and contents.title !=null}?${contents.title}: ''" required minlength="10"></textarea>
                                 </div>
                             </div>
 
@@ -78,15 +78,15 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="filebutton">封面图</label>
                                 <div class="col-md-8">
-                                    <img id="headPic" th:src="${contents!=null and contents.picture !=null}?${contents.picture}: ''"  width="150px" height="150px" style="padding: 5px">
-                                    <input id="upload" name="file" accept="image/*" type="file" style="display: none"/>
+                                    <img id="headPic" th:src="${contents!=null and contents.picture !=null}?${contents.picture}: ''"  width="150px" height="150px" style="padding: 5px" >
+                                    <input id="upload" name="file" accept="image/*" type="file" style="display: none" required/>
                                 </div>
                             </div>
 
                         </fieldset>
                         <div class="text-right">
                             <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/article}">返回列表</a>
-                            <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subEntertainment('publish');">
+                            <button type="button" class="btn btn-primary waves-effect waves-light" id="sub2" >
                                 提交娱乐基本信息
                             </button>
                         </div>
@@ -134,7 +134,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="textinput_V">输入视频标题</label>
                                     <div class="col-md-8">
-                                        <input id="textinput_V" name="title" type="text" placeholder="按照规范输入网站" class="form-control input-md" th:value="${contents_v!=null and contents_v.title !=null}?${contents_v.title}: ''" minlength="2"  required>
+                                        <input id="textinput_V" name="title" type="text" placeholder="按照规范输入网站" class="form-control input-md" th:value="${contents_v!=null and contents_v.title !=null}?${contents_v.title}: ''" minlength="4"  required>
                                     </div>
                                 </div>
 
@@ -197,6 +197,19 @@
 <script th:src="@{/back/js/entertainment.js}"></script>
 
 <script type="text/javascript" script th:inline="javascript">
+
+
+    //在ajax请求中加入请求头部即可跳过拦截
+    $(function () {
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+
+    });
+
     var flag=[[${flag}]];
     var flag2  = [[${contents.picture}]];
     console.log(flag2);
@@ -296,12 +309,26 @@
         /*关键在此增加了一个return，返回的是一个validate对象，这个对象有一个form方法，返回的是是否通过验证*/
         return $("#E_v_from").validate();
     }
+    //编写表单验证函数validform，在验证按钮注册按钮点击事件内调用验证函数对象
+    function validform2(){
+        /*关键在此增加了一个return，返回的是一个validate对象，这个对象有一个form方法，返回的是是否通过验证*/
+        return $("#E_form").validate();
+    }
     //注册表单验证
     $(validform());
+    //注册表单验证
+    $(validform2());
 
     $("#sub").click(function(){
         if(validform().form()) {
             subE_v('publish');
+        } else {
+            //校验不通过，什么都不用做，校验信息已经正常显示在表单上
+        }
+    });
+    $("#sub2").click(function(){
+        if(validform2().form()) {
+            subEntertainment('publish');
         } else {
             //校验不通过，什么都不用做，校验信息已经正常显示在表单上
         }

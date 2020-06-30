@@ -28,10 +28,10 @@ public class PictureController {
     // 收藏图片页面
     @GetMapping(value = "/collect_p")
     private String index(HttpServletRequest request) {
-        return this.index(request, 1, 8);
+        return this.index(request, 1, 12);
     }
     @GetMapping(value = "/p_page/{p}")
-    public String index(HttpServletRequest request, @PathVariable("p") int page, @RequestParam(value = "count", defaultValue = "8") int count) {
+    public String index(HttpServletRequest request, @PathVariable("p") int page, @RequestParam(value = "count", defaultValue = "12") int count) {
         //获取分页
         PageInfo<Picture> picture = pictureService.selectPictureWithPage(page,count);
         request.setAttribute("pictures", picture);
