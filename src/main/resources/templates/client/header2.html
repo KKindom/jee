@@ -14,7 +14,9 @@
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <!-- 默认的header name是X-CSRF-TOKEN -->
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- favicons
     ================================================== -->
 <!--    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">-->
@@ -31,7 +33,7 @@
     <script th:src="@{/assets/js/amazeui.min.js}"></script>
     <script th:src="@{/user/add_static/js/modernizr.js}"></script>
     <link th:href="@{/user/css/xcode.min.css}" rel="stylesheet"/>
-
+    <script th:src="@{/back/js/base.js}"></script>
 <!--    原页面css与js-->
 <!--    <link rel="shortcut icon" th:href="@{/user/img/bloglogo.jpg}"/>-->
 <!--    <link rel="apple-touch-icon" th:href="@{/user/img/apple-touch-icon.png}"/>-->
@@ -92,20 +94,19 @@
             <h2 class="header__nav-heading h6">Navigate to</h2>
 
             <ul class="header__nav" style="font-size: 15px">
-                <li class="current"><a th:href="@{/page/1}">我的首页</a></li>
-                <li >
+                <li class="current" id="study"><a th:href="@{/page/1}" >我的首页</a></li>
+                <li  id="ent">
                     <a href="#0"  th:href="@{/ent}" title="">我的娱乐</a>
                 </li>
-                <li class="has-children">
+                <li class="has-children" id="life">
                     <a href="#0" title="">我的收藏</a>
                     <ul class="sub-menu" >
                         <li><a th:href="@{/collect_p}">图片</a></li>
                         <li><a th:href="@{/collect_w}">网站</a></li>
                     </ul>
                 </li>
-                <li><a  class="header-info" href="/admin">后台管理</a></li>
-                <li><a href="page-about.html" title="">关于我的一切</a></li>
-
+                <li id="back"><a  class="header-info" href="/admin">后台管理</a></li>
+                <li><a href="page-about.html" title="" id="free">关于我的一切</a></li>
 <li>
                 <form name="logoutform" th:action="@{/logout}" method="post">
                 <a  sec:authorize="isAnonymous()" th:href="@{/login}" >登录</a>
@@ -118,12 +119,75 @@
             <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
 
         </nav> <!-- end header__nav-wrap -->
-
     </header> <!-- s-header -->
 
 
 
+    <script type="text/javascript">
+var t_t;
+        var start;
+        var end;
+        var time = 0;
+        start = new Date();//用户进入时间
+        $(document).ready(function() {
+            $("#study").bind("click", function () {
+                t_t=1;
+               searchMember();
+            });
+            $("#ent").bind("click", function () {
+                t_t=2;
+                searchMember();
+            });
+            $("#free").bind("click", function () {
+                t_t=3;
+                searchMember();
+            });
+            $("#life").bind("click", function () {
+                t_t=3;
+                searchMember();
+            });
 
+        });
+        $(function () {
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+
+        });
+        function searchMember() {
+            end = new Date(); //用户退出时间
+            time = end.getTime() - start.getTime();
+            time = Math.ceil(time / 60000); //取的是秒并且化整
+
+
+            // 获取<meta>标签中封装的_csrf信息
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            var id=3;
+            if(confirm('确定删除该文章吗?')){
+                $.ajax({
+                    type:'post',
+                    url : '/admin/all/updata',
+                    data: {time:time,type:t_t},
+                    dataType: 'json',
+                    beforeSend : function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success: function (result) {
+                        if (result && result.success) {
+                            window.alert("文章删除成功");
+                            window.location.reload();
+                        } else {
+                            window.alert(result.msg || '文章删除失败')
+                        }
+                    }
+                });
+            }
+        }
+    </script>
 
 
 

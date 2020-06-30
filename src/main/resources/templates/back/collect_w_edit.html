@@ -132,36 +132,36 @@
                                     </button>
                                 </div>
                             </form>-->
-                            <form action="#" method="post" class="ui form"  id="W_form">
-                                <input type="hidden" name="id"
-                                       th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="w_id"/>
-                                <div class=" field">
-                                    <div class="ui left labeled input m-margin-top">
-                                        <label class="ui teal basic label" for="address_w">网址</label>
-                                        <input  id="address_w" name="address" type="text" placeholder=""th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
-                                    </div>
-                                    <div class="ui left labeled input m-margin-top">
-                                        <label class="ui teal basic label" for="description_w">简介</label>
-                                        <textarea  style="margin: 0px -2.0125px 0px 0px; height: 247px;" id="description_w" name="description" th:text="${contents!=null and contents.description !=null}?${contents.description}: ''"></textarea>
-                                    </div>
+                        <form action="#" method="post" class="ui form"  id="W_form">
+                            <input type="hidden" name="id"
+                                   th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="w_id"/>
+                            <div class=" field">
+                                <div class="ui left labeled input m-margin-top">
+                                    <label class="ui teal basic label" for="address_w">网址</label>
+                                    <input  id="address_w" name="address" type="text" placeholder=""th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
                                 </div>
-                                <div class="ui error message"></div>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <div class="ui right aligned container">
-                                    <button class="ui button" th:href="@{/admin/collect}" type="button">返回</button>
-                                    <button class="ui teal submit button" onclick="subWebsite('publish');" type="button">提交</button>
+                                <div class="ui left labeled input m-margin-top">
+                                    <label class="ui teal basic label" for="description_w">简介</label>
+                                    <textarea  style="margin: 0px -2.0125px 0px 0px; height: 247px;" id="description_w" name="description" th:text="${contents!=null and contents.description !=null}?${contents.description}: ''"></textarea>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="ui error message"></div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="ui right aligned container">
+                                <button class="ui button" th:href="@{/admin/collect}" type="button">返回</button>
+                                <button class="ui teal submit button" onclick="subWebsite('publish');" type="button">提交</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div th:replace="back/footer :: footer-content"></div>
             </div>
+            <div th:replace="back/footer :: footer-content"></div>
         </div>
-    </div></div>
-    <div th:replace="back/footer :: footer-content"></div>
+    </div>
+</div></div>
+<div th:replace="back/footer :: footer-content"></div>
 </div>
 <div th:replace="back/footer :: footer"></div>
 </body>
