@@ -116,7 +116,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="selectmultiple">选择娱乐类别</label>
                                     <div class="col-md-4" id="se">
-                                        <select id="selectmultiple" name="selectmultiple" class="form-control" multiple="multiple" >
+                                        <select id="selectmultiple" name="selectmultiple" class="form-control" multiple="multiple" required>
                                             <th:block th:each="e_t :${e_type}">
                                              <option  name="eid"th:value="${e_t.eid}" th:text="${e_t.name}" selected th:if="${contents_v!=null and contents_v.eid !=null and e_t.eid == contents_v.eid }"></option>
 
@@ -142,7 +142,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="textarea_v">输入视频代码</label>
                                     <div class="col-md-8">
-                                        <textarea class="form-control" id="textarea_v" name="code" th:text="${contents_v!=null and contents_v.code !=null}?${contents_v.code}: ''" required=""></textarea>
+                                        <textarea class="form-control" id="textarea_v" name="code" th:text="${contents_v!=null and contents_v.code !=null}?${contents_v.code}: ''" required></textarea>
                                     </div>
                                     <input type="button" id="btn1" value="预览视频">
                                     <br>
@@ -165,11 +165,10 @@
                             </fieldset>
                             <div class="text-right">
                                 <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/article}">返回列表</a>
-<!--                                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subE_v('publish');">-->
-<!--                                    提交娱乐视频信息-->
-<!--                                </button>-->
+                                <button type="button" class="btn btn-primary waves-effect waves-light" id="sub">
+                                    提交娱乐视频信息
+                                </button>
 
-<input type="button" id="sub">
                             </div>
                         </form>
 
