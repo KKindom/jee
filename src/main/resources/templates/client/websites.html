@@ -30,7 +30,7 @@
 <body>
 <section class="s-content">
     <div class="row entries-wrap wide">
-        <div class="entries">
+        <div class="entries" style="height: 100%;width: 100%">
         <website class="am-g blog-entry-article" th:each="website: ${websites.list}" style="display: flex; align-items: center;justify-content: center;">
             <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
                 网址：<a style="color: #0f9ae0;font-size: 20px;" th:href="${website.address}" th:text="${website.address}" />

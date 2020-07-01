@@ -19,7 +19,8 @@ public class MailUtilsTest {
     @Autowired
     JavaMailSender javaMailSender;
 
-    @Autowired MailUtils mailUtils;
+    @Autowired
+    MailUtils mailUtils;
     @Test
     public void contextLoads() {
 //        SimpleMailMessage message = new SimpleMailMessage();

@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 1、自定义用户访问控制
         http.authorizeRequests()
-                .antMatchers("/","/page/**","/article/**","/login","/register","/add").permitAll()
+                .antMatchers("/","/page/**","/article/**","/login","/register","/add","/retrieve","/reset").permitAll()
                 .antMatchers("/back/**","/assets/**","/user/**","/article_img/**","/editor.md-master/**").permitAll()
                 .antMatchers("/admin/**","/editor.md-master/**").hasRole("admin")
                 .anyRequest().authenticated();

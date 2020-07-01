@@ -22,4 +22,9 @@ public class UserServiceImpl implements IUserService {
         user.setDate(new Date());
         userMapper.register(user);
     }
+
+    @Override
+    public void updateUser(User user){
+        userMapper.updateUser(user);
+    }
 }

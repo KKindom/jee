@@ -121,7 +121,7 @@
                                 <br/>
                                 <div class="ui right aligned container">
                                     <button class="ui button" th:href="@{/admin/collect}" type="button">返回</button>
-                                    <button class="ui teal submit button" onclick="subPicture('publish');" type="button">提交</button>
+                                    <button class="ui teal submit button" id="sub"" type="button">提交</button>
                                 </div>
                             </form>
                         </div>
@@ -171,7 +171,21 @@
             }
         }
     });
+    //编写表单验证函数validform，在验证按钮注册按钮点击事件内调用验证函数对象
+    function validform(){
+        /*关键在此增加了一个return，返回的是一个validate对象，这个对象有一个form方法，返回的是是否通过验证*/
+        return $("#P_form").validate();
+    }
+    //注册表单验证
+    $(validform());
 
+    $("#sub").click(function(){
+        if(validform().form()) {
+            subPicture('publish');
+        } else {
+            //校验不通过，什么都不用做，校验信息已经正常显示在表单上
+        }
+    });
 </script>
 </body>
 </html>

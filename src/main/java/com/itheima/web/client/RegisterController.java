@@ -56,13 +56,12 @@ public class RegisterController {
                 System.out.println(user1.toString());
                 Authority authority = new Authority();
                 authority.setUser_id(user1.getId());
-                authority.setAuthority_id(2);
+                authority.setAuthority_id(1);
                 authorityMapper.authority(authority);
                 System.out.println("注册成功");
                 return "comm/login_1";
             }
-//text
-        }
+    }
 
 
 }
