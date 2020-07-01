@@ -8,6 +8,7 @@ import com.itheima.model.domain.*;
 import com.itheima.service.*;
 import com.itheima.utils.FileUploadUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -292,7 +296,7 @@ public class AdminController {
         String uploadDir="E:/新建文件夹/Spring Boot配套源代码 (1)/Spring Boot配套源代码/blog_system/src/main/resources/static/entertainment_img/game/";
         System.out.println("得到的id"+eid);
         try{
-            attachFile= FileUploadUtils.upload(uploadDir,file,eid);
+            attachFile= FileUploadUtils.upload(uploadDir,file,eid,1);
             return ArticleResponseData.ok();
         }
         catch (Exception e)
@@ -303,6 +307,33 @@ public class AdminController {
         }
 
     }
+
+
+
+
+    //文章编辑页面图片上传
+    @ResponseBody
+    @RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
+    public Map<String, Object> hello(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile) {
+
+        Map<String, Object> result = new HashMap<>();
+
+        String uploadDir="E:/新建文件夹/Spring Boot配套源代码 (1)/Spring Boot配套源代码/blog_system/src/main/resources/static/article_img/";
+        try{
+            attachFile= FileUploadUtils.upload(uploadDir,multipartFile,1,2);
+            result.put("success", 1);
+            result.put("message", "图片上传成功");
+            result.put("url", "/article_img/"+attachFile.getFilename());
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            result.put("success", 0);
+        }
+        return result;
+    }
+
     //测试请求
     @GetMapping(value = "/upload")
     @ResponseBody
@@ -447,5 +478,15 @@ timeMapper.insert_time(time1);
 timeMapper.updatatime(time1);
 return ArticleResponseData.ok();
     }
-}
 
+
+
+
+
+    @GetMapping(value = "/entertainment/ed")
+    public String test( HttpServletRequest request) {
+
+        return "back/full";
+    }
+
+}

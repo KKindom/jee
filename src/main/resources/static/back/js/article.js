@@ -4,72 +4,15 @@ var attach_url = $('#attach_url').val();
 // 每10分钟自动保存一次草稿
 // var refreshIntervalId = setInterval("autoSave()", 10 * 60 * 1000);
 Dropzone.autoDiscover = false;
-
-$(document).ready(function () {
-
-    mditor = window.mditor = Mditor.fromTextarea(document.getElementById('md-editor'));
-
-    // Tags Input
-    $('#tags').tagsInput({
-        width: '100%',
-        height: '35px',
-        defaultText: '请输入文章标签'
-    });
-
-    $('.toggle').toggles({
-        on: true,
-        text: {
-            on: '开启',
-            off: '关闭'
-        }
-    });
-
-    $("#multiple-sel").select2({
-        width: '100%'
-    });
-
-    $('div.allow-false').toggles({
-        off: true,
-        text: {
-            on: '开启',
-            off: '关闭'
-        }
-    });
-
-    if($('#thumb-toggle').attr('thumb_url') != ''){
-        $('#thumb-toggle').toggles({
-            off: true,
-            text: {
-                on: '开启',
-                off: '关闭'
-            }
-        });
-        $('#thumb-toggle').attr('on', 'true');
-        $('#dropzone').css('background-image', 'url('+ $('#thumb-container').attr('thumb_url') +')');
-        $('#dropzone').css('background-size', 'cover');
-        $('#dropzone-container').show();
-    } else {
-        $('#thumb-toggle').toggles({
-            off: true,
-            text: {
-                on: '开启',
-                off: '关闭'
-            }
-        });
-        $('#thumb-toggle').attr('on', 'false');
-        $('#dropzone-container').hide();
-    }
-
-    var thumbdropzone = $('.dropzone');
-});
-
 /**
  * 保存文章
  * @param status
  */
 function subArticle(status) {
     var title = $('#articleForm input[name=title]').val();
-    var content =  mditor.value;
+    // var content =  mditor.value;
+    var content = $('#ttt').val();
+    console.log(content);
     if (title == '') {
         tale.alertWarn('请输入文章标题');
         return;

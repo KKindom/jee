@@ -20,22 +20,36 @@ public class FileUploadUtils {
      * @return AttachFile文件对象
      * @throws Exception
      */
-    public static AttachFile upload(String uploadDir, MultipartFile file,int id) throws IOException {
+    public static AttachFile upload(String uploadDir, MultipartFile file,int id,int flag) throws IOException {
         //获取文件保存路径
     File dir=new File(uploadDir);
     if(!dir.exists())
     {
         dir.mkdirs();
     }
+    //获得后缀
+    String fileName = file.getOriginalFilename();
+    String fileSuffix = fileName.substring(fileName.lastIndexOf("."));
+
+
     AttachFile attachFile=null;
-    String filename=""+id+".jpg";
+        System.out.println(dir);
+    String filedir=dir.getCanonicalPath()+"\\" + id+fileSuffix;
+        System.out.println(filedir);
     if(!file.isEmpty())
     {
         attachFile =new AttachFile();
-        File newfile=new File(dir,filename);
-        file.transferTo(newfile);
-        attachFile.setOriginalFilename(file.getOriginalFilename());
-        attachFile.setFilename(filename);
+        if(flag==1) {
+            File newfile = new File(dir, id + fileSuffix);
+            file.transferTo(newfile);
+        }
+        else
+        {
+            File newfile = new File(dir, fileName);
+            file.transferTo(newfile);
+        }
+        attachFile.setOriginalFilename(filedir);
+        attachFile.setFilename(fileName);
         attachFile.setType(file.getContentType());
         attachFile.setFileSize(file.getSize());
         attachFile.setFileUUID(UUID.randomUUID().toString());

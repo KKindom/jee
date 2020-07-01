@@ -5,73 +5,99 @@
 <link th:href="@{/back/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
 <link th:href="@{/back/plugins/toggles/toggles.css}" rel="stylesheet"/>
 
-<link th:href="@{/back/plugins/mditor/css/mditor.min.css}" rel="stylesheet"/>
+<!--<link th:href="@{/back/plugins/mditor/css/mditor.min.css}" rel="stylesheet"/>-->
 <link th:href="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.css}" rel="stylesheet">
+
+
+
+
+
+
+<!--测试头部-->
+
+
+<!--&lt;!&ndash;/* CSRF */&ndash;&gt;-->
+<!--<meta name="_csrf" th:content="${_csrf.token}"/>-->
+<!--&lt;!&ndash;/* default header name is X-CSRF-TOKEN */&ndash;&gt;-->
+<!--<meta name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+
+<!--<meta name="_csrf_token" th:content="${_csrf.token}"/>-->
+
+<!--<meta name="_csrf_param" th:content="${_csrf.parameterName}" />-->
+
+
+<!--原来的头部-->
+<!--<meta name="_csrf" th:content="${_csrf.token}"/>-->
+<!--&lt;!&ndash; default header name is X-CSRF-TOKEN &ndash;&gt;-->
+<!--<meta name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+<!--&lt;!&ndash;markdown css&ndash;&gt;-->
+<link rel="stylesheet" href="css/style.css" th:href="@{/editor.md-master/examples/css/style.css}"/>
+<link rel="stylesheet" href="../css/editormd.css" th:href="@{/editor.md-master/css/editormd.css}" />
 <style>
-    #tags_tagsinput {
-        background-color: #fafafa;
-        border: 1px solid #eeeeee;
-    }
+    /*#tags_tagsinput {*/
+    /*    background-color: #fafafa;*/
+    /*    border: 1px solid #eeeeee;*/
+    /*}*/
 
-    #tags_addTag input {
-        width: 100%;
-    }
+    /*#tags_addTag input {*/
+    /*    width: 100%;*/
+    /*}*/
 
-    #tags_addTag {
-        margin-top: -5px;
-    }
+    /*#tags_addTag {*/
+    /*    margin-top: -5px;*/
+    /*}*/
 
-    .mditor .editor{
-        font-size: 14px;
-        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    }
-    .mditor .backdrop, .mditor .textarea, .mditor .viewer{
-        font-size: 14px;
-    }
-    .markdown-body{
-        font-size: 14px;
-    }
-    .note-toolbar {
-        text-align: center;
-    }
+    /*.mditor .editor{*/
+    /*    font-size: 14px;*/
+    /*    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    /*}*/
+    /*.mditor .backdrop, .mditor .textarea, .mditor .viewer{*/
+    /*    font-size: 14px;*/
+    /*}*/
+    /*.markdown-body{*/
+    /*    font-size: 14px;*/
+    /*}*/
+    /*.note-toolbar {*/
+    /*    text-align: center;*/
+    /*}*/
 
-    .note-editor.note-frame {
-        border: none;
-    }
+    /*.note-editor.note-frame {*/
+    /*    border: none;*/
+    /*}*/
 
-    .note-editor .note-toolbar {
-        background-color: #f5f5f5;
-        padding-bottom: 10px;
-    }
+    /*.note-editor .note-toolbar {*/
+    /*    background-color: #f5f5f5;*/
+    /*    padding-bottom: 10px;*/
+    /*}*/
 
-    .note-toolbar .note-btn-group {
-        margin: 0;
-    }
+    /*.note-toolbar .note-btn-group {*/
+    /*    margin: 0;*/
+    /*}*/
 
-    .note-toolbar .note-btn {
-        border: none;
-    }
+    /*.note-toolbar .note-btn {*/
+    /*    border: none;*/
+    /*}*/
 
-    #articleForm #dropzone {
-        min-height: 200px;
-        background-color: #dbdde0;
-        line-height:200px;
-        margin-bottom: 10px;
-    }
-    #articleForm .dropzone {
-        border: 1px dashed #8662c6;
-        border-radius: 5px;
-        background: white;
-    }
-    #articleForm .dropzone .dz-message {
-        font-weight: 400;
-    }
-    #articleForm .dropzone .dz-message .note {
-        font-size: 0.8em;
-        font-weight: 200;
-        display: block;
-        margin-top: 1.4rem;
-    }
+    /*#articleForm #dropzone {*/
+    /*    min-height: 200px;*/
+    /*    background-color: #dbdde0;*/
+    /*    line-height:200px;*/
+    /*    margin-bottom: 10px;*/
+    /*}*/
+    /*#articleForm .dropzone {*/
+    /*    border: 1px dashed #8662c6;*/
+    /*    border-radius: 5px;*/
+    /*    background: white;*/
+    /*}*/
+    /*#articleForm .dropzone .dz-message {*/
+    /*    font-weight: 400;*/
+    /*}*/
+    /*#articleForm .dropzone .dz-message .note {*/
+    /*    font-size: 0.8em;*/
+    /*    font-weight: 200;*/
+    /*    display: block;*/
+    /*    margin-top: 1.4rem;*/
+    /*}*/
 </style>
 <head>
     <meta name="_csrf" th:content="${_csrf.token}"/>
@@ -123,9 +149,18 @@
                                 </th:block>
                             </div>
                             <div class="clearfix"></div>
-                            <div id="md-container" class="form-group">
-                                <textarea id="md-editor" th:utext="${contents!=null and contents.content !=null}?${contents.content}: ''"></textarea>
+<!--                            <div  class="form-group">-->
+<!--                                <textarea id="md-editor" th:utext="${contents!=null and contents.content !=null}?${contents.content}: ''"></textarea>-->
+<!--                            </div>-->
+
+<!--测试markdown-->
+                            <div id="layout">
+                                <div id="test-editormd">
+                                    <textarea style="display:none;" th:utext="${contents!=null and contents.content !=null}?${contents.content}: ''" id="ttt"></textarea>
+                                </div>
                             </div>
+
+
 
 
 
@@ -150,13 +185,53 @@
 <script th:src="@{/back/plugins/tagsinput/jquery.tagsinput.min.js}"></script>
 <script th:src="@{/back/plugins/jquery-multi-select/jquery.quicksearch.js}"></script>
 
-<script th:src="@{/back/plugins/mditor/js/mditor.min.js}"></script>
+<!--<script th:src="@{/back/plugins/mditor/js/mditor.min.js}"></script>-->
 <script th:src="@{/back/plugins/multi-select/0.9.12/js/jquery.multi-select.min.js}"></script>
 <script th:src="@{/back/plugins/select2/3.4.8/select2.min.js}"></script>
 <script th:src="@{//cdn.bootcss.com/jquery-toggles/2.0.4/toggles.min.js}"></script>
 <script th:src="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.js}"></script>
-<script th:src="@{/back/plugins/to-markdown/3.1.0/to-markdown.min.js}"></script>
+<!--<script th:src="@{/back/plugins/to-markdown/3.1.0/to-markdown.min.js}"></script>-->
 
 <script th:src="@{/back/js/article.js}"></script>
+
+
+
+<!--markdown js-->
+<script  th:src="@{/editor.md-master/examples/js/jquery.min.js}"></script>
+<script   th:src="@{/editor.md-master/editormd.js}"></script>
+<script type="text/javascript">
+    $(function() {
+
+        var testEditor = editormd("test-editormd", {
+            width: "90%",
+            height: 640,
+            markdown : "",
+            path : '/editor.md-master/lib/',
+            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为 true
+            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为 true
+            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为 true
+            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为 0.1
+            //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为 #fff
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/admin/uploadfile",
+            saveHTMLToTextarea : true
+            /*
+             上传的后台只需要返回一个 JSON 数据，结构如下：
+             {
+                success : 0 | 1,           // 0 表示上传失败，1 表示上传成功
+                message : "提示的信息，上传成功或上传失败及错误信息等。",
+                url     : "图片地址"        // 上传成功时才返回
+             }
+             */
+        });
+        var content = $('#ttt').val();
+        console.log(content);
+    });
+
+
+
+</script>
+
 </body>
 </html>
