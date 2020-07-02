@@ -40,12 +40,5 @@ public interface StatisticMapper {
             "ORDER BY hits DESC, comments_num DESC")
     public List<Statistic> getStatistic();
 
-    // 统计博客文章总访问量
-    @Select("SELECT SUM(hits) FROM t_statistic")
-    public long getTotalVisit();
-
-    // 统计博客文章总评论量
-    @Select("SELECT SUM(comments_num) FROM t_statistic")
-    public long getTotalComment();
 }
 

@@ -3,7 +3,6 @@ package com.itheima.web.admin;
 import com.github.pagehelper.PageInfo;
 import com.itheima.dao.TimeMapper;
 import com.itheima.model.ResponseData.ArticleResponseData;
-import com.itheima.model.ResponseData.StaticticsBo;
 import com.itheima.model.domain.*;
 import com.itheima.service.*;
 import com.itheima.utils.FileUploadUtils;
@@ -59,7 +58,6 @@ public class AdminController {
         //获得热度最高的文章
         List<Article> articleList = articleServiceImpl.getHeatArticles();
 
-
         //传今日学习
         String str = sdf.format(date);
         Time time=timeMapper.selectTimeWithId(str);
@@ -77,7 +75,7 @@ public class AdminController {
         return "back/article_edit";
     }
     // 发表文章
-    @PostMapping(value = "/article/publish" ,produces = {"application/text;charset=UTF-8"})
+    @PostMapping(value = "/article/publish" )
     @ResponseBody
     public ArticleResponseData publishArticle(Article article) {
         if (StringUtils.isBlank(article.getCategories())) {
@@ -189,6 +187,7 @@ public class AdminController {
         {
             try {
                 entertainmentServiceImpl.deleteEntertainmentWithId(id);
+                entertainmentServiceImpl.deleteE_videolistWithe_Id(id);
                 logger.info("娱乐删除成功");
                 return ArticleResponseData.ok();
             } catch (Exception e) {
@@ -483,10 +482,5 @@ return ArticleResponseData.ok();
 
 
 
-    @GetMapping(value = "/entertainment/ed")
-    public String test( HttpServletRequest request) {
-
-        return "back/full";
-    }
 
 }

@@ -23,11 +23,12 @@ public class EntertainmentController
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
     @Autowired
     private IEntertainmentService entertainmentServicelmpl;
-    // 博客首页，会自动跳转到文章页
+    // 娱乐首页，会自动跳转到娱乐页面
     @GetMapping(value = "/ent")
     private String index(HttpServletRequest request) {
         return this.index(request, 1, 8);
     }
+    //获取我的娱乐分页
     @GetMapping(value = "/e_page/{p}")
     public String index(HttpServletRequest request, @PathVariable("p") int page, @RequestParam(value = "count", defaultValue = "8") int count) {
 

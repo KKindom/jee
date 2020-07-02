@@ -46,28 +46,7 @@
                     action += "&callback=" + settings.uploadCallbackURL + "&dialog_id=editormd-image-dialog-" + guid;
                 }
 
-                //注释的是官方的写法
-                // var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
-                //                         ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\" guid=\"" + guid + "\"></iframe>" : "" ) +
-                //                         "<label>" + imageLang.url + "</label>" +
-                //                         "<input type=\"text\" data-url />" + (function(){
-                //                             return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
-                //                                                                 "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/*\" />" +
-                //                                                                 "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
-                //                                                             "</div>" : "";
-                //                         })() +
-                //                         "<br/>" +
-                //                         "<label>" + imageLang.alt + "</label>" +
-                //                         "<input type=\"text\" value=\"" + selection + "\" data-alt />" +
-                //                         "<br/>" +
-                //                         "<label>" + imageLang.link + "</label>" +
-                //                         "<input type=\"text\" value=\"http://\" data-link />" +
-                //                         "<br/>" +
-                //                     ( (settings.imageUpload) ? "</form>" : "</div>");
 
-
-
-                //这是我个人写法
                 var dialogContent = ( (settings.imageUpload) ? "<form action=\"#\" target=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
                     ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\" guid=\"" + guid + "\"></iframe>" : "" ) +
                     "<label>" + imageLang.url + "</label>" +
@@ -87,10 +66,6 @@
                     ( (settings.imageUpload) ? "</form>" : "</div>");
 
 
-
-
-                //这是官方的，不知道为什么，官方把它给注释掉了
-                //var imageFooterHTML = "<button class=\"" + classPrefix + "btn " + classPrefix + "image-manager-btn\" style=\"float:left;\">" + imageLang.managerButton + "</button>";
 
                 dialog = this.createDialog({
                     title      : imageLang.title,
@@ -188,25 +163,7 @@
 
                             loading(false);
 
-                            //注释的是官方写法
-                            // var body = (uploadIframe.contentWindow ? uploadIframe.contentWindow : uploadIframe.contentDocument).document.body;
-                            // var json = (body.innerText) ? body.innerText : ( (body.textContent) ? body.textContent : null);
-                            //
-                            // json = (typeof JSON.parse !== "undefined") ? JSON.parse(json) : eval("(" + json + ")");
-                            //
-                            // if(!settings.crossDomainUpload)
-                            // {
-                            //   if (json.success === 1)
-                            //   {
-                            //       dialog.find("[data-url]").val(json.url);
-                            //   }
-                            //   else
-                            //   {
-                            //       alert(json.message);
-                            //   }
-                            // }
-                            //
-                            // return false;
+
                             var token = $("meta[name='_csrf']").attr("content");
                             var header = $("meta[name='_csrf_header']").attr("content");
 

@@ -17,6 +17,18 @@
       <link th:href="@{/user/add_static/css/ent_css/icomoon.css}" rel="stylesheet"/>
       <link th:href="@{/user/add_static/css/ent_css/style.css}" rel="stylesheet"/>
 
+
+
+
+      <link rel="stylesheet" href="/user/fonts/icomoon/style.css">
+      <link rel="stylesheet" href="/user/css/jquery-ui.css">
+      <link rel="stylesheet" href="/user/css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="/user/css/bootstrap-datepicker.css">
+      <link rel="stylesheet" href="/user/fonts/flaticon/font/flaticon.css">
+      <link rel="stylesheet" href="/user/css/aos.css">
+      <link rel="stylesheet" href="/user/css/fancybox.min.css">
+      <link rel="stylesheet" href="/user/css/style.css">
+
 <!--    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">-->
 <!--    <link rel="stylesheet" href="css/animate.css">-->
 <!--    -->
@@ -32,7 +44,16 @@
 <!--    <link rel="stylesheet" href="css/icomoon.css">-->
 <!--    <link rel="stylesheet" href="css/style.css">-->
 
-
+  <style>
+      .vcenter {
+          position:absolute;
+          width: 80%;
+          left: 10%;
+          top:80%;
+      translateX(-50%);
+      translateY(-50%)
+      }
+  </style>
 
 
 
@@ -57,13 +78,15 @@
                         <h3> <a th:href="${entertainer.address}" th:text="${entertainer.name}"></a></h3>
    						<div class="row">
                             <div class="col-md-6 col-lg-6 col-xl-12 d-flex" style="margin-bottom: 2%">
-                                <img th:src="${entertainer.picture} " >
+<!--                                <img th:src="${entertainer.picture} " >-->
+                                <div>
+                                    <img th:src="${entertainer.picture} " />
+                                    <div class="vcenter" th:text="${entertainer.title}" style="color: white"></div>
+                                </div>
+
+
                             </div>
-<!--                            <div class="col-md-6 col-lg-6 col-xl-8 d-flex" id="123">-->
-<!--                                <div style="position: relative; padding: 30% 45%;">-->
-<!--                                    <iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="https://player.bilibili.com/player.html?cid=145147963&aid=84267566&page=1&as_wide=1&high_quality=1&danmaku=0" frameborder="no" scrolling="no"></iframe>-->
-<!--                                </div>-->
-<!--                            </div>-->
+
                             <div th:replace="/comm/show_video_1::show_video_byid(${entertainer.eid})" />
 
    						</div>
@@ -141,6 +164,7 @@
     <script th:src="@{/user/add_static/js/ent_js/scrollax.min.js}"></script>
     <script th:src="@{/user/add_static/js/ent_js/google-map.js}"></script>
     <script th:src="@{/user/add_static/js/ent_js/main.js}"></script>
+  <script th:src="@{/user/js/rgbaster.min.js}"></script>
 <!--  <script src="js/jquery.min.js"></script>-->
 <!--  <script src="js/jquery-migrate-3.0.1.min.js"></script>-->
 <!--  <script src="js/popper.min.js"></script>-->
