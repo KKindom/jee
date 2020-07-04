@@ -106,7 +106,6 @@
                     </ul>
                 </li>
                 <li id="back"><a  class="header-info" href="/admin">后台管理</a></li>
-                <li><a href="page-about.html" title="" id="free">关于我的一切</a></li>
 <li>
                 <form name="logoutform" th:action="@{/logout}" method="post">
                 <a  sec:authorize="isAnonymous()" th:href="@{/login}" >登录</a>
@@ -124,7 +123,7 @@
 
 
     <script type="text/javascript">
-var t_t;
+        var t_t;
         var start;
         var end;
         var time = 0;

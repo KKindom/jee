@@ -160,35 +160,32 @@
                         var uploadIframe = document.getElementById(iframeName);
 
                         uploadIframe.onload = function() {
-
                             loading(false);
-
-
+                            //设置_csrf信息
                             var token = $("meta[name='_csrf']").attr("content");
                             var header = $("meta[name='_csrf_header']").attr("content");
 
-                            //这是我个人写法
                             var formData = new FormData();
                             formData.append("editormd-image-file",$("#editormd-image-file")[0].files[0]);
                             var action = settings.imageUploadURL + (settings.imageUploadURL.indexOf("?") >= 0 ? "&" : "?") + "guid=" + guid;
-console.log(action);
+console.log(action);//设置上传路径
                             $.ajax({
                                 type:"post",
                                 url:action,
                                 data:formData,
                                 dataType:"json",
                                 async:false,
-                                processData : false, // 使数据不做处理
-                                contentType : false, // 不要设置Content-Type请求头
-                                beforeSend : function(xhr) {
+                                processData : false, // 图片上传不能设置该属性
+                                contentType : false, // 图片上传不能设置该属性否则会将图片格式改变，后台无法接受
+                                beforeSend : function(xhr) {//添加_csrf信息
                                     xhr.setRequestHeader(header, token);
                                 },
                                 success:function(data){
-                                    // 成功拿到结果放到这个函数 data就是拿到的结果
+                                    // 上传成功
                                     console.log(data);
                                     if(data.success == 1){
                                         console.log(data.message);
-                                        dialog.find("[data-url]").val(data.url);
+                                        dialog.find("[data-url]").val(data.url);//返回获得的url给图片的地址便于预览
                                         console.log(action);
                                     }else{
                                         alert(data.message);
