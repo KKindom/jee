@@ -103,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 dispatcher.forward(httpServletRequest, httpServletResponse);
             }
         });
-        http.headers().frameOptions().disable();
+        //http.headers().frameOptions().disable();
     }
 
     /**

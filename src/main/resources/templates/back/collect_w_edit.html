@@ -5,19 +5,8 @@
 <link th:href="@{/back/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
 <link th:href="@{/back/plugins/toggles/toggles.css}" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
-<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
-<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
-<script>
-    $.validator.setDefaults({
-        submitHandler: function() {
-            alert("提交事件!");
-        }
-    });
-    $().ready(function() {
-        $("#W_form").validate();
-    });
-</script>
+
+
 <link th:href="@{/back/plugins/mditor/css/mditor.min.css}" rel="stylesheet"/>
 <link th:href="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.css}" rel="stylesheet">
 <style>
@@ -117,34 +106,7 @@
                         <br/>
                         <br/>
                         <br/>
-                        <!--<div class="col-md-12" id="WebsiteForm">
-                            <form class="form-horizontal" id="W_form">
-                                <input type="hidden" name="id"
-                                       th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="w_id"/>
-                                <fieldset class="col-md-12">
-                                    &lt;!&ndash; Text input&ndash;&gt;
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="address_w">网址</label>
-                                        <div class="col-md-4">
-                                            <input id="address_w" name="address" type="text" placeholder="" class="form-control input-md" th:value="${contents!=null and contents.address !=null}?${contents.address}: ''">
-                                        </div>
-                                    </div>
-                                    &lt;!&ndash; Textarea &ndash;&gt;
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="description_w">简介</label>
-                                        <div class="col-md-4">
-                                            <textarea  style="margin: 0px -2.0125px 0px 0px; height: 247px;" class="form-control" id="description_w" name="description" th:text="${contents!=null and contents.description !=null}?${contents.description}: ''"></textarea>
-                                        </div>
-                                    </div>
-                                    &lt;!&ndash; File Button &ndash;&gt;
-                                </fieldset>
-                                <div class="text-right">
-                                    <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/collect}">返回列表</a>
-                                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="subWebsite('publish');">
-                                        提交网站基本信息
-                                    </button>
-                                </div>
-                            </form>-->
+
                         <form action="#" method="post" class="ui form"  id="W_form">
                             <input type="hidden" name="id"
                                    th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="w_id"/>
@@ -164,7 +126,9 @@
                             <br/>
                             <div class="ui right aligned container">
                                 <button class="ui button" th:href="@{/admin/collect}" type="button">返回</button>
-                                <input class="ui teal submit button" id="sub" type="submit" value="提交">
+                                <button type="button" class="btn btn-primary waves-effect waves-light" id="sub">
+                                    提交网站信息
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -178,28 +142,46 @@
 </div>
 <div th:replace="back/footer :: footer"></div>
 </body>
-<script>
-    //在ajax请求中加入请求头部即可跳过拦截
-    $(function () {
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+<script type="text/javascript" script th:inline="javascript">
+
+
+    //编写表单验证函数validform，在验证按钮注册按钮点击事件内调用验证函数对象
+    function validform(){
+        /*关键在此增加了一个return，返回的是一个validate对象，这个对象有一个form方法，返回的是是否通过验证*/
+        return $("#W_form").validate();
+    }
+    //注册表单验证
+    $(validform());
+
+    $("#sub").click(function(){
+        if(validform().form()) {
+            subWebsite('publish');
+        } else {
+            //校验不通过，什么都不用做，校验信息已经正常显示在表单上
+        }
+    });
+
+
+    function subWebsite(status) {
 
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function(e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
-
-    });
-
-    function subWebsite(status) {
-        var tale = new $.tale();
         var params = $("#W_form").serialize();
         console.log(params);
         console.log($("#id").val());
+        alert(params);
         var url = $('#W_form #id').val() != '' ? '/admin/collect/publish_w' : '/admin/collect/modify_w';
         console.log(url)
-        tale.post({
+        $.ajax({
+            type:'post',
             url:url,
             data:params,
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
             success: function (result) {
                 if (result && result.success) {
                     tale.alertOk({
@@ -216,20 +198,6 @@
             }
         });
     }
-    //编写表单验证函数validform，在验证按钮注册按钮点击事件内调用验证函数对象
-    function validform(){
-        /*关键在此增加了一个return，返回的是一个validate对象，这个对象有一个form方法，返回的是是否通过验证*/
-        return $("#W_form").validate();
-    }
-    //注册表单验证
-    $(validform());
 
-    $("#sub").click(function(){
-        if(validform().form()) {
-            subWebsite('publish');
-        } else {
-            //校验不通过，什么都不用做，校验信息已经正常显示在表单上
-        }
-    });
 </script>
 </html>
