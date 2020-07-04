@@ -8,10 +8,10 @@
         <version>2.1.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.itheima</groupId>
-    <artifactId>blog_system</artifactId>
+    <groupId>com.kkindom_bolg</groupId>
+    <artifactId>kkindom_bolg</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>blog_system</name>
+    <name>kkindom_bolg</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

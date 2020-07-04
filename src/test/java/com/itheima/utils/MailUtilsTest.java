@@ -1,17 +1,13 @@
 package com.itheima.utils;
 
+import com.kkindom_blog.utils.MailUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Date;
-
-import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MailUtilsTest {

@@ -168,7 +168,7 @@
                             var formData = new FormData();
                             formData.append("editormd-image-file",$("#editormd-image-file")[0].files[0]);
                             var action = settings.imageUploadURL + (settings.imageUploadURL.indexOf("?") >= 0 ? "&" : "?") + "guid=" + guid;
-console.log(action);//设置上传路径
+                        console.log(action);//设置上传路径
                             $.ajax({
                                 type:"post",
                                 url:action,

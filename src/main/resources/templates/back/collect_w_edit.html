@@ -109,7 +109,7 @@
 
                         <form action="#" method="post" class="ui form"  id="W_form">
                             <input type="hidden" name="id"
-                                   th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="w_id"/>
+                                   th:value="${contents!=null and contents.id!=null}?${contents.id}: ''" id="id"/>
                             <div class=" field">
                                 <div class="ui left labeled input m-margin-top">
                                     <label class="ui teal basic label" for="address_w" onfocusout="true">网址</label>
@@ -172,8 +172,7 @@
         var params = $("#W_form").serialize();
         console.log(params);
         console.log($("#id").val());
-        alert(params);
-        var url = $('#W_form #id').val() != '' ? '/admin/collect/publish_w' : '/admin/collect/modify_w';
+        var url = $('#W_form #id').val() == '' ? '/admin/collect/publish_w' : '/admin/collect/modify_w';
         console.log(url)
         $.ajax({
             type:'post',

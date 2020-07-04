@@ -17,10 +17,6 @@
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <!-- 默认的header name是X-CSRF-TOKEN -->
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <!-- favicons
-    ================================================== -->
-<!--    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">-->
-<!--    <link rel="icon" href="favicon.ico" type="image/x-icon">-->
 
 
 
@@ -40,7 +36,7 @@
 
 
 
-
+    <link rel="shortcut icon" th:href="@{/user/img/apple-touch-icon.png}"/>
     <link th:href="@{/user/css/style.min.css}" rel="stylesheet"/>
 
     <link rel="stylesheet" th:href="@{/assets/css/amazeui.min.css}"/>

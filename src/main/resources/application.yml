@@ -27,7 +27,7 @@ mybatis:
   #配置MyBatis的xml映射文件路径
   mapper-locations: classpath:mapper/*.xml
   #配置XML映射文件中指定的实体类别名路径
-  type-aliases-package: com.itheima.model.domain
+  type-aliases-package: com.kkindom_blog.model.domain
 
 #pagehelper分页设置
 pagehelper:
