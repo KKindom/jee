@@ -5,6 +5,12 @@ function subE_v(status) {
 
     console.log($("#E_v_from #status").val(status));
     //保存的数据
+    var code= $("#textarea_v").val();
+    console.log(code);
+    var add="<iframe  style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\" "
+    code= code.replace('<iframe ',add);
+    $("#E_v_from #status").text(code);
+
     var params = $("#E_v_from").serialize();
     console.log(params);
     var url = $('#E_v_from #id').val() != '' ? '/admin/entertainment_v/modify' : '/admin/entertainment_v/publish';

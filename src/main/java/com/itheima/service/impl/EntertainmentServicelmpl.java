@@ -147,6 +147,9 @@ public class EntertainmentServicelmpl implements IEntertainmentService {
     //根据主键更新视频信息
     @Override
     public void updateE_vWithId(E_Video e_video) {
+        String code=e_video.getCode();
+        code=code.replace("<iframe","<iframe  style=\"position: absolute; width: 100%; height: 100%; left: 0; top: 0;\"");
+        e_video.setCode(code);
         entertainmentMapper.updataE_vWithId(e_video);
         redisTemplate.delete("E_video" + e_video.getId());
     }

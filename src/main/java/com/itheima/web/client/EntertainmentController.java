@@ -26,11 +26,11 @@ public class EntertainmentController
     // 娱乐首页，会自动跳转到娱乐页面
     @GetMapping(value = "/ent")
     private String index(HttpServletRequest request) {
-        return this.index(request, 1, 8);
+        return this.index(request, 1, 6);
     }
     //获取我的娱乐分页
     @GetMapping(value = "/e_page/{p}")
-    public String index(HttpServletRequest request, @PathVariable("p") int page, @RequestParam(value = "count", defaultValue = "8") int count) {
+    public String index(HttpServletRequest request, @PathVariable("p") int page, @RequestParam(value = "count", defaultValue = "6") int count) {
 
         //获取分页
         PageInfo<Entertainment> entertainmentList = entertainmentServicelmpl.selectEntertainmentWithPage(page, count);
